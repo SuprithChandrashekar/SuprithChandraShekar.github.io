@@ -45,7 +45,7 @@ These visualizations explore the Facebook Ego Network dataset provided by SNAP. 
 
 **Export Process & Issues Encountered**  
 <p>
-During development, generating a high-quality PNG using Plotly's <code>write_image</code> function caused significant performance issues. The static export process took a long time and occasionally resulted in fatal JavaScript memory errors due to the heavy data load (thousands of nodes and tens of thousands of edges). To mitigate this, I experimented with using the WebGL-based <code>Scattergl</code> trace for rendering. Although this improved performance somewhat, the export process still remained resource intensive. As an alternative, I also explored using Matplotlib for a simpler static image export.
+During development, generating a high-quality interactive plots using Altair's <code>write_image</code> function caused significant performance issues and crashed the kernel even after using the </code>alt.data_transformers.disable_max_rows()</code>. The execution and export process took a long time and occasionally resulted in fatal JavaScript memory errors due to the heavy data load (thousands of nodes and tens of thousands of edges). To mitigate this, I experimented with using the Plotly and <code>Scattergl</code> trace for rendering. Although this improved performance somewhat, the export process still remained resource intensive. As an alternative, I also explored using Matplotlib for a simpler static image export.
 </p>
 
 <br>
@@ -59,7 +59,7 @@ There are two interactive visualizations developed using Vega‑Lite/Altair. The
 
 ### 2a. Interactive Histogram of Node Degree Distribution
 
-<iframe src="\assets\plots\plot2_histogram.html" width="720" height="500" style="border:none;"></iframe>
+<iframe src="\assets\plots\plot2_histogram.html" width="720" height="500" style="border:none; margin-bottom: -20px;"></iframe>
 
 **Description**  
 <p>This histogram displays the distribution of node degrees within the Facebook Ego Network. It uses an interval selection (brush) on the x-axis to enable users to filter nodes by degree. This interactive filtering helps in identifying clusters of nodes with similar connectivity levels.</p>
@@ -122,5 +122,5 @@ The major issues encountered during this project included:
 </div>
 
 <div class="right">
-{% include elements/button.html link="https://github.com/yourusername/data-viz-notebook" text="Analysis Notebook" %}
+{% include elements/button.html link="https://github.com/SuprithChandrashekar/SuprithChandraShekar.github.io/blob/edf4cc6f88465338e5239c7ba36fc9e261dd52e4/python_notebooks/Workbook.ipynb" text="Analysis Notebook" %}
 </div>
