@@ -5,7 +5,7 @@
 # NOTE: it looks like you need to rebuild + repush everytime you update this _config.yml file
 
 ### Site Settings ###
-title               : Suprith Chandra Shekar - Portfolio 
+title               : Suprith Chandra Shekar
 description         : A tinker who can come up with some crazy idea's and use AI other technologies to create crafty solutions with code.
 baseurl             : ""   # Change to empty quotes if you are hosting your site at <your-username>.github.io directly,
 #                                             otherwise will be hosted at <your-username>.github.io/{{base_url}}
