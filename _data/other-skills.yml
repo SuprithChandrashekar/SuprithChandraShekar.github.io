@@ -1,9 +1,24 @@
-- name: Adobe Photoshop
-  percentage: 95
-  level: Expert
+- name: Solidworks / NX / Catia / Fusion 360
+  percentage: 80
+  level: Proficient
   color: info
 
-- name: Adobe Illustrator
+- name: Ansys (Workbench, Fluent)
+  percentage: 70
+  level: Proficient
+  color: primary
+
+- name: MS Office (Excel, PowerPoint, Word)
   percentage: 90
-  level: Expert
+  level: Advanced
   color: success
+
+- name: Jira / Project Tools
+  percentage: 75
+  level: Proficient
+  color: warning
+
+- name: Communication (ENG/HIN/KAN)
+  percentage: 90
+  level: Advanced
+  color: secondary

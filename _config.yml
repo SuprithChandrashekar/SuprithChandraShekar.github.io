@@ -6,7 +6,7 @@
 
 ### Site Settings ###
 title               : Suprith Chandra Shekar
-description         : A tinker who can come up with some crazy idea's and use AI other technologies to create crafty solutions with code.
+description         : Industrial Engineering @ UIUC. Former Deloitte Consultant. I build data-driven systems and tools across analytics, automation, and engineering.
 baseurl             : ""   # Change to empty quotes if you are hosting your site at <your-username>.github.io directly,
 #                                             otherwise will be hosted at <your-username>.github.io/{{base_url}}
 repository          : SuprithChandraShekar                     # Change to <your-username> for github OR, if that doesn't work <your-username>/<your-username>.github.io (or remove it if you don't need remote projects) -- for example, I would put "jnaiman" without the quotes after the ":" here
@@ -34,7 +34,7 @@ nav_exclude:                                            # The following paths ar
 ### Author Info ###
 author:
   name              : Suprith Chandra Shekar
-  image             : https://github.com/SuprithChandrashekar/AGITradeGen/blob/d48e918f15c809e1a65f228f02ec60908a439c5c/assets/headshots/headshot_suprith.png
+  image             : https://raw.githubusercontent.com/SuprithChandrashekar/AGITradeGen/d48e918f15c809e1a65f228f02ec60908a439c5c/assets/headshots/headshot_suprith.png
 #  behance           : your_username
 # dribbble          : your_username
   email             : levijoyboy@icloud.com
@@ -113,6 +113,8 @@ defaults:
 ### Exclude from processing ###
 ## Add yours here if you have other stuff in your github.io page!!!**
 exclude:
+  - vendor
+  - vendor/**
   - README.md
   - README.md~
   - CONTRIBUTING.md

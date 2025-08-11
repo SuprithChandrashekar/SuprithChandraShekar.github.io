@@ -1,27 +1,30 @@
-- title: AMAZING STUFF
-  from: 2019
-  to: present
-  description: Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-               sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-               nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-               reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+- title: Consultant, Deloitte (Bengaluru, India)
+  from: 2024-06
+  to: 2024-12
+  description: Partnered with global clients on ITSM/ITOM transformations; mentored teammates; improved ramp-up by ~15% by optimizing workflows and communication loops.
 
-- title: Student, Harvard CS
-  from: 2013
-  to: 2018
-  description: Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-               sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-               nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-               reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+- title: Business Analyst, Deloitte (Bengaluru, India)
+  from: 2022-08
+  to: 2024-05
+  description: Supported pre-sales with proposals and RFPs; built dashboards to cut decision turnaround by ~25%; coordinated across technical/non-technical teams.
 
-- title: Software Engineer, Google, UK
-  from: 2018
-  to: present
-  description: Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-               sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-               nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-               reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+- title: Mechanical Engineering Intern, Larsen & Toubro Defence (Bengaluru, India)
+  from: 2020-08
+  to: 2020-10
+  description: Organized engineering specs; analyzed schematics and layouts; supported feasibility reviews and asset utilization assessments.
+
+- title: Teaching Assistant, R.V. College of Engineering
+  from: 2019-08
+  to: 2022-06
+  description: Supported courses in 3D modelling and FEA simulations; assisted with coursework and office hours.
+
+- title: M.S. Industrial Engineering, UIUC
+  from: 2024-08
+  to: 2026-12
+  description: Focus on data-driven decision-making, analytics, optimization, and systems engineering.
+
+- title: B.E. Mechanical Engineering, R.V. College of Engineering
+  from: 2018-08
+  to: 2022-08
+  description: Graduated with GPA 8.05/10; projects in design, simulation, and analysis.
 

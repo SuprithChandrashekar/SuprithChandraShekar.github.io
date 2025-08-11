@@ -1,14 +1,39 @@
-- name: HTML5/CSS3
-  percentage: 90
-  level: Expert
-  color: danger
-
-- name: Go
-  percentage: 5
-  level: Beginner
-  color:
-
 - name: Python
   percentage: 90
-  level: Expert
+  level: Advanced
   color: secondary
+
+- name: R / RStudio
+  percentage: 70
+  level: Intermediate
+  color: info
+
+- name: JavaScript
+  percentage: 65
+  level: Intermediate
+  color: warning
+
+- name: C++
+  percentage: 50
+  level: Intermediate
+  color: dark
+
+- name: MATLAB
+  percentage: 60
+  level: Intermediate
+  color: primary
+
+- name: Altair + Streamlit
+  percentage: 75
+  level: Intermediate
+  color: success
+
+- name: Jupyter / Notebooks
+  percentage: 85
+  level: Advanced
+  color: dark
+
+- name: ServiceNow (Scripting)
+  percentage: 70
+  level: Intermediate
+  color: info
