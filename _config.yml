@@ -5,12 +5,11 @@
 # NOTE: it looks like you need to rebuild + repush everytime you update this _config.yml file
 
 ### Site Settings ###
-title               : IS445 Jekyll Template 
-description         : >-
-                      I am definitely not a corgi!
+title               : Suprith Chandra Shekar
+description         : A tinker who can come up with some crazy idea's and use AI other technologies to create crafty solutions with code.
 baseurl             : ""   # Change to empty quotes if you are hosting your site at <your-username>.github.io directly,
 #                                             otherwise will be hosted at <your-username>.github.io/{{base_url}}
-repository          :                     # Change to <your-username> for github OR, if that doesn't work <your-username>/<your-username>.github.io (or remove it if you don't need remote projects) -- for example, I would put "jnaiman" without the quotes after the ":" here
+repository          : SuprithChandraShekar                     # Change to <your-username> for github OR, if that doesn't work <your-username>/<your-username>.github.io (or remove it if you don't need remote projects) -- for example, I would put "jnaiman" without the quotes after the ":" here
 open_new_tab        : false                             # Opens external URLs in new tab (works for posts, projects and navbar only)
 
 
@@ -34,13 +33,13 @@ nav_exclude:                                            # The following paths ar
 
 ### Author Info ###
 author:
-  name              : A. P. Corgi
-  image             : https://media.tenor.com/8RcIoWTKYR4AAAAe/scuze-corgi.png
+  name              : Suprith Chandra Shekar
+  image             : https://github.com/SuprithChandrashekar/AGITradeGen/blob/d48e918f15c809e1a65f228f02ec60908a439c5c/assets/headshots/headshot_suprith.png
 #  behance           : your_username
 # dribbble          : your_username
-  email             : username@domain.com
+  email             : levijoyboy@icloud.com
 #  facebook          : your_username
-  github            : jnaiman # JPN
+  github            : SuprithChandrashekar # JPN
 # gitlab            : your_username
 # instagram         : your_username
 # kaggle            : your_username
@@ -51,9 +50,9 @@ author:
 # stackoverflow     : your_user_id
 # tumblr            : your_username.tumblr.com
 #  twitch            : your_username
-  twitter           : your_username
+#  twitter           : your_username
 #  vimeo             : your_username
-  youtube           : your_channel_name
+#  youtube           : your_channel_name
 # keybase           : your_username
 
 
