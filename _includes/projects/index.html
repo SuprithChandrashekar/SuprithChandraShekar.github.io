@@ -33,6 +33,32 @@
 
 
 
+  <!-- Data Projects (from _data/projects.yml) -->
+  {% if site.data.projects %}
+    {% for project in site.data.projects %}
+
+      {%- assign project_type  = "data" -%}
+      {%- assign project_id    = project.title | slugify -%}
+
+      {%- if project.image -%}
+        {%- assign project_img = project.image | relative_url -%}
+      {%- else -%}
+        {%- assign project_img = false -%}
+      {%- endif -%}
+
+      {%- assign project_name  = project.title -%}
+      {%- assign project_desc  = project.description -%}
+      {%- assign project_tools = project.tools -%}
+      {%- assign project_url   = project.url -%}
+      {%- assign external      = true -%}
+
+      {% include projects/project-card.html %}
+
+    {% endfor %}
+  {% endif %}
+
+
+
   <!-- Remote Projects -->
   {% for remote_project in page.remote_projects %}
 
