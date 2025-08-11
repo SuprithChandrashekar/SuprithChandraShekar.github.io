@@ -2,14 +2,17 @@
   repo: "SuprithChandrashekar/hft_strategy_generator"
   description: "AI-Powered High-Frequency Trading (HFT) Strategy Generator - A Python framework that uses LLMs to generate, backtest, and optimize intraday trading strategies."
   url: "https://github.com/SuprithChandrashekar/hft_strategy_generator"
+  image: assets\pngs\hft_strategy_generator.png
 
 - title: "IEX Market Data Processor"
   repo: "SuprithChandrashekar/iex_market_data_processor"
   description: "A Vagrant-based solution for downloading and processing IEX market data (DEEP feeds) at scale."
   url: "https://github.com/SuprithChandrashekar/iex_market_data_processor"
+  image: assets\pngs\iex_parser_diagram.png
 
 - title: "Auto Resume Generator"
   repo: "SuprithChandrashekar/AutoResumeGenerator"
   description: "Leverages Gemini API to analyze job descriptions and user resume data, then generates a tailored PDF resume optimized for ATS and job requirements."
   url: "https://github.com/SuprithChandrashekar/AutoResumeGenerator"
+  image: assets\pngs\auto_res.png
 
