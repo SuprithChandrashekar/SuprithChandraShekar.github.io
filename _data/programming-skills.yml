@@ -4,12 +4,12 @@
   color: secondary
 
 - name: R / RStudio
-  percentage: 70
+  percentage: 75
   level: Intermediate
   color: info
 
 - name: JavaScript
-  percentage: 65
+  percentage: 60
   level: Intermediate
   color: warning
 
@@ -19,7 +19,7 @@
   color: dark
 
 - name: MATLAB
-  percentage: 60
+  percentage: 70
   level: Intermediate
   color: primary
 
@@ -33,7 +33,7 @@
   level: Advanced
   color: dark
 
-- name: ServiceNow (Scripting)
+- name: ServiceNow (Certified System Administrator)
   percentage: 70
   level: Intermediate
   color: info

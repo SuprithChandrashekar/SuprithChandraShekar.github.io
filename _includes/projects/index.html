@@ -10,8 +10,8 @@
       {%- assign project_img = project.external_image -%}
     {%- else -%}
       {%- assign u = project.image | split: "projects/" -%}
-      {%- assign project_img = {{u[0]}} | relative_url -%}
-  {%- endif -%}
+      {%- assign project_img = u[0] | relative_url -%}
+    {%- endif -%}
   
 
     {%- assign project_name  = project.name -%}
