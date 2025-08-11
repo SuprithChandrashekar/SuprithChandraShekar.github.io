@@ -54,7 +54,7 @@
   <main class="flex-shrink-0 container mt-5">
     <nav class="navbar navbar-expand-lg navbar-themed">
 
-  <a class="navbar-brand" href="/"><h5><b>IS445 Jekyll Template</b></h5></a>
+  <a class="navbar-brand" href="/"><h5><b>Suprith Chandra Shekar</b></h5></a>
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <i class="fas fa-1x fa-bars text-themed"></i>
@@ -118,7 +118,7 @@ Two interactive visualizations built using Vega-Lite:</p>
 
 <p><strong>Export Process &amp; Issues Encountered</strong></p>
 <p>
-During development, generating a high-quality PNG using Plotly's <code>write_image</code> function caused significant performance issues. The static export process took a long time and occasionally resulted in fatal JavaScript memory errors due to the heavy data load (thousands of nodes and tens of thousands of edges). To mitigate this, I experimented with using the WebGL-based <code>Scattergl</code> trace for rendering. Although this improved performance somewhat, the export process still remained resource intensive. As an alternative, I also explored using Matplotlib for a simpler static image export.
+During development, generating a high-quality interactive plots using Altair's <code>write_image</code> function caused significant performance issues and crashed the kernel even after using the &lt;/code&gt;alt.data_transformers.disable_max_rows()&lt;/code&gt;. The execution and export process took a long time and occasionally resulted in fatal JavaScript memory errors due to the heavy data load (thousands of nodes and tens of thousands of edges). To mitigate this, I experimented with using the Plotly and <code>Scattergl</code> trace for rendering. Although this improved performance somewhat, the export process still remained resource intensive. As an alternative, I also explored using Matplotlib for a simpler static image export.
 </p>
 
 <h2><br /></h2>
@@ -131,7 +131,7 @@ During development, generating a high-quality PNG using Plotly's <code>write_ima
 
 <h3 id="2a-interactive-histogram-of-node-degree-distribution">2a. Interactive Histogram of Node Degree Distribution</h3>
 
-<iframe src="\assets\plots\plot2_histogram.html" width="720" height="500" style="border:none;"></iframe>
+<iframe src="\assets\plots\plot2_histogram.html" width="720" height="500" style="border:none; margin-bottom: -20px;"></iframe>
 
 <p><strong>Description</strong></p>
 <p>This histogram displays the distribution of node degrees within the Facebook Ego Network. It uses an interval selection (brush) on the x-axis to enable users to filter nodes by degree. This interactive filtering helps in identifying clusters of nodes with similar connectivity levels.</p>
@@ -200,7 +200,7 @@ The major issues encountered during this project included:
 </div>
 
 <div class="right">
-<a class="m-1 btn btn-outline-primary btn-2 " href="https://github.com/yourusername/data-viz-notebook">
+<a class="m-1 btn btn-outline-primary btn-2 " href="https://github.com/SuprithChandrashekar/SuprithChandraShekar.github.io/blob/edf4cc6f88465338e5239c7ba36fc9e261dd52e4/python_notebooks/Workbook.ipynb">
   Analysis Notebook
 </a>
 </div>
@@ -211,29 +211,19 @@ The major issues encountered during this project included:
 
   <small class="text-muted mb-2">
     <i class="fas fa-code"></i> with <i class="fas fa-heart"></i>
-    by <strong>A. P. Corgi</strong>
+    by <strong>Suprith Chandra Shekar</strong>
   </small>
 
-  <div class="container-fluid justify-content-center"><a class="social mx-1"  href="mailto:username@domain.com"
+  <div class="container-fluid justify-content-center"><a class="social mx-1"  href="mailto:levijoyboy@icloud.com"
        style="color: #6c757d"
        onMouseOver="this.style.color='#db4437'"
        onMouseOut="this.style.color='#6c757d'">
       <i class="fas fa-envelope fa-1x"></i>
-    </a><a class="social mx-1"  href="https://www.github.com/jnaiman"
+    </a><a class="social mx-1"  href="https://www.github.com/SuprithChandrashekar"
        style="color: #6c757d"
        onMouseOver="this.style.color='#333333'"
        onMouseOut="this.style.color='#6c757d'">
       <i class="fab fa-github fa-1x"></i>
-    </a><a class="social mx-1"  href="https://www.twitter.com/your_username"
-       style="color: #6c757d"
-       onMouseOver="this.style.color='#1da1f2'"
-       onMouseOut="this.style.color='#6c757d'">
-      <i class="fab fa-twitter fa-1x"></i>
-    </a><a class="social mx-1"  href="https://www.youtube.com/your_channel_name"
-       style="color: #6c757d"
-       onMouseOver="this.style.color='#ff0000'"
-       onMouseOut="this.style.color='#6c757d'">
-      <i class="fab fa-youtube fa-1x"></i>
     </a>
 
 </div>
