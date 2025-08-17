@@ -47,4 +47,4 @@ Oh, and I don’t mind swapping languages either: English, Hindi, Kannada.
 
 This could have been a TL;DR, but let’s be real—you’re here for the punchline:  
 
-![DERP but make it Consulting](/assets/png/meme.png) 
+![DERP but make it Consulting](/assets/pngs/meme.png) 
