@@ -7,7 +7,7 @@
 
 - title: "IEX Market Data Processor"
   repo: "SuprithChandrashekar/iex_market_data_processor"
-  description: "A Vagrant-based solution for downloading and processing IEX market data (DEEP feeds) at scale."
+  description: "Tweak to a Vagrant-based solution for downloading and processing IEX market data (DEEP feeds) at scale."
   url: "https://github.com/SuprithChandrashekar/iex_market_data_processor"
   image: /assets/pngs/iex_parser_diagram.png
   tools: [Python, Vagrant, C, Tcl, HTML, C++, Shell]

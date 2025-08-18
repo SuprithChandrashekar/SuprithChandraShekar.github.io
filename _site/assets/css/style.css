@@ -126,7 +126,12 @@ body { font-family: "Poppins", sans-serif; }
 
 #element { position: absolute; top: 0; bottom: 0; left: 0; right: 0; }
 
-.circle-image { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; object-position: center; }
+.circle-image { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; /* Allow tuning of vertical focal point via a CSS variable: --circle-image-pos Default centers slightly above middle to better frame most headshots. */ object-position: center var(--circle-image-pos, 35%); }
+
+/* New: show the full rectangular profile image (no circular crop) */
+.profile-image { display: block; width: 100%; max-width: 175px; /* reduce maximum display size to avoid upscaling/blurriness */ height: auto; margin-left: auto; margin-right: auto; border-radius: 0; /* no circular crop */ object-fit: contain; object-position: center; /* frame */ box-sizing: border-box; padding: 4px; /* space between image and frame */ background-clip: padding-box; border: 1px solid rgba(0, 0, 0, 0.08); /* thin neutral border */ background-color: #ffffff; /* ensures crisp border on any background */ /* subtle depth */ box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06); /* small transition for hover polish */ transition: transform 160ms ease, box-shadow 160ms ease; }
+
+.profile-image:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08); }
 
 .link-after, .nav-link::after, .navbar-brand::after, .nav-item.active::after { content: ""; display: block; height: 0.15em; background: #007bff; }
 
@@ -170,10 +175,7 @@ body { font-family: "Poppins", sans-serif; }
 
 .text-truncate-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
-.project.card.h-100 { display: flex; flex-direction: column; /* ensure all cards have a consistent minimum height so they appear uniform */ min-height: 360px; }
-
-/* make the card body take remaining space so footer/tool badges stay aligned */
-.project.card.h-100 .card-body { flex: 1 1 auto; }
+.project.card.h-100 { display: flex; flex-direction: column; }
 
 @media (min-width: 992px) { .card-img-container { height: 180px; } }
 .timeline-body { position: relative; border-radius: 0 15px 15px 0; padding: 5px 0; }
