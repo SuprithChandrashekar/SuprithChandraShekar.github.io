@@ -74,69 +74,116 @@
   </div>
 
 </nav>
-    <div class="card-columns m-3 mt-5">
+    <div class="row m-3 mt-5">
 
   <!-- Local Projects -->
-  <div class="wow animated fadeIn" data-wow-delay=".15s">
-  <a href="/projects/hw5dot1" class="project card text-themed"><img id="facebook-ego-network-visualization-img" class="card-img-top" src="/assets/pngs/nodelink.png" alt="Facebook Ego Network Visualization" /><div class="card-body">
-      <h5 id="facebook-ego-network-visualization-name" class="card-title">Facebook Ego Network Visualization
+  <div class="col-12 col-sm-6 col-md-4 col-lg-4 mb-4">
+      <div class="wow animated fadeIn" data-wow-delay=".15s">
+  <a href="/projects/hw5dot1" class="project card text-themed h-100">
+    <div class="card-img-container"><img id="facebook-ego-network-visualization-img" class="card-img-top" src="/assets/pngs/nodelink.png" alt="Facebook Ego Network Visualization" loading="lazy" /><div class="card-img-overlay d-flex align-items-end">
+        <div class="w-100 p-2 text-white"></div>
+      </div>
+    </div>
+    <div class="card-body d-flex flex-column">
+      <h5 id="facebook-ego-network-visualization-name" class="card-title mb-2">
+        Facebook Ego Network Visualization
       </h5>
-      <p id="facebook-ego-network-visualization-desc" class="card-text">This project showcases interactive visualizations of the Facebook Ego Network. Plot 1 is a static export (PNG) of a Node-Link Diagram, and Plot 2 includes interactive visualizations (HTML) for degree distribution and node metric correlations.</p>
-      <p id="facebook-ego-network-visualization-tools" class="card-text"><span class="badge badge-pill text-primary border border-primary ml-1">Python</span><span class="badge badge-pill text-primary border border-primary ml-1">Altair</span><span class="badge badge-pill text-primary border border-primary ml-1">Vega-Lite</span><span class="badge badge-pill text-primary border border-primary ml-1">Plotly</span></p>
+      <p id="facebook-ego-network-visualization-desc" class="card-text text-muted mb-2">This project showcases interactive visualizations of the Facebook Ego Network. Plot 1 is a static export (PNG) of a Node-Link Diagram, and Plot 2 includes interactive visualizations (HTML) for degree distribution and node metric correlations.</p>
+      <div class="mt-auto">
+        <p id="facebook-ego-network-visualization-tools" class="card-text mb-0"><span class="badge badge-pill text-primary border border-primary ml-1">Python</span><span class="badge badge-pill text-primary border border-primary ml-1">Altair</span><span class="badge badge-pill text-primary border border-primary ml-1">Vega-Lite</span><span class="badge badge-pill text-primary border border-primary ml-1">Plotly</span></p>
+      </div>
     </div>
   </a>
 </div>
+    </div>
 
   
-
-
 
 
   <!-- Data Projects (from _data/projects.yml) -->
   
-    <div class="wow animated fadeIn" data-wow-delay=".15s">
-  <a href="https://github.com/SuprithChandrashekar/hft_strategy_generator" class="project card text-themed"><img id="hft-strategy-generator-img" class="card-img-top" src="/assets/pngs/hft_strategy_generator.png" alt="HFT Strategy Generator" /><div class="card-body">
-      <h5 id="hft-strategy-generator-name" class="card-title">HFT Strategy Generator
+    <div class="col-12 col-sm-6 col-md-4 col-lg-4 mb-4">
+        <div class="wow animated fadeIn" data-wow-delay=".15s">
+  <a href="https://github.com/SuprithChandrashekar/hft_strategy_generator" class="project card text-themed h-100">
+    <div class="card-img-container"><img id="hft-strategy-generator-img" class="card-img-top" src="/assets/pngs/hft_strategy_generator.png" alt="HFT Strategy Generator" loading="lazy" /><div class="card-img-overlay d-flex align-items-end">
+        <div class="w-100 p-2 text-white"></div>
+      </div>
+    </div>
+    <div class="card-body d-flex flex-column">
+      <h5 id="hft-strategy-generator-name" class="card-title mb-2">
+        HFT Strategy Generator
       </h5>
-      <p id="hft-strategy-generator-desc" class="card-text">AI-Powered High-Frequency Trading (HFT) Strategy Generator - A Python framework that uses LLMs to generate, backtest, and optimize intraday trading strategies.</p>
-      <p id="hft-strategy-generator-tools" class="card-text"><span class="badge badge-pill text-primary border border-primary ml-1">Python</span><span class="badge badge-pill text-primary border border-primary ml-1">Pandas</span><span class="badge badge-pill text-primary border border-primary ml-1">NumPy</span><span class="badge badge-pill text-primary border border-primary ml-1">Matplotlib</span><span class="badge badge-pill text-primary border border-primary ml-1">TA-Lib</span><span class="badge badge-pill text-primary border border-primary ml-1">PyQt</span><span class="badge badge-pill text-primary border border-primary ml-1">SQLite</span><span class="badge badge-pill text-primary border border-primary ml-1">scikit-learn</span></p>
+      <p id="hft-strategy-generator-desc" class="card-text text-muted mb-2">AI-Powered High-Frequency Trading (HFT) Strategy Generator - A Python framework that uses LLMs to generate, backtest, and optimize intraday trading strategies.</p>
+      <div class="mt-auto">
+        <p id="hft-strategy-generator-tools" class="card-text mb-0"><span class="badge badge-pill text-primary border border-primary ml-1">Python</span><span class="badge badge-pill text-primary border border-primary ml-1">Pandas</span><span class="badge badge-pill text-primary border border-primary ml-1">NumPy</span><span class="badge badge-pill text-primary border border-primary ml-1">Matplotlib</span><span class="badge badge-pill text-primary border border-primary ml-1">TA-Lib</span><span class="badge badge-pill text-primary border border-primary ml-1">PyQt</span><span class="badge badge-pill text-primary border border-primary ml-1">SQLite</span><span class="badge badge-pill text-primary border border-primary ml-1">scikit-learn</span></p>
+      </div>
     </div>
   </a>
 </div>
+      </div>
 
-    <div class="wow animated fadeIn" data-wow-delay=".15s">
-  <a href="https://github.com/SuprithChandrashekar/iex_market_data_processor" class="project card text-themed"><img id="iex-market-data-processor-img" class="card-img-top" src="/assets/pngs/iex_parser_diagram.png" alt="IEX Market Data Processor" /><div class="card-body">
-      <h5 id="iex-market-data-processor-name" class="card-title">IEX Market Data Processor
+    <div class="col-12 col-sm-6 col-md-4 col-lg-4 mb-4">
+        <div class="wow animated fadeIn" data-wow-delay=".15s">
+  <a href="https://github.com/SuprithChandrashekar/iex_market_data_processor" class="project card text-themed h-100">
+    <div class="card-img-container"><img id="iex-market-data-processor-img" class="card-img-top" src="/assets/pngs/iex_parser_diagram.png" alt="IEX Market Data Processor" loading="lazy" /><div class="card-img-overlay d-flex align-items-end">
+        <div class="w-100 p-2 text-white"></div>
+      </div>
+    </div>
+    <div class="card-body d-flex flex-column">
+      <h5 id="iex-market-data-processor-name" class="card-title mb-2">
+        IEX Market Data Processor
       </h5>
-      <p id="iex-market-data-processor-desc" class="card-text">A Vagrant-based solution for downloading and processing IEX market data (DEEP feeds) at scale.</p>
-      <p id="iex-market-data-processor-tools" class="card-text"><span class="badge badge-pill text-primary border border-primary ml-1">Python</span><span class="badge badge-pill text-primary border border-primary ml-1">Vagrant</span><span class="badge badge-pill text-primary border border-primary ml-1">C</span><span class="badge badge-pill text-primary border border-primary ml-1">Tcl</span><span class="badge badge-pill text-primary border border-primary ml-1">HTML</span><span class="badge badge-pill text-primary border border-primary ml-1">C++</span><span class="badge badge-pill text-primary border border-primary ml-1">Shell</span></p>
+      <p id="iex-market-data-processor-desc" class="card-text text-muted mb-2">A Vagrant-based solution for downloading and processing IEX market data (DEEP feeds) at scale.</p>
+      <div class="mt-auto">
+        <p id="iex-market-data-processor-tools" class="card-text mb-0"><span class="badge badge-pill text-primary border border-primary ml-1">Python</span><span class="badge badge-pill text-primary border border-primary ml-1">Vagrant</span><span class="badge badge-pill text-primary border border-primary ml-1">C</span><span class="badge badge-pill text-primary border border-primary ml-1">Tcl</span><span class="badge badge-pill text-primary border border-primary ml-1">HTML</span><span class="badge badge-pill text-primary border border-primary ml-1">C++</span><span class="badge badge-pill text-primary border border-primary ml-1">Shell</span></p>
+      </div>
     </div>
   </a>
 </div>
+      </div>
 
-    <div class="wow animated fadeIn" data-wow-delay=".15s">
-  <a href="https://github.com/SuprithChandrashekar/AutoResumeGenerator" class="project card text-themed"><img id="auto-resume-generator-img" class="card-img-top" src="/assets/pngs/auto_res.png" alt="Auto Resume Generator" /><div class="card-body">
-      <h5 id="auto-resume-generator-name" class="card-title">Auto Resume Generator
+    <div class="col-12 col-sm-6 col-md-4 col-lg-4 mb-4">
+        <div class="wow animated fadeIn" data-wow-delay=".15s">
+  <a href="https://github.com/SuprithChandrashekar/AutoResumeGenerator" class="project card text-themed h-100">
+    <div class="card-img-container"><img id="auto-resume-generator-img" class="card-img-top" src="/assets/pngs/auto_res.png" alt="Auto Resume Generator" loading="lazy" /><div class="card-img-overlay d-flex align-items-end">
+        <div class="w-100 p-2 text-white"></div>
+      </div>
+    </div>
+    <div class="card-body d-flex flex-column">
+      <h5 id="auto-resume-generator-name" class="card-title mb-2">
+        Auto Resume Generator
       </h5>
-      <p id="auto-resume-generator-desc" class="card-text">Leverages Gemini API to analyze job descriptions and user resume data, then generates a tailored PDF resume optimized for ATS and job requirements.</p>
-      <p id="auto-resume-generator-tools" class="card-text"><span class="badge badge-pill text-primary border border-primary ml-1">Python</span><span class="badge badge-pill text-primary border border-primary ml-1">Gemini API</span><span class="badge badge-pill text-primary border border-primary ml-1">LaTeX</span><span class="badge badge-pill text-primary border border-primary ml-1">HTML</span></p>
+      <p id="auto-resume-generator-desc" class="card-text text-muted mb-2">Leverages Gemini API to analyze job descriptions and user resume data, then generates a tailored PDF resume optimized for ATS and job requirements.</p>
+      <div class="mt-auto">
+        <p id="auto-resume-generator-tools" class="card-text mb-0"><span class="badge badge-pill text-primary border border-primary ml-1">Python</span><span class="badge badge-pill text-primary border border-primary ml-1">Gemini API</span><span class="badge badge-pill text-primary border border-primary ml-1">LaTeX</span><span class="badge badge-pill text-primary border border-primary ml-1">HTML</span></p>
+      </div>
     </div>
   </a>
 </div>
+      </div>
 
-    <div class="wow animated fadeIn" data-wow-delay=".15s">
-  <a href="/projects/majorproject.html" class="project card text-themed"><img id="ev-battery-thermal-management-img" class="card-img-top" src="/assets/pngs/thermalprofile_batterypack.png" alt="EV Battery Thermal Management" /><div class="card-body">
-      <h5 id="ev-battery-thermal-management-name" class="card-title">EV Battery Thermal Management
+    <div class="col-12 col-sm-6 col-md-4 col-lg-4 mb-4">
+        <div class="wow animated fadeIn" data-wow-delay=".15s">
+  <a href="/projects/majorproject.html" class="project card text-themed h-100">
+    <div class="card-img-container"><img id="ev-battery-thermal-management-img" class="card-img-top" src="/assets/pngs/thermalprofile_batterypack.png" alt="EV Battery Thermal Management" loading="lazy" /><div class="card-img-overlay d-flex align-items-end">
+        <div class="w-100 p-2 text-white"></div>
+      </div>
+    </div>
+    <div class="card-body d-flex flex-column">
+      <h5 id="ev-battery-thermal-management-name" class="card-title mb-2">
+        EV Battery Thermal Management
       </h5>
-      <p id="ev-battery-thermal-management-desc" class="card-text">An interactive analysis of thermal management strategies for EV battery packs, including air cooling, PCM, and liquid cooling.</p>
-      <p id="ev-battery-thermal-management-tools" class="card-text"><span class="badge badge-pill text-primary border border-primary ml-1">HTML</span><span class="badge badge-pill text-primary border border-primary ml-1">TailwindCSS</span><span class="badge badge-pill text-primary border border-primary ml-1">Chart.js</span><span class="badge badge-pill text-primary border border-primary ml-1">JavaScript</span></p>
+      <p id="ev-battery-thermal-management-desc" class="card-text text-muted mb-2">An interactive analysis of thermal management strategies for EV battery packs, including air cooling, PCM, and liquid cooling.</p>
+      <div class="mt-auto">
+        <p id="ev-battery-thermal-management-tools" class="card-text mb-0"><span class="badge badge-pill text-primary border border-primary ml-1">HTML</span><span class="badge badge-pill text-primary border border-primary ml-1">TailwindCSS</span><span class="badge badge-pill text-primary border border-primary ml-1">Chart.js</span><span class="badge badge-pill text-primary border border-primary ml-1">JavaScript</span></p>
+      </div>
     </div>
   </a>
 </div>
+      </div>
 
     
   
-
 
 
   <!-- Remote Projects -->
@@ -205,6 +252,42 @@
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 })
+</script>
+
+<!-- Ensure project cards have uniform heights based on the tallest card -->
+<script>
+(function () {
+  function setEqualProjectCardHeights() {
+    var cards = Array.prototype.slice.call(document.querySelectorAll('.project.card'));
+    if (!cards.length) return;
+
+    // reset any previously applied inline heights
+    cards.forEach(function (c) { c.style.minHeight = ''; });
+
+    // measure after images/fonts/layout settled
+    var max = 0;
+    cards.forEach(function (c) {
+      var h = c.offsetHeight;
+      if (h > max) max = h;
+    });
+
+    // apply the maximum height so all cards match the tallest
+    cards.forEach(function (c) { c.style.minHeight = max + 'px'; });
+  }
+
+  var resizeTimer;
+  window.addEventListener('load', setEqualProjectCardHeights);
+  window.addEventListener('DOMContentLoaded', setEqualProjectCardHeights);
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(setEqualProjectCardHeights, 150);
+  });
+
+  // If images are lazy-loaded, try again after a short delay
+  document.addEventListener('readystatechange', function () {
+    if (document.readyState === 'complete') setTimeout(setEqualProjectCardHeights, 250);
+  });
+})();
 </script>
 </body>
 

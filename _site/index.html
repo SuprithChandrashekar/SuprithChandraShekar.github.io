@@ -148,6 +148,42 @@ $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 })
 </script>
+
+<!-- Ensure project cards have uniform heights based on the tallest card -->
+<script>
+(function () {
+  function setEqualProjectCardHeights() {
+    var cards = Array.prototype.slice.call(document.querySelectorAll('.project.card'));
+    if (!cards.length) return;
+
+    // reset any previously applied inline heights
+    cards.forEach(function (c) { c.style.minHeight = ''; });
+
+    // measure after images/fonts/layout settled
+    var max = 0;
+    cards.forEach(function (c) {
+      var h = c.offsetHeight;
+      if (h > max) max = h;
+    });
+
+    // apply the maximum height so all cards match the tallest
+    cards.forEach(function (c) { c.style.minHeight = max + 'px'; });
+  }
+
+  var resizeTimer;
+  window.addEventListener('load', setEqualProjectCardHeights);
+  window.addEventListener('DOMContentLoaded', setEqualProjectCardHeights);
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(setEqualProjectCardHeights, 150);
+  });
+
+  // If images are lazy-loaded, try again after a short delay
+  document.addEventListener('readystatechange', function () {
+    if (document.readyState === 'complete') setTimeout(setEqualProjectCardHeights, 250);
+  });
+})();
+</script>
 </body>
 
 <!--

@@ -1,4 +1,4 @@
-<div class="card-columns m-3 mt-5">
+<div class="row m-3 mt-5">
 
   <!-- Local Projects -->
   {% for project in site.projects %}
@@ -26,11 +26,11 @@
       {%- assign external    = false -%}
     {%- endif -%}
 
-    {% include projects/project-card.html %}
+    <div class="col-12 col-sm-6 col-md-4 col-lg-4 mb-4">
+      {% include projects/project-card.html %}
+    </div>
 
   {% endfor %}
-
-
 
 
   <!-- Data Projects (from _data/projects.yml) -->
@@ -52,11 +52,12 @@
       {%- assign project_url   = project.url -%}
       {%- assign external      = true -%}
 
-      {% include projects/project-card.html %}
+      <div class="col-12 col-sm-6 col-md-4 col-lg-4 mb-4">
+        {% include projects/project-card.html %}
+      </div>
 
     {% endfor %}
   {% endif %}
-
 
 
   <!-- Remote Projects -->
@@ -85,7 +86,9 @@
         {%- assign project_tools = project.topics -%}
         {%- assign external      = true -%}
 
-        {% include projects/project-card.html %}
+        <div class="col-12 col-sm-6 col-md-4 col-lg-4 mb-4">
+          {% include projects/project-card.html %}
+        </div>
 
       {%- endif -%}
 
