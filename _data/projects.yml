@@ -19,3 +19,9 @@
   image: /assets/pngs/auto_res.png
   tools: [Python, Gemini API, LaTeX, HTML]
 
+- title: "EV Battery Thermal Management"
+  repo: "SuprithChandrashekar/majorproject"
+  description: "An interactive analysis of thermal management strategies for EV battery packs, including air cooling, PCM, and liquid cooling."
+  url: "/projects/majorproject.html"
+  image: /assets/pngs/thermalprofile_batterypack.png
+  tools: [HTML, TailwindCSS, Chart.js, JavaScript]

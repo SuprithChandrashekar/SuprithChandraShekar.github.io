@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Report: Thermal Management of EV Battery Packs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: The SPA is structured as a narrative-driven dashboard. It starts with a high-level summary (The Challenge), moves to an interactive core (Simulation Dashboard) where users can explore data, provides deeper context on the solutions (Solutions Deep Dive), and ends with a clear conclusion. This structure was chosen to guide the user from understanding the problem to exploring the solutions and finally to grasping the key takeaways. It transforms the linear thesis into a goal-oriented, interactive experience, prioritizing user exploration and comprehension over the original report's academic structure. The key interaction is the central dashboard, allowing users to dynamically filter and view simulation results, which is far more engaging than static tables and figures. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Baseline thermal performance of the battery pack without cooling. Goal: Establish the core problem. Viz/Presentation: Key metric cards (e.g., 'Max Temp: 74°C') and an introductory text block. Interaction: None, this is the static context. Justification: Immediately grabs user attention with the most critical data point. Library/Method: HTML/Tailwind.
+        - Report Info: Comparative temperature results for Air, PCM, and Liquid cooling under various conditions. Goal: Compare the effectiveness of different solutions. Viz/Presentation: A dynamic bar chart. Interaction: Users select Cooling Method, C-Rate, and Ambient Temperature via buttons to update the chart and associated text. Justification: A bar chart is the most effective way to compare discrete values. Interactivity allows users to explore the multi-dimensional dataset intuitively. Library/Method: Chart.js (Canvas).
+        - Report Info: Descriptions of how each cooling system works. Goal: Organize and explain the technical solutions. Viz/Presentation: A tabbed or sectioned layout with simple diagrams. Interaction: Clicking on a solution reveals its description. Justification: Organizes detailed information cleanly without cluttering the main dashboard. Diagrams are built with HTML/CSS to avoid SVG. Library/Method: HTML/Tailwind, JS for showing/hiding content.
+        - Report Info: Final conclusions of the study. Goal: Inform the user of the final recommendations. Viz/Presentation: A clear, concise summary text block at the end of the page. Interaction: None. Justification: Provides a strong, clear closing statement. Library/Method: HTML/Tailwind.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        :root{
+            --bg: #0b1220; /* page background */
+            --panel: #0f1724; /* panels / large containers */
+            --card: #0b1320; /* metric cards */
+            --muted: #94a3b8; /* muted text */
+            --text: #e6eef8; /* main text */
+            --accent: #06B6D4; /* teal/cyan primary accent */
+            --accent-2: #8B5CF6; /* violet secondary accent */
+            --success: #22C55E;
+            --danger: #EF4444;
+            --border: rgba(255,255,255,0.06);
+        }
+
+        html,body{
+            height:100%;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 45vh;
+            max-height: 450px;
+        }
+
+        /* Buttons */
+        .nav-button{
+            transition: all 0.18s ease;
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: .5rem 1rem;
+        }
+
+        .nav-button:hover{
+            transform: translateY(-2px);
+            border-color: rgba(255,255,255,0.12);
+        }
+
+        .nav-button.active{
+            background: linear-gradient(180deg, rgba(6,182,212,0.14), rgba(139,92,246,0.06));
+            color: #071018;
+            border-color: rgba(6,182,212,0.6);
+            box-shadow: 0 6px 24px rgba(6,182,212,0.09);
+        }
+
+        /* Metric cards */
+        .metric-card{
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: center;
+            color: var(--text);
+        }
+
+        .section-title{ color: var(--accent-2); }
+
+        /* Results panel */
+        #results-text{
+            background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        /* Liquid details */
+        #liquid-coolant-details h4, #liquid-coolant-details li{ color: var(--muted); }
+
+        /* Footer/header overrides (Tailwind utilities may conflict) */
+        header.bg\[\#2D2D44\] { background: var(--panel) !important; border-color: var(--border) !important; }
+        footer.bg\[\#2D2D44\] { background: var(--panel) !important; border-color: var(--border) !important; }
+
+        /* Override common Tailwind utility classes used in this page to dark equivalents */
+        .bg-white { background-color: var(--panel) !important; }
+        .bg-\#FDFBF8 { background-color: var(--panel) !important; }
+        .text-gray-700 { color: var(--text) !important; }
+        .text-gray-600 { color: var(--muted) !important; }
+        .text-gray-500 { color: rgba(255,255,255,0.7) !important; }
+        .text-gray-800 { color: var(--text) !important; }
+        .bg-gray-200 { background-color: rgba(255,255,255,0.02) !important; }
+        .border-gray-200 { border-color: var(--border) !important; }
+        .text-\#A0522D { color: var(--accent) !important; }
+        .text-green-600 { color: var(--success) !important; }
+        .text-red-600 { color: var(--danger) !important; }
+
+        /* Small utility tweaks */
+        h1, h2, h3 { color: var(--text); }
+        p, li { color: var(--muted); }
+
+        /* Chart canvas background treat - make chart look good on dark bg */
+        canvas { background: transparent; }
+
+        /* Ensure links are visible */
+        a { color: var(--accent); }
+
+        /* Make borders subtle */
+        .border { border-color: var(--border) !important; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-[#2D2D44] sticky top-0 z-10 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <h1 class="text-2xl sm:text-3xl font-bold text-center text-[#F59E0B]">EV Battery Thermal Management: An Interactive Analysis</h1>
+            <p class="text-center text-gray-600 mt-1">Translating academic research into an explorable experience.</p>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        
+        <section id="challenge" class="mb-16 text-center">
+            <h2 class="text-3xl font-bold tracking-tight section-title mb-4">The Thermal Challenge</h2>
+            <p class="max-w-3xl mx-auto text-lg text-gray-700 mb-8">
+                High-performance Lithium-Ion battery packs, the heart of modern electric vehicles, generate significant heat during operation. Without an effective thermal management system (TMS), temperatures can quickly rise beyond safe limits, posing a risk of thermal runaway, reducing battery lifespan, and compromising safety. This analysis explores different cooling strategies to mitigate this risk, especially under demanding Indian environmental conditions.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                <div class="metric-card">
+                    <div class="text-4xl font-bold text-[#A0522D]">74°C</div>
+                    <div class="text-md text-gray-600 mt-2">Max Temperature (Uncooled)</div>
+                    <p class="text-sm text-gray-500 mt-1">At peak load (2.3C) & 35°C ambient.</p>
+                </div>
+                <div class="metric-card">
+                    <div class="text-4xl font-bold text-green-600">20-45°C</div>
+                    <div class="text-md text-gray-600 mt-2">Safe Operating Range</div>
+                    <p class="text-sm text-gray-500 mt-1">Target for optimal performance and longevity.</p>
+                </div>
+                <div class="metric-card">
+                    <div class="text-4xl font-bold text-red-600">>60°C</div>
+                    <div class="text-md text-gray-600 mt-2">High-Risk Zone</div>
+                    <p class="text-sm text-gray-500 mt-1">Increased risk of degradation and thermal runaway.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="dashboard" class="bg-white p-6 sm:p-8 rounded-2xl shadow-lg border border-gray-200">
+            <h2 class="text-3xl font-bold tracking-tight section-title mb-2 text-center">Interactive Simulation Dashboard</h2>
+            <p class="text-center text-gray-600 mb-8">Select the parameters below to explore how different cooling solutions perform under various conditions.</p>
+
+            <div class="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-8 mb-8">
+                <div class="w-full md:w-auto">
+                    <label class="font-semibold text-gray-700 mb-2 block text-center">1. Cooling Method</label>
+                    <div id="cooling-selector" class="flex flex-wrap justify-center gap-2">
+                        <button data-value="none" class="nav-button active px-4 py-2 bg-gray-200 text-gray-800 rounded-full font-semibold">No Cooling</button>
+                        <button data-value="air" class="nav-button px-4 py-2 bg-gray-200 text-gray-800 rounded-full font-semibold">Air Cooling</button>
+                        <button data-value="pcm" class="nav-button px-4 py-2 bg-gray-200 text-gray-800 rounded-full font-semibold">PCM</button>
+                        <button data-value="liquid" class="nav-button px-4 py-2 bg-gray-200 text-gray-800 rounded-full font-semibold">Liquid Cooling</button>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <div>
+                        <label class="font-semibold text-gray-700 mb-2 block text-center">2. C-Rate</label>
+                        <div id="crate-selector" class="flex justify-center gap-2">
+                            <button data-value="1.5" class="nav-button px-4 py-2 bg-gray-200 text-gray-800 rounded-full font-semibold">Normal (1.5C)</button>
+                            <button data-value="2.3" class="nav-button active px-4 py-2 bg-gray-200 text-gray-800 rounded-full font-semibold">Peak (2.3C)</button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="font-semibold text-gray-700 mb-2 block text-center">3. Ambient Temp</label>
+                        <div id="ambient-selector" class="flex justify-center gap-2">
+                            <button data-value="25" class="nav-button px-4 py-2 bg-gray-200 text-gray-800 rounded-full font-semibold">25°C</button>
+                            <button data-value="35" class="nav-button active px-4 py-2 bg-gray-200 text-gray-800 rounded-full font-semibold">35°C</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+                <div class="lg:col-span-2">
+                    <div class="chart-container">
+                        <canvas id="tempChart"></canvas>
+                    </div>
+                </div>
+                <div id="results-text" class="bg-[#FDFBF8] p-6 rounded-lg border">
+                    <h3 class="font-bold text-xl mb-3 text-[#A0522D]">Analysis & Insights</h3>
+                    <p id="insight-text" class="text-gray-700 mb-4"></p>
+                    <div id="liquid-coolant-details" class="hidden">
+                        <h4 class="font-semibold mt-4 mb-2">Coolant Performance:</h4>
+                        <ul id="coolant-list" class="list-disc list-inside text-gray-600 space-y-1"></ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="solutions" class="mt-16">
+            <h2 class="text-3xl font-bold tracking-tight section-title mb-8 text-center">Solutions Deep Dive</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="metric-card text-left">
+                    <h3 class="text-xl font-bold mb-2 text-[#A0522D]">Forced Air Cooling</h3>
+                    <p class="text-gray-600 mb-4">Uses fans to circulate ambient air over the battery cells. The most effective configuration tested was a dual-fan setup (one intake, one exhaust).</p>
+                    <div class="text-sm">
+                        <p><span class="font-semibold">Pros:</span> Simple, low cost, easy to maintain.</p>
+                        <p><span class="font-semibold">Cons:</span> Limited cooling capacity, less effective in high ambient temperatures, can introduce dust and moisture.</p>
+                    </div>
+                </div>
+                <div class="metric-card text-left">
+                    <h3 class="text-xl font-bold mb-2 text-[#A0522D]">Phase Change Material (PCM)</h3>
+                    <p class="text-gray-600 mb-4">A passive system where a material (like RT-42 paraffin wax) absorbs heat as it melts, keeping the battery temperature stable at its melting point.</p>
+                    <div class="text-sm">
+                        <p><span class="font-semibold">Pros:</span> Passive (no energy consumption), uniform temperature.</p>
+                        <p><span class="font-semibold">Cons:</span> Low thermal conductivity limits heat absorption rate, making it ineffective for high heat loads. One-time use per thermal cycle until it re-solidifies.</p>
+                    </div>
+                </div>
+                <div class="metric-card text-left md:col-span-2 lg:col-span-1">
+                    <h3 class="text-xl font-bold mb-2 text-[#A0522D]">Liquid Cooling</h3>
+                    <p class="text-gray-600 mb-4">Circulates a coolant (like water or glycol) through a cold plate in direct contact with the battery pack, transferring heat to a radiator or chiller.</p>
+                    <div class="text-sm">
+                        <p><span class="font-semibold">Pros:</span> Highly effective, precise temperature control, high heat transfer capacity.</p>
+                        <p><span class="font-semibold">Cons:</span> Complex, higher cost, potential for leaks, consumes parasitic power.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="conclusion" class="mt-16 text-center">
+            <h2 class="text-3xl font-bold tracking-tight section-title mb-4">Conclusions & Recommendations</h2>
+            <div class="max-w-3xl mx-auto text-lg text-gray-700 space-y-4">
+                <p>The analysis definitively shows that a thermal management system is mandatory for this battery pack to operate safely under realistic conditions. </p>
+                <p><strong class="text-[#A0522D]">Liquid cooling is the superior technical solution</strong>, demonstrating a <strong class="text-green-600">47% reduction in peak temperature</strong> and consistently maintaining the battery within its optimal range for both safety and longevity. This makes it the recommended choice for high-performance and long-life applications.</p>
+                <p><strong class="text-[#A0522D]">Air cooling presents a viable, low-cost alternative.</strong> While it cannot maintain optimal temperatures, it successfully reduces peak temperatures by up to 24%, bringing them into a safe, acceptable range. This could be suitable for applications where cost is a primary constraint and peak performance is intermittent.</p>
+                 <p><strong class="text-[#A0522D]">PCM was found to be ineffective</strong> for this application due to its inability to handle the high heat flux generated during peak operation.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-8 mt-8 border-t border-gray-200 bg-[#2D2D44]">
+        <p class="text-gray-500">Interactive report based on the thesis by Narayan Ralhan & Suprith C Shekar, RV College of Engineering.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const simulationData = {
+                '1.5': {
+                    '25': {
+                        none: { temp: 47.3, insight: "Even under normal load and mild ambient temperatures, the uncooled battery pack approaches the upper limit of its optimal range, indicating potential for long-term degradation." },
+                        air: { temp: 39.5, insight: "Air cooling effectively keeps the battery in a healthy temperature range under normal conditions, proving to be a simple and adequate solution for everyday use." },
+                        pcm: { temp: 41, insight: "The battery temperature does not reach the PCM's melting point (42°C), so the material only acts as thermal mass with no significant cooling benefit." },
+                        liquid: { temp: 23.4, coolants: { water: 25.9, dynalene: 23.4, glycol: 34.7 }, insight: "Liquid cooling provides exceptional performance, maintaining the battery at near-ambient temperatures, ensuring maximum efficiency and minimal degradation." }
+                    },
+                    '35': {
+                        none: { temp: 56.4, insight: "In warmer ambient conditions, the uncooled pack temperature rises significantly, exceeding the optimal range and approaching the safety limit even under normal load." },
+                        air: { temp: 48.6, insight: "Air cooling is less effective in high ambient temperatures but still manages to keep the battery below the high-risk zone during normal operation." },
+                        pcm: { temp: 41.5, insight: "The PCM remains ineffective as the battery temperature still doesn't consistently exceed its melting point under normal load, even in a warmer environment." },
+                        liquid: { temp: 35.5, coolants: { water: 34.7, dynalene: 35.5, glycol: 36.0 }, insight: "Liquid cooling demonstrates its robustness, easily handling the increased ambient temperature and keeping the pack perfectly controlled." }
+                    }
+                },
+                '2.3': {
+                    '25': {
+                        none: { temp: 64.0, insight: "At peak load, the uncooled battery enters the high-risk zone (>60°C). This scenario highlights the critical need for a cooling system to prevent thermal runaway." },
+                        air: { temp: 49.0, insight: "Air cooling successfully prevents a dangerous temperature rise, reducing the peak temperature by 24%. It's a viable safety system, though not optimal for sustained peak performance." },
+                        pcm: { temp: 58.0, insight: "The PCM activates, but its low thermal conductivity is overwhelmed by the heat flux. It slows heating but fails to keep the battery within a safe range, with surface temperatures reaching 58°C." },
+                        liquid: { temp: 35.5, coolants: { water: 34.7, dynalene: 35.5, glycol: 36.0 }, insight: "Liquid cooling proves to be the most capable solution, handling peak heat generation with ease and keeping the battery well within its optimal performance range." }
+                    },
+                    '35': {
+                        none: { temp: 74.0, insight: "This is the worst-case scenario. The uncooled battery temperature skyrockets to 74°C, a critical level with a high risk of immediate damage and thermal runaway." },
+                        air: { temp: 58.0, insight: "Under the most extreme conditions, air cooling manages to keep the battery just below the 60°C high-risk threshold, demonstrating its value as a fundamental safety feature." },
+                        pcm: { temp: 67.0, insight: "The PCM system completely fails under these conditions. The heat generation rate far exceeds its absorption capacity, leading to dangerously high temperatures." },
+                        liquid: { temp: 39.0, coolants: { water: 38.2, dynalene: 39.0, glycol: 40.1 }, insight: "Even in the most extreme test, liquid cooling maintains the battery at an optimal 39°C, a remarkable 47% reduction from the uncooled state, ensuring safety and performance." }
+                    }
+                }
+            };
+
+            let chart;
+            const ctx = document.getElementById('tempChart').getContext('2d');
+            
+            const state = {
+                cooling: 'none',
+                crate: '2.3',
+                ambient: '35'
+            };
+
+            function setupSelectors() {
+                const selectors = ['cooling-selector', 'crate-selector', 'ambient-selector'];
+                selectors.forEach(selectorId => {
+                    const container = document.getElementById(selectorId);
+                    container.addEventListener('click', (e) => {
+                        if (e.target.tagName === 'BUTTON') {
+                            const key = selectorId.split('-')[0];
+                            state[key] = e.target.dataset.value;
+                            
+                            container.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+                            e.target.classList.add('active');
+                            
+                            updateDashboard();
+                        }
+                    });
+                });
+            }
+
+            function updateDashboard() {
+                const data = simulationData[state.crate][state.ambient][state.cooling];
+                const uncooledData = simulationData[state.crate][state.ambient]['none'];
+
+                updateChart(data.temp, uncooledData.temp);
+                updateText(data);
+            }
+
+            function updateText(data) {
+                document.getElementById('insight-text').textContent = data.insight;
+                const liquidDetails = document.getElementById('liquid-coolant-details');
+                const coolantList = document.getElementById('coolant-list');
+
+                if (state.cooling === 'liquid' && data.coolants) {
+                    liquidDetails.classList.remove('hidden');
+                    coolantList.innerHTML = `
+                        <li>Water: ${data.coolants.water}°C</li>
+                        <li>Dynalene HC-30: ${data.coolants.dynalene}°C</li>
+                        <li>Ethylene Glycol: ${data.coolants.glycol}°C</li>
+                    `;
+                } else {
+                    liquidDetails.classList.add('hidden');
+                }
+            }
+
+            function updateChart(currentTemp, uncooledTemp) {
+                const labels = ['Uncooled Baseline', 'Selected Scenario'];
+                const tempData = [uncooledTemp, currentTemp];
+                
+                let barColors = ['#EF4444', '#383838'];
+                if (currentTemp <= 45) {
+                    barColors[1] = '#22C55E';
+                } else if (currentTemp <= 60) {
+                    barColors[1] = '#F59E0B';
+                } else {
+                    barColors[1] = '#EF4444';
+                }
+
+                chart.data.labels = labels;
+                chart.data.datasets[0].data = tempData;
+                chart.data.datasets[0].backgroundColor = barColors;
+
+                chart.options.plugins.annotation.annotations.safeRange.yMax = 45;
+                chart.options.plugins.annotation.annotations.safeRange.yMin = 20;
+                
+                chart.update();
+            }
+            
+            function createChart() {
+                const annotationPlugin = {
+                    id: 'annotation',
+                    afterDraw(chart, args, options) {
+                        const { ctx, chartArea: { top, right, bottom, left, width, height }, scales: { x, y } } = chart;
+                        ctx.save();
+                        
+                        const safeMin = y.getPixelForValue(options.annotations.safeRange.yMin);
+                        const safeMax = y.getPixelForValue(options.annotations.safeRange.yMax);
+
+                        // subtle filled band
+                        ctx.fillStyle = 'rgba(34,197,94,0.06)';
+                        ctx.fillRect(left, safeMax, width, safeMin - safeMax);
+
+                        // label text and pill
+                        const label = 'Optimal Range (20-45°C)';
+                        ctx.font = '600 12px Inter, sans-serif';
+                        const measured = ctx.measureText(label);
+                        const padX = 10, padY = 6;
+                        const labelW = measured.width + padX * 2;
+                        const labelH = 16 + padY;
+
+                        // prefer inside-band placement near right edge
+                        let lx = right - 16 - labelW;
+                        let ly = safeMax + Math.max(6, (safeMin - safeMax) * 0.04);
+                        // clamp inside chart area
+                        if (ly + labelH > bottom - 6) ly = bottom - labelH - 6;
+                        if (ly < top + 6) ly = top + 6;
+
+                        // rounded pill background with subtle glow
+                        const r = 10;
+                        ctx.beginPath();
+                        ctx.moveTo(lx + r, ly);
+                        ctx.lineTo(lx + labelW - r, ly);
+                        ctx.quadraticCurveTo(lx + labelW, ly, lx + labelW, ly + r);
+                        ctx.lineTo(lx + labelW, ly + labelH - r);
+                        ctx.quadraticCurveTo(lx + labelW, ly + labelH, lx + labelW - r, ly + labelH);
+                        ctx.lineTo(lx + r, ly + labelH);
+                        ctx.quadraticCurveTo(lx, ly + labelH, lx, ly + labelH - r);
+                        ctx.lineTo(lx, ly + r);
+                        ctx.quadraticCurveTo(lx, ly, lx + r, ly);
+                        ctx.closePath();
+
+                        ctx.shadowColor = 'rgba(139,92,246,0.12)';
+                        ctx.shadowBlur = 12;
+                        ctx.fillStyle = 'rgba(139,92,246,0.14)';
+                        ctx.fill();
+                        ctx.shadowBlur = 0;
+
+                        ctx.lineWidth = 0.6;
+                        ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+                        ctx.stroke();
+
+                        // draw white label text
+                        ctx.fillStyle = 'rgba(255,255,255,0.98)';
+                        ctx.textAlign = 'left';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText(label, lx + padX, ly + labelH / 2);
+
+                        ctx.restore();
+                    }
+                 };
+
+                Chart.register(annotationPlugin);
+
+                chart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: [],
+                        datasets: [{
+                            label: 'Max Temperature (°C)',
+                            data: [],
+                            backgroundColor: [],
+                            borderColor: [],
+                            borderWidth: 1,
+                            borderRadius: 5,
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 80,
+                                title: {
+                                    display: true,
+                                    text: 'Temperature (°C)',
+                                    font: {
+                                        size: 14,
+                                        weight: 'bold'
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `Max Temp: ${context.parsed.y}°C`;
+                                    }
+                                }
+                            },
+                            annotation: {
+                                annotations: {
+                                    safeRange: {
+                                        type: 'box',
+                                        yMin: 20,
+                                        yMax: 45,
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            createChart();
+            setupSelectors();
+            
+            document.querySelector('#cooling-selector button[data-value="none"]').classList.add('active');
+            document.querySelector('#crate-selector button[data-value="2.3"]').classList.add('active');
+            document.querySelector('#ambient-selector button[data-value="35"]').classList.add('active');
+
+            updateDashboard();
+        });
+    </script>
+
+</body>
+</html>
