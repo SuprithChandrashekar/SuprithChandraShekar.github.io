@@ -1,6 +1,179 @@
-// Fine Circle Responsive Image
-// Inspired by https://stackoverflow.com/a/6615994/10194811
+// ==========================================================================
+// Landing / Hero Section — Gradient bg, glowing profile, typed text
+// ==========================================================================
 
+.hero-section {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 4rem 1rem;
+  background: $gradient-hero;
+  border-radius: 0 0 $rounded-lg $rounded-lg;
+  margin: -1.5rem -15px 2rem;
+
+  // Animated mesh overlay
+  &::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(0,210,255,0.1) 0%, transparent 50%);
+    animation: heroMesh 15s ease-in-out infinite;
+    pointer-events: none;
+  }
+}
+
+@keyframes heroMesh {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(2%, -2%) rotate(1deg); }
+  66% { transform: translate(-1%, 1%) rotate(-0.5deg); }
+}
+
+// Profile image with glow ring
+.profile-image {
+  display: block;
+  width: 160px;
+  height: 160px;
+  margin: 0 auto;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 35%;
+  padding: 4px;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(108, 99, 255, 0.3),
+              0 0 40px rgba(108, 99, 255, 0.2),
+              $shadow-lg;
+  transition: transform 300ms ease, box-shadow 300ms ease;
+}
+
+.profile-image:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 0 0 6px rgba(108, 99, 255, 0.4),
+              0 0 60px rgba(108, 99, 255, 0.3),
+              $shadow-lg;
+}
+
+// Hero text content
+.hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: #fff;
+}
+
+.hero-name {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.02em;
+
+  @media (min-width: 768px) {
+    font-size: 3rem;
+  }
+}
+
+.hero-subtitle {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+// CSS-only typewriter effect
+.hero-typed {
+  display: inline-block;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.95);
+  border-right: 2px solid rgba(255, 255, 255, 0.8);
+  padding-right: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 3.5s steps(40) 1s 1 normal both,
+             blink 0.75s step-end infinite;
+  max-width: 100%;
+}
+
+@keyframes typing {
+  from { max-width: 0; }
+  to { max-width: 100%; }
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+// Glass badges on hero
+.hero-badge {
+  display: inline-block;
+  padding: 0.35rem 1rem;
+  margin: 0.25rem;
+  border-radius: $rounded-pill;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: background 200ms ease, transform 200ms ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+  }
+}
+
+// Social links on hero
+.hero-social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin: 0 0.35rem;
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: background 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 16px rgba(108, 99, 255, 0.3);
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+// Scroll indicator
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.5rem;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+  40% { transform: translateX(-50%) translateY(-10px); }
+  60% { transform: translateX(-50%) translateY(-5px); }
+}
+
+// Legacy support
 #container {
   display: inline-block;
   position: relative;
@@ -8,7 +181,7 @@
 }
 
 #dummy {
-  padding-top: 100%; /* 1:1 aspect ratio */
+  padding-top: 100%;
 }
 
 #element {
@@ -24,37 +197,5 @@
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  /* Allow tuning of vertical focal point via a CSS variable: --circle-image-pos
-     Default centers slightly above middle to better frame most headshots. */
   object-position: center var(--circle-image-pos, 35%);
-}
-
-/* New: show the full rectangular profile image (no circular crop) */
-.profile-image {
-  display: block;
-  width: 100%;
-  max-width: 175px; /* reduce maximum display size to avoid upscaling/blurriness */
-  height: auto;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 0; /* no circular crop */
-  object-fit: contain;
-  object-position: center;
-
-  /* frame */
-  box-sizing: border-box;
-  padding: 4px; /* space between image and frame */
-  background-clip: padding-box;
-  border: 1px solid rgba(0, 0, 0, 0.08); /* thin neutral border */
-  background-color: #ffffff; /* ensures crisp border on any background */
-
-  /* subtle depth */
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-
-  /* small transition for hover polish */
-  transition: transform 160ms ease, box-shadow 160ms ease;
-}
-.profile-image:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
 }

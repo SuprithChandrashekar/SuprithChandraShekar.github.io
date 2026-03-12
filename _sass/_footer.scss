@@ -1,3 +1,63 @@
+// ==========================================================================
+// Footer — Gradient top border, modern layout
+// ==========================================================================
+
+footer.site-footer {
+  position: relative;
+  padding: 3rem 0 2rem;
+  margin-top: 4rem;
+
+  // Gradient top divider
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: $gradient-accent;
+    border-radius: 2px;
+  }
+}
+
+.footer-brand {
+  font-weight: 700;
+  font-size: 1.25rem;
+  background: $gradient-accent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.footer-tagline {
+  font-size: 0.9rem;
+  color: $text-muted-light;
+  margin-top: 0.5rem;
+}
+
+.footer-social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  color: $text-muted-light;
+  border: 1px solid $border-light;
+  margin: 0 0.3rem;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 200ms ease;
+
+  &:hover {
+    color: $primary;
+    border-color: $primary;
+    background: rgba($primary, 0.08);
+    transform: translateY(-2px);
+    text-decoration: none;
+  }
+}
+
 .social {
   text-decoration: none !important;
 }
@@ -20,11 +80,33 @@
   }
 }
 
+.footer-copyright {
+  font-size: 0.85rem;
+  color: $text-muted-light;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid $border-light;
+
+  .heart-icon {
+    color: $danger;
+    display: inline-block;
+    animation: heartbeat 1.5s ease-in-out infinite;
+  }
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.15); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.1); }
+  56% { transform: scale(1); }
+}
+
 .github-footer {
   font-size: 10px;
-  color: #6c757d;
+  color: $text-muted-light;
   text-decoration: underline;
-  text-decoration-color: yellow;
+  text-decoration-color: $accent;
   text-align: right;
   margin-top: 4em;
   margin-right: 2em;

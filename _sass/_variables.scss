@@ -1,13 +1,53 @@
-$primary:   #007bff;
-$secondary: #6c757d;
-$success:   #28a745;
-$info:      #17a2b8;
-$warning:   #ffc107;
-$danger:    #dc3545;
-$light:     #f8f9fa;
-$dark:      #343a40;
+// ==========================================================================
+// Design Tokens — Multi-Agent Portfolio Bridge
+// ==========================================================================
 
-$text-black: #343a40;
-$text-white: rgba(white, .9);
+$primary:       #6C63FF;
+$secondary:     #2D3436;
+$accent:        #00D2FF;
+$success:       #10B981;
+$info:          #818CF8;
+$warning:       #F59E0B;
+$danger:        #EF4444;
+$light:         #F8F9FE;
+$dark:          #1E293B;
 
-$rounded-borders: 15px;
+$gradient-hero:       linear-gradient(135deg, #6C63FF 0%, #00D2FF 100%);
+$gradient-hero-dark:  linear-gradient(135deg, #312E81 0%, #0F172A 100%);
+$gradient-accent:     linear-gradient(135deg, #6C63FF 0%, #00D2FF 100%);
+$gradient-card-hover: linear-gradient(135deg, rgba(108,99,255,0.6) 0%, rgba(0,210,255,0.6) 100%);
+
+$text-black: #1A1A2E;
+$text-white: rgba(255, 255, 255, 0.87);
+$text-muted-light: #6B7280;
+$text-muted-dark:  #94A3B8;
+
+$surface-light:    #FFFFFF;
+$surface-elevated: #F8F9FE;
+
+$dark-900: #0F172A;
+$dark-600: #1E293B;
+$dark-300: #334155;
+$dark-100: #475569;
+
+$border-light: rgba(108, 99, 255, 0.12);
+$border-dark:  rgba(129, 140, 248, 0.15);
+
+$rounded-borders: 16px;
+$rounded-lg:      24px;
+$rounded-pill:    50px;
+
+$shadow-sm:  0 2px 8px rgba(108, 99, 255, 0.08);
+$shadow-md:  0 4px 16px rgba(108, 99, 255, 0.12);
+$shadow-lg:  0 8px 32px rgba(108, 99, 255, 0.16);
+$shadow-glow: 0 0 20px rgba(108, 99, 255, 0.3);
+
+$glass-bg:      rgba(255, 255, 255, 0.7);
+$glass-bg-dark: rgba(15, 23, 42, 0.7);
+$glass-blur:    12px;
+$glass-border:  1px solid rgba(255, 255, 255, 0.18);
+$glass-border-dark: 1px solid rgba(129, 140, 248, 0.15);
+
+$transition-fast: 200ms ease;
+$transition-base: 300ms ease;
+$transition-slow: 500ms ease;

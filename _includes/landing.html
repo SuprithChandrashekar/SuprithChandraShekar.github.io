@@ -1,31 +1,57 @@
-<div class="row justify-content-center align-items-center p-4">
-  <div class="col-lg-4 col-md-6 text-center mt-4">
+<!-- Hero Section — Multi-Agent Portfolio Bridge Redesign -->
+<div class="hero-section">
+  <div class="hero-content">
 
-    <!-- Original: Fine Circle Responsive Image replaced to show full image as-is -->
-    <div class="my-2">
-      <img src="{{ site.author.image }}" alt="{{ site.title }}" class="profile-image wow animated zoomIn" data-wow-delay=".1s">
+    <!-- Profile Image with Glow Ring -->
+    <div class="mb-4 wow animated zoomIn" data-wow-delay=".1s">
+      <img src="{{ site.author.image }}" alt="{{ site.title }}" class="profile-image">
     </div>
 
-    <!-- LinkedIn-style professional header -->
-    <div class="profile-bio wow animated slideInUp" data-wow-delay=".15s">
-      <h2 class="h5 font-weight-bold mb-1">{{ site.author.name }}</h2>
-      <p class="mb-1 text-muted small"><strong>Graduate Student (M.S. Industrial Engineering)</strong> — University of Illinois Urbana-Champaign</p>
+    <!-- Name with gradient -->
+    <h1 class="hero-name wow animated fadeInUp" data-wow-delay=".2s">
+      {{ site.author.name }}
+    </h1>
 
-      <p class="mb-2"><span class="badge badge-pill badge-secondary">Ex Deloitte Consultant</span></p>
+    <!-- Subtitle -->
+    <p class="hero-subtitle wow animated fadeInUp" data-wow-delay=".3s">
+      M.S. Industrial Engineering — University of Illinois Urbana-Champaign
+    </p>
 
-
-      <div class="mt-2">
-        <span class="badge badge-primary mr-1">Strategist</span>
-        <span class="badge badge-primary mr-1">Engineer</span>
-        <span class="badge badge-primary">Consultant</span>
-      </div>
-
-      <div class="mt-3">
-        {% if site.author.linkedin %}
-          <a href="{{ site.author.linkedin }}" class="btn btn-outline-primary btn-sm" target="_blank"><i class="fab fa-linkedin"></i> Connect</a>
-        {% endif %}
-      </div>
+    <!-- Typewriter Effect -->
+    <div class="mb-3 wow animated fadeIn" data-wow-delay=".5s">
+      <span class="hero-typed">Building solutions across AI, automation & engineering</span>
     </div>
 
+    <!-- Glass Badges -->
+    <div class="mb-4 wow animated fadeInUp" data-wow-delay=".4s">
+      <span class="hero-badge">Ex-Deloitte Consultant</span>
+      <span class="hero-badge">Strategist</span>
+      <span class="hero-badge">Engineer</span>
+    </div>
+
+    <!-- Social Links -->
+    <div class="wow animated fadeInUp" data-wow-delay=".5s">
+      {% if site.author.github %}
+        <a href="https://github.com/{{ site.author.github }}" class="hero-social-link" target="_blank" title="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
+      {% endif %}
+      {% if site.author.linkedin %}
+        <a href="{{ site.author.linkedin }}" class="hero-social-link" target="_blank" title="LinkedIn">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      {% endif %}
+      {% if site.author.email %}
+        <a href="mailto:{{ site.author.email }}" class="hero-social-link" title="Email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      {% endif %}
+    </div>
+
+  </div>
+
+  <!-- Scroll Down Indicator -->
+  <div class="scroll-indicator">
+    <i class="fas fa-chevron-down"></i>
   </div>
 </div>

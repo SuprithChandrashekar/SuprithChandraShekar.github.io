@@ -1,5 +1,14 @@
 .search-box {
   box-shadow: none !important;
+  border: 1px solid $border-light;
+  border-radius: $rounded-borders;
+  padding: 0.6rem 1rem;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+
+  &:focus {
+    border-color: $primary;
+    box-shadow: 0 0 0 3px rgba($primary, 0.1) !important;
+  }
 }
 
 .post.card {
@@ -7,6 +16,13 @@
   text-decoration: none !important;
   padding: 15px;
   height: 100%;
+  border: 1px solid $border-light;
+  transition: transform 300ms ease, box-shadow 300ms ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-md;
+  }
 
   .card-footer {
     font-size: 14px;
@@ -19,8 +35,12 @@
   font-size: 14px;
   margin-top: -6px;
 
-  .tag:hover {
-    background-color: $primary;
-    color: white !important;
+  .tag {
+    transition: background-color 200ms ease, color 200ms ease;
+
+    &:hover {
+      background-color: $primary;
+      color: white !important;
+    }
   }
 }

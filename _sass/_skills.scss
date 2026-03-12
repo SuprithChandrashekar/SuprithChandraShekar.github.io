@@ -1,0 +1,56 @@
+// ==========================================================================
+// Skills — Radial ring cards (replaces progress bars)
+// ==========================================================================
+
+.skill-card {
+  background: $surface-elevated;
+  border-radius: $rounded-borders;
+  border: 1px solid $border-light;
+  transition: transform 300ms ease, box-shadow 300ms ease;
+  height: 100%;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-md;
+  }
+}
+
+.skill-ring-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.skill-ring {
+  transform: rotate(0);
+}
+
+.skill-ring-bg {
+  stroke: $surface-elevated;
+  stroke: rgba($primary, 0.1);
+}
+
+.skill-ring-fill {
+  stroke: $primary;
+  transition: stroke-dasharray 1.2s ease;
+}
+
+.skill-percentage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: $primary;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.skill-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.skill-level {
+  font-size: 0.75rem;
+}

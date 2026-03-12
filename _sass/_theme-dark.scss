@@ -1,7 +1,6 @@
-$dark-100: $dark;
-$dark-300: #2c3032;
-$dark-600: #242526;
-$dark-900: #17191a;
+// ==========================================================================
+// Dark Mode — Deep navy with rich accent glows
+// ==========================================================================
 
 [data-theme="dark"] {
   body {
@@ -9,8 +8,7 @@ $dark-900: #17191a;
     color: $text-white;
   }
 
-  // Code blocks & Syntax highlighting
-
+  // Code syntax
   @import "native.scss";
 
   pre,
@@ -27,37 +25,55 @@ $dark-900: #17191a;
   input {
     background-color: $dark-300;
     border-color: $dark-100;
-    color: $dark-900;
+    color: $text-white;
 
     &::placeholder {
-      color: rgba($text-white, 0.64);
+      color: rgba($text-white, 0.5);
     }
 
     &:focus {
       background-color: $dark-600;
       color: $text-white;
+      border-color: $info;
+      box-shadow: 0 0 0 3px rgba($info, 0.15);
     }
   }
 
   // Cards
   .card {
     background-color: $dark-600;
+    border-color: $border-dark;
   }
 
   .card.border {
     .card-footer {
-      background-color: rgba(0, 0, 0, 0.1);
+      background-color: rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  // Project cards
+  .project.card {
+    border-color: $border-dark;
+
+    .badge {
+      background: rgba($info, 0.12);
+      color: $info;
+      border-color: rgba($info, 0.25);
+    }
+
+    &:hover:not(.post) {
+      box-shadow: 0 8px 32px rgba($info, 0.15);
     }
   }
 
   // Tables
   table:not(.highlight) {
     td {
-      border-color: $dark-600;
+      border-color: $dark-300;
     }
 
     tr:nth-child(even) {
-      background-color: $dark;
+      background-color: $dark-600;
     }
   }
 
@@ -68,7 +84,7 @@ $dark-900: #17191a;
 
     &:hover,
     &:focus {
-      background-color: darken($color: $dark-600, $amount: 3);
+      background-color: $dark-300;
     }
   }
 
@@ -77,8 +93,78 @@ $dark-900: #17191a;
     text-decoration: none;
   }
 
-  // Timeline 
-  .timeline-body .timeline-item:after{
+  // Timeline
+  .timeline-body .timeline-item:after {
     background-color: $dark-900;
+    border-color: $info;
+  }
+
+  .timeline-body .timeline-item .content {
+    background: $dark-600;
+    border-color: $border-dark;
+
+    .date {
+      background: rgba($info, 0.12);
+      color: $info;
+    }
+
+    p {
+      color: $text-muted-dark;
+    }
+  }
+
+  // Hero section dark mode
+  .hero-section {
+    background: $gradient-hero-dark;
+  }
+
+  .profile-image {
+    background: $dark-600;
+    box-shadow: 0 0 0 4px rgba($info, 0.3),
+                0 0 40px rgba($info, 0.15),
+                0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  // Skills dark mode
+  .skill-card {
+    background: $dark-600;
+    border-color: $border-dark;
+  }
+
+  .skill-ring-bg {
+    stroke: $dark-300;
+  }
+
+  // Footer dark mode
+  footer.site-footer::before {
+    background: linear-gradient(135deg, $info 0%, #22D3EE 100%);
+  }
+
+  .footer-social-link {
+    color: $text-muted-dark;
+    border-color: $border-dark;
+
+    &:hover {
+      color: $info;
+      border-color: $info;
+      background: rgba($info, 0.1);
+    }
+  }
+
+  .footer-copyright {
+    border-top-color: $border-dark;
+    color: $text-muted-dark;
+  }
+
+  // Glass utility
+  .glass {
+    background: $glass-bg-dark;
+    border: $glass-border-dark;
+  }
+
+  // Selection
+  ::selection {
+    background: rgba($info, 0.3);
+    color: $info;
   }
 }
