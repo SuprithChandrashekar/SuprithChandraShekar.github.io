@@ -1,3 +1,7 @@
+// ==========================================================================
+// Theme System — Light/Dark mode mixin and utilities
+// ==========================================================================
+
 @mixin themed($property, $light-value, $dark-value) {
   [data-theme="light"] & {
     #{$property}: $light-value;
@@ -19,8 +23,11 @@
   }
 
   .navbar-nav .nav-link {
-    @include themed(color, rgba($text-black, 0.5), rgba($text-white, 0.5));
+    @include themed(color, rgba($text-black, 0.6), rgba($text-white, 0.6));
   }
+
+  @include themed(background, $glass-bg, $glass-bg-dark);
+  @include themed(border-bottom, 1px solid $border-light, 1px solid $border-dark);
 }
 
 .text-themed {
@@ -28,6 +35,21 @@
 }
 
 .bg-themed {
-  @include themed(background-color, $light, $dark);
+  @include themed(background-color, $surface-elevated, $dark-600);
 }
 
+// Themed borders
+.border-themed {
+  @include themed(border-color, $border-light, $border-dark);
+}
+
+// Themed cards
+.card-themed {
+  @include themed(background-color, $surface-light, $dark-600);
+  @include themed(border-color, $border-light, $border-dark);
+}
+
+// Themed muted text
+.text-muted-themed {
+  @include themed(color, $text-muted-light, $text-muted-dark);
+}

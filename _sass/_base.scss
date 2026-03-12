@@ -1,13 +1,24 @@
 html {
   padding-left: calc(100vw - 100%);
+  scroll-behavior: smooth;
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 
 .badge {
   font-weight: 500;
+  letter-spacing: 0.02em;
 }
 
 .bg-light,
@@ -27,7 +38,7 @@ body {
 }
 
 .left, .right {
-  width: 50%; /* Floated elements technically need a width specified. */
+  width: 50%;
 }
 
 .left {
@@ -36,7 +47,26 @@ body {
 }
 
 .right {
-    float: right;
-    text-align: right;
+  float: right;
+  text-align: right;
+}
 
+.gradient-text {
+  background: $gradient-accent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass {
+  background: $glass-bg;
+  backdrop-filter: blur($glass-blur);
+  -webkit-backdrop-filter: blur($glass-blur);
+  border: $glass-border;
+  border-radius: $rounded-borders;
+}
+
+::selection {
+  background: rgba($primary, 0.2);
+  color: $primary;
 }

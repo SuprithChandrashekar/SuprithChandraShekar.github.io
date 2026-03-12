@@ -1,26 +1,44 @@
+// ==========================================================================
+// Project Cards — Enhanced with gradient hover, better visual hierarchy
+// ==========================================================================
+
 .project.card {
   border-radius: $rounded-borders;
   text-decoration: none !important;
   margin: 10px auto;
+  border: 1px solid $border-light;
+  overflow: hidden;
+  transition: transform 400ms ease, box-shadow 400ms ease;
 
   .card-img-top {
     border-radius: $rounded-borders $rounded-borders 0 0;
+    transition: transform 500ms ease;
   }
 
-  transition: transform 400ms;
-
   &:hover:not(.post) {
-    transform: translateY(-8px);
-    box-shadow: -2px 8px 40px -12px rgba(0, 0, 0, 0.24);
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: $shadow-lg;
+
+    .card-img-top {
+      transform: scale(1.05);
+    }
+
+    .card-img-overlay {
+      background: $gradient-card-hover;
+    }
+
+    .card-title {
+      color: $primary;
+    }
   }
 }
 
 .card-img-container {
-  height: 160px;
+  height: 180px;
   position: relative;
   overflow: hidden;
   border-radius: $rounded-borders $rounded-borders 0 0;
-  background-color: #f6f7f9;
+  background-color: $surface-elevated;
 }
 
 .card-img-container img.card-img-top {
@@ -36,8 +54,33 @@
   right: 0;
   bottom: 0;
   top: 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.0) 60%, rgba(0, 0, 0, 0.25));
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.0) 50%, rgba(0, 0, 0, 0.3));
   pointer-events: none;
+  transition: background 400ms ease;
+}
+
+.card-body {
+  .card-title {
+    font-weight: 600;
+    font-size: 1.05rem;
+    transition: color 300ms ease;
+  }
+
+  .card-text {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+}
+
+// Tool badges — glassmorphism style
+.project.card .badge {
+  background: rgba($primary, 0.08);
+  color: $primary;
+  border: 1px solid rgba($primary, 0.2);
+  font-weight: 500;
+  font-size: 0.75rem;
+  padding: 0.3em 0.7em;
+  backdrop-filter: blur(4px);
 }
 
 .text-truncate-2 {
@@ -54,6 +97,6 @@
 
 @media (min-width: 992px) {
   .card-img-container {
-    height: 180px;
+    height: 200px;
   }
 }

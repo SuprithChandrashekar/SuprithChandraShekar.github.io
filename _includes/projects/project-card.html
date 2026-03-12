@@ -1,4 +1,4 @@
-<div class="wow animated fadeIn" data-wow-delay=".15s">
+<div class="wow animated fadeInUp" data-wow-delay=".15s">
   <a href="{{ project_url }}" class="project card text-themed h-100" {%- if external and site.open_new_tab -%} target="_blank" {%- endif -%}>
     <div class="card-img-container">
       {%- if project_img -%}
@@ -7,7 +7,7 @@
       <div class="card-img-overlay d-flex align-items-end">
         <div class="w-100 p-2 text-white">
           {%- if project_type == "remote" -%}
-          <i class="fab fa-github" data-toggle="tooltip" data-placement="bottom" data-delay="250" title="GitHub Repository"></i>
+          <i class="fab fa-github fa-lg" data-toggle="tooltip" data-placement="bottom" data-delay="250" title="GitHub Repository"></i>
           {%- endif -%}
         </div>
       </div>
@@ -16,11 +16,11 @@
       <h5 id="{{ project_id }}-name" class="card-title mb-2">
         {{ project_name }}
       </h5>
-      <p id="{{ project_id }}-desc" class="card-text text-muted mb-2">{{ project_desc }}</p>
+      <p id="{{ project_id }}-desc" class="card-text text-muted mb-2 text-truncate-2">{{ project_desc }}</p>
       <div class="mt-auto">
         <p id="{{ project_id }}-tools" class="card-text mb-0">
           {%- for tool in project_tools -%}
-          <span class="badge badge-pill text-primary border border-primary ml-1">{{ tool }}</span>
+          <span class="badge badge-pill ml-1">{{ tool }}</span>
           {%- endfor -%}
         </p>
       </div>
