@@ -1,5 +1,5 @@
 // ==========================================================================
-// Project Cards — Enhanced with gradient hover, better visual hierarchy
+// Project Cards — Sharp edges, navy/gold corporate aesthetic
 // ==========================================================================
 
 .project.card {
@@ -8,7 +8,8 @@
   margin: 10px auto;
   border: 1px solid $border-light;
   overflow: hidden;
-  transition: transform 400ms ease, box-shadow 400ms ease;
+  transition: transform $transition-base, box-shadow $transition-base,
+              border-color $transition-base;
 
   .card-img-top {
     border-radius: $rounded-borders $rounded-borders 0 0;
@@ -16,11 +17,12 @@
   }
 
   &:hover:not(.post) {
-    transform: translateY(-6px) scale(1.02);
+    transform: translateY(-4px);
     box-shadow: $shadow-lg;
+    border-color: rgba($accent, 0.35);
 
     .card-img-top {
-      transform: scale(1.05);
+      transform: scale(1.04);
     }
 
     .card-img-overlay {
@@ -54,33 +56,38 @@
   right: 0;
   bottom: 0;
   top: 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.0) 50%, rgba(0, 0, 0, 0.3));
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.0) 50%, rgba(13, 31, 60, 0.35));
   pointer-events: none;
-  transition: background 400ms ease;
+  transition: background $transition-base;
 }
 
 .card-body {
   .card-title {
+    font-family: "Playfair Display", Georgia, serif;
     font-weight: 600;
-    font-size: 1.05rem;
-    transition: color 300ms ease;
+    font-size: 1rem;
+    color: $primary;
+    transition: color $transition-fast;
   }
 
   .card-text {
-    font-size: 0.9rem;
-    line-height: 1.5;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: $text-muted-light;
   }
 }
 
-// Tool badges — glassmorphism style
+// Tool badges — minimal uppercase labels
 .project.card .badge {
-  background: rgba($primary, 0.08);
+  background: rgba($primary, 0.06);
   color: $primary;
-  border: 1px solid rgba($primary, 0.2);
-  font-weight: 500;
-  font-size: 0.75rem;
-  padding: 0.3em 0.7em;
-  backdrop-filter: blur(4px);
+  border: 1px solid rgba($primary, 0.18);
+  font-weight: 600;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.25em 0.65em;
+  border-radius: $rounded-borders;
 }
 
 .text-truncate-2 {

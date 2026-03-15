@@ -1,5 +1,5 @@
 // ==========================================================================
-// Landing / Hero Section — Gradient bg, glowing profile, typed text
+// Landing / Hero Section — Navy backdrop, gold accents, premium serif headers
 // ==========================================================================
 
 .hero-section {
@@ -9,33 +9,40 @@
   justify-content: center;
   position: relative;
   overflow: hidden;
-  padding: 4rem 1rem;
+  padding: 5rem 1rem;
   background: $gradient-hero;
   border-radius: 0 0 $rounded-lg $rounded-lg;
   margin: -1.5rem -15px 2rem;
 
-  // Animated mesh overlay
+  // Subtle diagonal stripe overlay (law-firm texture)
   &::before {
     content: "";
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.08) 0%, transparent 50%),
-                radial-gradient(circle at 70% 60%, rgba(0,210,255,0.1) 0%, transparent 50%);
-    animation: heroMesh 15s ease-in-out infinite;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 80px,
+      rgba(255,255,255,0.02) 80px,
+      rgba(255,255,255,0.02) 81px
+    );
     pointer-events: none;
+  }
+
+  // Gold bottom accent line
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: $gradient-accent;
+    border-radius: 2px;
   }
 }
 
-@keyframes heroMesh {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  33% { transform: translate(2%, -2%) rotate(1deg); }
-  66% { transform: translate(-1%, 1%) rotate(-0.5deg); }
-}
-
-// Profile image with glow ring
+// Profile image — sharp border, gold ring
 .profile-image {
   display: block;
   width: 160px;
@@ -44,19 +51,17 @@
   border-radius: 50%;
   object-fit: cover;
   object-position: center 35%;
-  padding: 4px;
-  background: white;
-  box-shadow: 0 0 0 4px rgba(108, 99, 255, 0.3),
-              0 0 40px rgba(108, 99, 255, 0.2),
-              $shadow-lg;
-  transition: transform 300ms ease, box-shadow 300ms ease;
+  padding: 3px;
+  background: $gradient-accent;
+  box-shadow: 0 0 0 6px rgba(197, 160, 40, 0.2),
+              0 8px 40px rgba(0, 0, 0, 0.4);
+  transition: transform $transition-base, box-shadow $transition-base;
 }
 
 .profile-image:hover {
   transform: translateY(-4px) scale(1.03);
-  box-shadow: 0 0 0 6px rgba(108, 99, 255, 0.4),
-              0 0 60px rgba(108, 99, 255, 0.3),
-              $shadow-lg;
+  box-shadow: 0 0 0 8px rgba(197, 160, 40, 0.35),
+              0 12px 48px rgba(0, 0, 0, 0.5);
 }
 
 // Hero text content
@@ -68,37 +73,53 @@
 }
 
 .hero-name {
-  font-size: 2.5rem;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 2.6rem;
   font-weight: 700;
   color: #fff;
   margin-bottom: 0.25rem;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
 
   @media (min-width: 768px) {
-    font-size: 3rem;
+    font-size: 3.2rem;
   }
 }
 
 .hero-subtitle {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.85);
-  font-weight: 400;
-  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
 }
 
-// CSS-only typewriter effect
+// Thin gold rule under name
+.hero-divider {
+  width: 50px;
+  height: 2px;
+  background: $gradient-accent;
+  margin: 0.75rem auto 1.25rem;
+  border: none;
+  border-radius: 2px;
+}
+
+// Typewriter / tagline
 .hero-typed {
   display: inline-block;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.95);
-  border-right: 2px solid rgba(255, 255, 255, 0.8);
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.88);
+  border-right: 2px solid rgba(197, 160, 40, 0.8);
   padding-right: 4px;
   white-space: nowrap;
   overflow: hidden;
   animation: typing 3.5s steps(40) 1s 1 normal both,
              blink 0.75s step-end infinite;
   max-width: 100%;
+  letter-spacing: 0.03em;
 }
 
 @keyframes typing {
@@ -110,48 +131,49 @@
   50% { border-color: transparent; }
 }
 
-// Glass badges on hero
+// Status badges — minimal, law-firm style
 .hero-badge {
   display: inline-block;
-  padding: 0.35rem 1rem;
+  padding: 0.3rem 0.9rem;
   margin: 0.25rem;
   border-radius: $rounded-pill;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 500;
-  color: #fff;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: background 200ms ease, transform 200ms ease;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(197, 160, 40, 0.15);
+  border: 1px solid rgba(197, 160, 40, 0.4);
+  transition: background $transition-fast, transform $transition-fast;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(197, 160, 40, 0.28);
     transform: translateY(-2px);
   }
 }
 
-// Social links on hero
+// Social links — gold on hover
 .hero-social-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  color: #fff;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.7);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.25);
   margin: 0 0.35rem;
-  font-size: 1.1rem;
+  font-size: 1rem;
   text-decoration: none;
-  transition: background 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+  transition: color $transition-fast, border-color $transition-fast,
+              background $transition-fast, transform $transition-fast;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.25);
+    color: $accent;
+    border-color: $accent;
+    background: rgba(197, 160, 40, 0.12);
     transform: translateY(-3px);
-    box-shadow: 0 4px 16px rgba(108, 99, 255, 0.3);
-    color: #fff;
     text-decoration: none;
   }
 }
@@ -162,8 +184,8 @@
   bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 1.2rem;
   animation: bounce 2s infinite;
 }
 

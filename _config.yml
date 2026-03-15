@@ -34,7 +34,7 @@ nav_exclude:                                            # The following paths ar
 ### Author Info ###
 author:
   name              : Suprith Chandra Shekar
-  image             : /assets/headshots/headshot_suprith.png
+  image             : https://avatars.githubusercontent.com/SuprithChandrashekar
 #  behance           : your_username
 # dribbble          : your_username
   email             : suprith2@illinois.edu

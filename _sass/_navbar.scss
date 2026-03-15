@@ -1,18 +1,19 @@
 .navbar-themed {
-  padding: 1rem 0;
-  transition: background 300ms ease, box-shadow 300ms ease;
+  padding: 0.9rem 0;
+  transition: background $transition-base, box-shadow $transition-base;
   background: $glass-bg;
   backdrop-filter: blur($glass-blur);
   -webkit-backdrop-filter: blur($glass-blur);
+  border-bottom: 1px solid $border-light;
 }
 
 .navbar-brand {
   h5 {
-    background: $gradient-accent;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-family: "Playfair Display", Georgia, serif;
     font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 0.04em;
+    color: $primary;
     margin-bottom: 0;
   }
 
@@ -23,65 +24,65 @@
 
 .nav-link {
   position: relative;
+  font-family: "Inter", sans-serif;
   font-weight: 500;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   padding: 0.5rem 1rem !important;
-  transition: color 200ms ease;
+  color: $secondary;
+  transition: color $transition-fast;
 
   &::after {
     content: "";
     display: block;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: $primary;
-    margin: 4px auto 0;
-    opacity: 0;
-    transform: scale(0);
-    transition: opacity 200ms ease, transform 200ms ease;
+    width: 100%;
+    height: 1px;
+    background: $gradient-accent;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform $transition-fast;
   }
 
   &:hover::after {
-    opacity: 1;
-    transform: scale(1);
+    transform: scaleX(1);
   }
 }
 
 .nav-item.active {
-  font-weight: 600;
+  .nav-link {
+    color: $primary;
 
-  .nav-link::after,
-  &::after {
-    content: "";
-    display: block;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: $primary;
-    margin: 4px auto 0;
-    opacity: 1;
-    transform: scale(1);
+    &::after {
+      transform: scaleX(1);
+    }
   }
 }
 
 #theme-toggler {
   cursor: pointer;
-  font-size: 1.2rem;
+  font-size: 1rem;
   padding: 0.4rem 0.6rem !important;
   border-radius: $rounded-pill;
-  transition: background 200ms ease;
+  border: 1px solid $border-light;
+  transition: background $transition-fast, border-color $transition-fast;
 
   &:hover {
-    background: rgba($primary, 0.1);
+    background: rgba($accent, 0.1);
+    border-color: rgba($accent, 0.4);
   }
 }
 
 .navbar-toggler {
-  border: none;
-  padding: 0.5rem;
+  border: 1px solid $border-light;
+  padding: 0.4rem 0.6rem;
+  border-radius: $rounded-borders;
 
   &:focus {
     outline: none;
-    box-shadow: none;
+    box-shadow: 0 0 0 3px rgba($accent, 0.2);
   }
 }
