@@ -1,5 +1,5 @@
 // ==========================================================================
-// Footer — Gold top accent, professional layout
+// Footer — Contact section with teal accents (inspired by reference)
 // ==========================================================================
 
 footer.site-footer {
@@ -8,7 +8,7 @@ footer.site-footer {
   margin-top: 4rem;
   border-top: 1px solid $border-light;
 
-  // Thin gold top accent line
+  // Thin teal top accent line
   &::before {
     content: "";
     position: absolute;
@@ -22,7 +22,7 @@ footer.site-footer {
 }
 
 .footer-brand {
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: "Inter", sans-serif;
   font-weight: 700;
   font-size: 1.2rem;
   color: $primary;
@@ -41,13 +41,13 @@ footer.site-footer {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: $rounded-borders;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   color: $text-muted-light;
   border: 1px solid $border-light;
   margin: 0 0.3rem;
-  font-size: 0.9rem;
+  font-size: 1rem;
   text-decoration: none;
   transition: color $transition-fast, border-color $transition-fast,
               background $transition-fast, transform $transition-fast;

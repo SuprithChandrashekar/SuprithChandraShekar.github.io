@@ -11,6 +11,8 @@ Hi, I’m **{{ site.author.name }}** — an M.S Industrial Engineering graduate 
 
 On this site you’ll find a few highlights, including my HFT Strategy Generator, an IEX market data processing workflow, and small productivity tools. I like working at the intersection of operations, solutioning, and engineering where clear problem framing and robust understanding of a subject matters.
 
+{% include whatido.html %}
+
 <div class="row">
 {% include about/skills.html title="Programming Skills" source=site.data.programming-skills %}
 {% include about/skills.html title="Other Skills" source=site.data.other-skills %}
