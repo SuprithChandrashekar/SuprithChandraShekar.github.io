@@ -6,19 +6,25 @@ html {
 body {
   font-family: "Inter", sans-serif;
   font-weight: 400;
-  line-height: 1.6;
-  letter-spacing: -0.01em;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+  color: $text-black;
+  background-color: $surface-light;
 }
 
 h1, h2, h3, h4, h5, h6 {
+  font-family: "Playfair Display", Georgia, serif;
   font-weight: 700;
   line-height: 1.2;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
+  color: $primary;
 }
 
 .badge {
   font-weight: 500;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
 }
 
 .bg-light,
@@ -51,11 +57,21 @@ h1, h2, h3, h4, h5, h6 {
   text-align: right;
 }
 
+// Gold gradient text — use for headings, brand elements
 .gradient-text {
   background: $gradient-accent;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+// Thin gold divider rule
+.gold-rule {
+  border: none;
+  height: 1px;
+  background: $gradient-accent;
+  margin: 2rem auto;
+  width: 60px;
 }
 
 .glass {
@@ -67,6 +83,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::selection {
-  background: rgba($primary, 0.2);
-  color: $primary;
+  background: rgba($accent, 0.25);
+  color: #9A7A10;
 }

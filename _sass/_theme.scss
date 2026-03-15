@@ -17,13 +17,20 @@
 }
 
 .navbar-themed {
-  .navbar-brand,
-  .navbar-nav .nav-link.active {
-    @include themed(color, $text-black, $text-white);
+  .navbar-brand h5 {
+    @include themed(color, $primary, #E8CC6A);
   }
 
   .navbar-nav .nav-link {
-    @include themed(color, rgba($text-black, 0.6), rgba($text-white, 0.6));
+    @include themed(color, $secondary, rgba($text-white, 0.75));
+
+    &:hover {
+      @include themed(color, $primary, $text-white);
+    }
+  }
+
+  .nav-item.active .nav-link {
+    @include themed(color, $primary, $text-white);
   }
 
   @include themed(background, $glass-bg, $glass-bg-dark);

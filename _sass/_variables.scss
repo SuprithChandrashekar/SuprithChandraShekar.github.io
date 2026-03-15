@@ -1,52 +1,52 @@
 // ==========================================================================
-// Design Tokens — Multi-Agent Portfolio Bridge
+// Design Tokens — Suits-Inspired: Navy · Charcoal · Gold
 // ==========================================================================
 
-$primary:       #6C63FF;
-$secondary:     #2D3436;
-$accent:        #00D2FF;
-$success:       #10B981;
-$info:          #818CF8;
-$warning:       #F59E0B;
-$danger:        #EF4444;
-$light:         #F8F9FE;
-$dark:          #1E293B;
+$primary:       #0D1F3C;   // deep navy
+$secondary:     #2C3E50;   // charcoal
+$accent:        #C5A028;   // metallic gold
+$success:       #1A7A4A;
+$info:          #1B4F8A;   // royal blue
+$warning:       #D4A017;
+$danger:        #C0392B;
+$light:         #F5F3EE;   // warm off-white
+$dark:          #060F1E;   // near-black navy
 
-$gradient-hero:       linear-gradient(135deg, #6C63FF 0%, #00D2FF 100%);
-$gradient-hero-dark:  linear-gradient(135deg, #312E81 0%, #0F172A 100%);
-$gradient-accent:     linear-gradient(135deg, #6C63FF 0%, #00D2FF 100%);
-$gradient-card-hover: linear-gradient(135deg, rgba(108,99,255,0.6) 0%, rgba(0,210,255,0.6) 100%);
+$gradient-hero:       linear-gradient(160deg, #0D1F3C 0%, #1B3A5C 60%, #0D1F3C 100%);
+$gradient-hero-dark:  linear-gradient(160deg, #060F1E 0%, #0D1F3C 100%);
+$gradient-accent:     linear-gradient(135deg, #C5A028 0%, #E8CC6A 100%);
+$gradient-card-hover: linear-gradient(135deg, rgba(13,31,60,0.7) 0%, rgba(197,160,40,0.25) 100%);
 
-$text-black: #1A1A2E;
-$text-white: rgba(255, 255, 255, 0.87);
+$text-black: #1A1A1A;
+$text-white: rgba(255, 255, 255, 0.92);
 $text-muted-light: #6B7280;
-$text-muted-dark:  #94A3B8;
+$text-muted-dark:  #9CA3AF;
 
 $surface-light:    #FFFFFF;
-$surface-elevated: #F8F9FE;
+$surface-elevated: #F5F3EE;
 
-$dark-900: #0F172A;
-$dark-600: #1E293B;
-$dark-300: #334155;
-$dark-100: #475569;
+$dark-900: #060F1E;
+$dark-600: #0D1F3C;
+$dark-300: #162840;
+$dark-100: #1B3A5C;
 
-$border-light: rgba(108, 99, 255, 0.12);
-$border-dark:  rgba(129, 140, 248, 0.15);
+$border-light: rgba(13, 31, 60, 0.12);
+$border-dark:  rgba(197, 160, 40, 0.2);
 
-$rounded-borders: 16px;
-$rounded-lg:      24px;
+$rounded-borders: 4px;    // sharp, corporate corners
+$rounded-lg:      8px;
 $rounded-pill:    50px;
 
-$shadow-sm:  0 2px 8px rgba(108, 99, 255, 0.08);
-$shadow-md:  0 4px 16px rgba(108, 99, 255, 0.12);
-$shadow-lg:  0 8px 32px rgba(108, 99, 255, 0.16);
-$shadow-glow: 0 0 20px rgba(108, 99, 255, 0.3);
+$shadow-sm:  0 2px 8px rgba(13, 31, 60, 0.08);
+$shadow-md:  0 4px 16px rgba(13, 31, 60, 0.14);
+$shadow-lg:  0 8px 32px rgba(13, 31, 60, 0.18);
+$shadow-glow: 0 0 24px rgba(197, 160, 40, 0.35);
 
-$glass-bg:      rgba(255, 255, 255, 0.7);
-$glass-bg-dark: rgba(15, 23, 42, 0.7);
+$glass-bg:      rgba(255, 255, 255, 0.88);
+$glass-bg-dark: rgba(6, 15, 30, 0.88);
 $glass-blur:    12px;
-$glass-border:  1px solid rgba(255, 255, 255, 0.18);
-$glass-border-dark: 1px solid rgba(129, 140, 248, 0.15);
+$glass-border:  1px solid rgba(197, 160, 40, 0.18);
+$glass-border-dark: 1px solid rgba(197, 160, 40, 0.25);
 
 $transition-fast: 200ms ease;
 $transition-base: 300ms ease;

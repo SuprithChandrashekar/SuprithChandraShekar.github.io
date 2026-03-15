@@ -1,17 +1,19 @@
 // ==========================================================================
-// Skills — Radial ring cards (replaces progress bars)
+// Skills — Gold-ring cards, corporate professionalism
 // ==========================================================================
 
 .skill-card {
   background: $surface-elevated;
   border-radius: $rounded-borders;
   border: 1px solid $border-light;
-  transition: transform 300ms ease, box-shadow 300ms ease;
+  transition: transform $transition-base, box-shadow $transition-base,
+              border-color $transition-base;
   height: 100%;
 
   &:hover {
     transform: translateY(-4px);
     box-shadow: $shadow-md;
+    border-color: rgba($accent, 0.3);
   }
 }
 
@@ -25,12 +27,11 @@
 }
 
 .skill-ring-bg {
-  stroke: $surface-elevated;
-  stroke: rgba($primary, 0.1);
+  stroke: rgba($primary, 0.08);
 }
 
 .skill-ring-fill {
-  stroke: $primary;
+  stroke: $accent;
   transition: stroke-dasharray 1.2s ease;
 }
 
@@ -39,18 +40,25 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 0.8rem;
-  font-weight: 600;
+  font-size: 0.78rem;
+  font-weight: 700;
   color: $primary;
-  font-family: "JetBrains Mono", monospace;
+  font-family: "Inter", sans-serif;
+  letter-spacing: 0.02em;
 }
 
 .skill-name {
-  font-size: 0.85rem;
+  font-family: "Inter", sans-serif;
+  font-size: 0.82rem;
   font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   line-height: 1.3;
+  color: $primary;
 }
 
 .skill-level {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
+  color: $text-muted-light;
+  letter-spacing: 0.04em;
 }

@@ -1,13 +1,14 @@
 // ==========================================================================
-// Footer — Gradient top border, modern layout
+// Footer — Gold top accent, professional layout
 // ==========================================================================
 
 footer.site-footer {
   position: relative;
   padding: 3rem 0 2rem;
   margin-top: 4rem;
+  border-top: 1px solid $border-light;
 
-  // Gradient top divider
+  // Thin gold top accent line
   &::before {
     content: "";
     position: absolute;
@@ -21,38 +22,40 @@ footer.site-footer {
 }
 
 .footer-brand {
+  font-family: "Playfair Display", Georgia, serif;
   font-weight: 700;
-  font-size: 1.25rem;
-  background: $gradient-accent;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-size: 1.2rem;
+  color: $primary;
+  letter-spacing: 0.02em;
 }
 
 .footer-tagline {
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   color: $text-muted-light;
   margin-top: 0.5rem;
+  font-weight: 300;
+  letter-spacing: 0.03em;
 }
 
 .footer-social-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  border-radius: $rounded-borders;
   color: $text-muted-light;
   border: 1px solid $border-light;
   margin: 0 0.3rem;
-  font-size: 1rem;
+  font-size: 0.9rem;
   text-decoration: none;
-  transition: all 200ms ease;
+  transition: color $transition-fast, border-color $transition-fast,
+              background $transition-fast, transform $transition-fast;
 
   &:hover {
-    color: $primary;
-    border-color: $primary;
-    background: rgba($primary, 0.08);
+    color: $accent;
+    border-color: $accent;
+    background: rgba($accent, 0.08);
     transform: translateY(-2px);
     text-decoration: none;
   }
@@ -63,10 +66,12 @@ footer.site-footer {
 }
 
 #attribution {
-  opacity: 0.5;
+  opacity: 0.4;
+  font-size: 0.75rem;
   a {
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 600;
+    color: $accent;
   }
 }
 
@@ -81,11 +86,12 @@ footer.site-footer {
 }
 
 .footer-copyright {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: $text-muted-light;
   margin-top: 2rem;
   padding-top: 1.5rem;
   border-top: 1px solid $border-light;
+  letter-spacing: 0.04em;
 
   .heart-icon {
     color: $danger;

@@ -1,11 +1,15 @@
 // ==========================================================================
-// Dark Mode — Deep navy with rich accent glows
+// Dark Mode — Deep navy with gold accents (The Suits night look)
 // ==========================================================================
 
 [data-theme="dark"] {
   body {
     background-color: $dark-900;
     color: $text-white;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: #E8CC6A;   // warm gold for headings in dark mode
   }
 
   // Code syntax
@@ -28,41 +32,47 @@
     color: $text-white;
 
     &::placeholder {
-      color: rgba($text-white, 0.5);
+      color: rgba($text-white, 0.4);
     }
 
     &:focus {
       background-color: $dark-600;
       color: $text-white;
-      border-color: $info;
-      box-shadow: 0 0 0 3px rgba($info, 0.15);
+      border-color: $accent;
+      box-shadow: 0 0 0 3px rgba($accent, 0.15);
     }
   }
 
   // Cards
   .card {
-    background-color: $dark-600;
+    background-color: $dark-300;
     border-color: $border-dark;
   }
 
   .card.border {
     .card-footer {
-      background-color: rgba(0, 0, 0, 0.15);
+      background-color: rgba(0, 0, 0, 0.2);
     }
   }
 
   // Project cards
   .project.card {
     border-color: $border-dark;
+    background-color: $dark-300;
+
+    .card-title {
+      color: #E8CC6A;
+    }
 
     .badge {
-      background: rgba($info, 0.12);
-      color: $info;
-      border-color: rgba($info, 0.25);
+      background: rgba($accent, 0.1);
+      color: #E8CC6A;
+      border-color: rgba($accent, 0.25);
     }
 
     &:hover:not(.post) {
-      box-shadow: 0 8px 32px rgba($info, 0.15);
+      box-shadow: 0 8px 32px rgba($accent, 0.12);
+      border-color: rgba($accent, 0.4);
     }
   }
 
@@ -73,18 +83,18 @@
     }
 
     tr:nth-child(even) {
-      background-color: $dark-600;
+      background-color: $dark-300;
     }
   }
 
   // Lists
   .list-group-item-action {
-    background-color: $dark-600;
+    background-color: $dark-300;
     color: $text-white;
 
     &:hover,
     &:focus {
-      background-color: $dark-300;
+      background-color: $dark-100;
     }
   }
 
@@ -96,16 +106,16 @@
   // Timeline
   .timeline-body .timeline-item:after {
     background-color: $dark-900;
-    border-color: $info;
+    border-color: $accent;
   }
 
   .timeline-body .timeline-item .content {
-    background: $dark-600;
+    background: $dark-300;
     border-color: $border-dark;
 
     .date {
-      background: rgba($info, 0.12);
-      color: $info;
+      background: rgba($accent, 0.12);
+      color: #E8CC6A;
     }
 
     p {
@@ -119,25 +129,50 @@
   }
 
   .profile-image {
-    background: $dark-600;
-    box-shadow: 0 0 0 4px rgba($info, 0.3),
-                0 0 40px rgba($info, 0.15),
-                0 8px 32px rgba(0, 0, 0, 0.3);
+    background: $gradient-accent;
+    box-shadow: 0 0 0 6px rgba($accent, 0.2),
+                0 8px 40px rgba(0, 0, 0, 0.5);
   }
 
   // Skills dark mode
   .skill-card {
-    background: $dark-600;
+    background: $dark-300;
     border-color: $border-dark;
   }
 
   .skill-ring-bg {
-    stroke: $dark-300;
+    stroke: rgba($accent, 0.1);
+  }
+
+  .skill-ring-fill {
+    stroke: #E8CC6A;
+  }
+
+  .skill-percentage {
+    color: #E8CC6A;
+  }
+
+  .skill-name {
+    color: $text-white;
+  }
+
+  // Navbar dark
+  .navbar-themed {
+    background: $glass-bg-dark;
+    border-bottom-color: $border-dark;
   }
 
   // Footer dark mode
-  footer.site-footer::before {
-    background: linear-gradient(135deg, $info 0%, #22D3EE 100%);
+  footer.site-footer {
+    border-top-color: $border-dark;
+
+    &::before {
+      background: $gradient-accent;
+    }
+  }
+
+  .footer-brand {
+    color: #E8CC6A;
   }
 
   .footer-social-link {
@@ -145,9 +180,9 @@
     border-color: $border-dark;
 
     &:hover {
-      color: $info;
-      border-color: $info;
-      background: rgba($info, 0.1);
+      color: #E8CC6A;
+      border-color: $accent;
+      background: rgba($accent, 0.1);
     }
   }
 
@@ -164,7 +199,7 @@
 
   // Selection
   ::selection {
-    background: rgba($info, 0.3);
-    color: $info;
+    background: rgba($accent, 0.3);
+    color: #E8CC6A;
   }
 }
