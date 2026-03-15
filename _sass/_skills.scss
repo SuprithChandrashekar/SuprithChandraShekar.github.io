@@ -1,5 +1,5 @@
 // ==========================================================================
-// Skills — Gold-ring cards, corporate professionalism
+// Skills — Teal-ring cards, clean modern aesthetic
 // ==========================================================================
 
 .skill-card {
@@ -27,7 +27,7 @@
 }
 
 .skill-ring-bg {
-  stroke: rgba($primary, 0.08);
+  stroke: rgba($accent, 0.08);
 }
 
 .skill-ring-fill {
@@ -42,7 +42,7 @@
   transform: translate(-50%, -50%);
   font-size: 0.78rem;
   font-weight: 700;
-  color: $primary;
+  color: $accent-dark;
   font-family: "Inter", sans-serif;
   letter-spacing: 0.02em;
 }

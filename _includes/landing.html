@@ -1,39 +1,49 @@
-<!-- Hero Section — Multi-Agent Portfolio Bridge Redesign -->
+<!-- Hero Section — Full viewport landing inspired by rajesh-portfolio -->
 <div class="hero-section">
+
+  <!-- Decorative glow circles -->
+  <div class="hero-glow hero-glow-1"></div>
+  <div class="hero-glow hero-glow-2"></div>
+
   <div class="hero-content">
+    <div class="hero-layout">
 
-    <!-- Profile Image with Glow Ring -->
-    <div class="mb-4 wow animated zoomIn" data-wow-delay=".1s">
-      <img src="{{ site.author.image }}" alt="{{ site.title }}" class="profile-image">
+      <!-- Left: Intro -->
+      <div class="hero-intro wow animated fadeInLeft" data-wow-delay=".2s">
+        <h2 class="hero-hello">Hello! I'm</h2>
+        <h1 class="hero-name">
+          {% assign name_parts = site.author.name | split: " " %}
+          {{ name_parts[0] | upcase }}
+          <br>
+          <span>{{ name_parts[1] | upcase }} {{ name_parts[2] | upcase }}</span>
+        </h1>
+      </div>
+
+      <!-- Center: Profile Image -->
+      <div class="hero-image-wrap wow animated zoomIn" data-wow-delay=".1s">
+        <img src="{{ site.author.image }}" alt="{{ site.title }}" class="profile-image">
+      </div>
+
+      <!-- Right: Role -->
+      <div class="hero-info wow animated fadeInRight" data-wow-delay=".3s">
+        <h3 class="hero-role-label">An AI &amp; Systems</h3>
+        <h2 class="hero-role-title">
+          <span class="hero-role-accent">Engineer</span>
+        </h2>
+        <h2 class="hero-role-subtitle">Strategist</h2>
+      </div>
+
     </div>
 
-    <!-- Name with gradient -->
-    <h1 class="hero-name wow animated fadeInUp" data-wow-delay=".2s">
-      {{ site.author.name }}
-    </h1>
-
-    <!-- Gold divider -->
-    <hr class="hero-divider wow animated fadeIn" data-wow-delay=".25s">
-
-    <!-- Subtitle -->
-    <p class="hero-subtitle wow animated fadeInUp" data-wow-delay=".3s">
-      M.S. Industrial Engineering — University of Illinois Urbana-Champaign
-    </p>
-
-    <!-- Typewriter Effect -->
-    <div class="mb-3 wow animated fadeIn" data-wow-delay=".5s">
-      <span class="hero-typed">Building solutions across AI, automation & engineering</span>
-    </div>
-
-    <!-- Glass Badges -->
-    <div class="mb-4 wow animated fadeInUp" data-wow-delay=".4s">
+    <!-- Badges -->
+    <div class="hero-badges wow animated fadeInUp" data-wow-delay=".4s">
       <span class="hero-badge">Ex-Deloitte Consultant</span>
-      <span class="hero-badge">Strategist</span>
-      <span class="hero-badge">Engineer</span>
+      <span class="hero-badge">M.S. Industrial Engineering — UIUC</span>
+      <span class="hero-badge">AI &amp; Automation</span>
     </div>
 
     <!-- Social Links -->
-    <div class="wow animated fadeInUp" data-wow-delay=".5s">
+    <div class="hero-socials wow animated fadeInUp" data-wow-delay=".5s">
       {% if site.author.github %}
         <a href="https://github.com/{{ site.author.github }}" class="hero-social-link" target="_blank" title="GitHub">
           <i class="fab fa-github"></i>
@@ -50,7 +60,6 @@
         </a>
       {% endif %}
     </div>
-
   </div>
 
   <!-- Scroll Down Indicator -->
