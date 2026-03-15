@@ -12,3 +12,10 @@ __pycache__/
 .DS_Store
 
 Gemfile.lock
+
+# Jekyll build output — GitHub Pages rebuilds from source
+_site/
+
+# Bundler local gems cache
+vendor/
+.bundle/
