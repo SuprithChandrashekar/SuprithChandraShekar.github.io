@@ -13,22 +13,11 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Inter", sans-serif;
+  font-family: "Playfair Display", Georgia, serif;
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.01em;
   color: $primary;
-}
-
-a {
-  color: inherit;
-  text-decoration: inherit;
-  transition: color $transition-fast;
-
-  &:hover {
-    color: $accent;
-    text-decoration: none;
-  }
 }
 
 .badge {
@@ -68,7 +57,7 @@ a {
   text-align: right;
 }
 
-// Teal gradient text — use for headings, brand elements
+// Gold gradient text — use for headings, brand elements
 .gradient-text {
   background: $gradient-accent;
   -webkit-background-clip: text;
@@ -76,10 +65,10 @@ a {
   background-clip: text;
 }
 
-// Thin teal divider rule
+// Thin gold divider rule
 .gold-rule {
   border: none;
-  height: 2px;
+  height: 1px;
   background: $gradient-accent;
   margin: 2rem auto;
   width: 60px;
@@ -96,11 +85,4 @@ a {
 ::selection {
   background: rgba($accent, 0.25);
   color: $accent-dark;
-}
-
-// Section container utility
-.section-container {
-  width: 94%;
-  max-width: 1200px;
-  margin: auto;
 }

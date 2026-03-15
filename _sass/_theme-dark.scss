@@ -1,5 +1,5 @@
 // ==========================================================================
-// Dark Mode — Deep dark with teal accents
+// Dark Mode — Deep navy with gold accents (The Suits night look)
 // ==========================================================================
 
 [data-theme="dark"] {
@@ -9,7 +9,7 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    color: $text-white;
+    color: #E8CC6A;   // warm gold for headings in dark mode
   }
 
   // Code syntax
@@ -61,18 +61,18 @@
     background-color: $dark-300;
 
     .card-title {
-      color: $text-white;
+      color: #E8CC6A;
     }
 
     .badge {
       background: rgba($accent, 0.1);
-      color: $accent;
+      color: #E8CC6A;
       border-color: rgba($accent, 0.25);
     }
 
     &:hover:not(.post) {
       box-shadow: 0 8px 32px rgba($accent, 0.12);
-      border-color: rgba($accent, 0.35);
+      border-color: rgba($accent, 0.4);
     }
   }
 
@@ -115,7 +115,7 @@
 
     .date {
       background: rgba($accent, 0.12);
-      color: $accent;
+      color: #E8CC6A;
     }
 
     p {
@@ -130,7 +130,7 @@
 
   .profile-image {
     background: $gradient-accent;
-    box-shadow: 0 0 0 6px rgba($accent, 0.15),
+    box-shadow: 0 0 0 6px rgba($accent, 0.2),
                 0 8px 40px rgba(0, 0, 0, 0.5);
   }
 
@@ -145,11 +145,11 @@
   }
 
   .skill-ring-fill {
-    stroke: $accent;
+    stroke: #E8CC6A;
   }
 
   .skill-percentage {
-    color: $accent;
+    color: #E8CC6A;
   }
 
   .skill-name {
@@ -172,7 +172,7 @@
   }
 
   .footer-brand {
-    color: $accent;
+    color: #E8CC6A;
   }
 
   .footer-social-link {
@@ -180,7 +180,7 @@
     border-color: $border-dark;
 
     &:hover {
-      color: $accent;
+      color: #E8CC6A;
       border-color: $accent;
       background: rgba($accent, 0.1);
     }
@@ -197,36 +197,9 @@
     border: $glass-border-dark;
   }
 
-  // Gradient text in dark mode
-  .gradient-text {
-    background: $gradient-accent;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  // About section heading
-  .markdown-body h1 strong {
-    color: $text-white;
-  }
-
-  // What I Do section
-  .whatido-section {
-    .whatido-card {
-      background: $dark-300;
-      border-color: rgba($accent, 0.15);
-    }
-
-    .whatido-tag {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(255, 255, 255, 0.2);
-      color: $text-white;
-    }
-  }
-
   // Selection
   ::selection {
     background: rgba($accent, 0.3);
-    color: $accent;
+    color: #E8CC6A;
   }
 }

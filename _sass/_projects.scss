@@ -1,5 +1,5 @@
 // ==========================================================================
-// Project Cards — Modern dark aesthetic with teal accents
+// Project Cards — Sharp edges, navy/gold corporate aesthetic
 // ==========================================================================
 
 .project.card {
@@ -17,7 +17,7 @@
   }
 
   &:hover:not(.post) {
-    transform: translateY(-6px);
+    transform: translateY(-4px);
     box-shadow: $shadow-lg;
     border-color: rgba($accent, 0.35);
 
@@ -30,7 +30,7 @@
     }
 
     .card-title {
-      color: $accent-dark;
+      color: $primary;
     }
   }
 }
@@ -56,14 +56,14 @@
   right: 0;
   bottom: 0;
   top: 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.0) 50%, rgba(10, 14, 23, 0.35));
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.0) 50%, rgba(13, 31, 60, 0.35));
   pointer-events: none;
   transition: background $transition-base;
 }
 
 .card-body {
   .card-title {
-    font-family: "Inter", sans-serif;
+    font-family: "Playfair Display", Georgia, serif;
     font-weight: 600;
     font-size: 1rem;
     color: $primary;
@@ -77,17 +77,17 @@
   }
 }
 
-// Tool badges — teal pill labels
+// Tool badges — minimal uppercase labels
 .project.card .badge {
-  background: rgba($accent, 0.06);
-  color: $accent-dark;
-  border: 1px solid rgba($accent, 0.2);
+  background: rgba($primary, 0.06);
+  color: $primary;
+  border: 1px solid rgba($primary, 0.18);
   font-weight: 600;
   font-size: 0.65rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 0.25em 0.65em;
-  border-radius: $rounded-pill;
+  border-radius: $rounded-borders;
 }
 
 .text-truncate-2 {

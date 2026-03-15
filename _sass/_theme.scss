@@ -18,18 +18,18 @@
 
 .navbar-themed {
   .navbar-brand h5 {
-    @include themed(color, $primary, $accent);
+    @include themed(color, $primary, #E8CC6A);
   }
 
   .navbar-nav .nav-link {
     @include themed(color, $secondary, rgba($text-white, 0.75));
 
     &:hover {
-      @include themed(color, $accent-dark, $accent);
+      @include themed(color, $primary, $text-white);
     }
   }
 
-  .navbar-nav a.nav-item.nav-link.active {
+  .nav-item.active .nav-link {
     @include themed(color, $primary, $text-white);
   }
 
