@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suprith's Portfolio — Design Explorations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2D333B;
+            --secondary: #ADB5BD;
+            --accent: #E76F51;
+            --text: #EDF2F4;
+            --text-dim: #C8CED5;
+        }
+
+        html, body {
+            font-family: 'Archivo', sans-serif;
+            background: #1a1f25;
+            color: var(--text);
+        }
+
+        .canvas-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+            padding: 60px;
+            background: #1a1f25;
+            min-height: 100vh;
+        }
+
+        .artboard {
+            background: var(--primary);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s;
+        }
+
+        .artboard:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+        }
+
+        .artboard-label {
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(231, 111, 81, 0.2);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .artboard-content {
+            padding: 40px 32px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .artboard-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .artboard-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .artboard-content::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 3px;
+        }
+
+        /* ============================================
+           OPTION 1: Minimal + Sophisticated
+           ============================================ */
+        
+        .o1-hero-text h2 {
+            font-size: 32px;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .o1-hero-text p {
+            font-size: 14px;
+            color: var(--text-dim);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .o1-accent {
+            width: 6px;
+            height: 48px;
+            background: var(--accent);
+            margin-bottom: 20px;
+            border-radius: 3px;
+        }
+
+        .o1-cta {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .o1-cta button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 13px;
+            font-family: inherit;
+        }
+
+        .o1-cta .btn-primary {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 6px 20px rgba(231, 111, 81, 0.25);
+        }
+
+        .o1-cta .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(231, 111, 81, 0.35);
+        }
+
+        .o1-cta .btn-secondary {
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+
+        .o1-cta .btn-secondary:hover {
+            background: rgba(231, 111, 81, 0.1);
+        }
+
+        .o1-projects {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .o1-project-card {
+            padding: 20px;
+            background: rgba(231, 111, 81, 0.06);
+            border: 1px solid rgba(231, 111, 81, 0.15);
+            border-radius: 8px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .o1-project-card:hover {
+            border-color: var(--accent);
+            background: rgba(231, 111, 81, 0.12);
+        }
+
+        .o1-project-tag {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .o1-project-card h3 {
+            font-size: 16px;
+            margin-bottom: 6px;
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        .o1-project-card p {
+            color: var(--text-dim);
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        /* ============================================
+           OPTION 2: Rich Depth + Shadows
+           ============================================ */
+
+        .o2-hero {
+            position: relative;
+            padding: 32px;
+            background: linear-gradient(135deg, rgba(231, 111, 81, 0.12) 0%, rgba(231, 111, 81, 0.04) 100%);
+            border: 1px solid rgba(231, 111, 81, 0.2);
+            border-radius: 12px;
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .o2-hero::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -40%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(231, 111, 81, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .o2-hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .o2-hero h2 {
+            font-size: 32px;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .o2-hero p {
+            font-size: 14px;
+            color: var(--text-dim);
+            margin-bottom: 24px;
+            line-height: 1.7;
+        }
+
+        .o2-accent {
+            width: 6px;
+            height: 48px;
+            background: linear-gradient(180deg, var(--accent) 0%, rgba(231, 111, 81, 0.6) 100%);
+            margin-bottom: 20px;
+            border-radius: 3px;
+            box-shadow: 0 4px 12px rgba(231, 111, 81, 0.2);
+        }
+
+        .o2-cta {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .o2-cta button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 13px;
+            font-family: inherit;
+        }
+
+        .o2-cta .btn-primary {
+            background: linear-gradient(135deg, var(--accent) 0%, #d5642d 100%);
+            color: white;
+            box-shadow: 0 8px 24px rgba(231, 111, 81, 0.3);
+        }
+
+        .o2-cta .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(231, 111, 81, 0.4);
+        }
+
+        .o2-cta .btn-secondary {
+            background: rgba(231, 111, 81, 0.15);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+
+        .o2-cta .btn-secondary:hover {
+            background: rgba(231, 111, 81, 0.25);
+        }
+
+        .o2-projects {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .o2-project-card {
+            padding: 24px;
+            background: linear-gradient(135deg, rgba(231, 111, 81, 0.1) 0%, rgba(231, 111, 81, 0.05) 100%);
+            border: 1px solid rgba(231, 111, 81, 0.2);
+            border-radius: 10px;
+            transition: all 0.3s;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .o2-project-card:hover {
+            border-color: var(--accent);
+            background: linear-gradient(135deg, rgba(231, 111, 81, 0.15) 0%, rgba(231, 111, 81, 0.08) 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(231, 111, 81, 0.15);
+        }
+
+        .o2-project-tag {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .o2-project-card h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        .o2-project-card p {
+            color: var(--text-dim);
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        /* ============================================
+           OPTION 3: Playful + Personality
+           ============================================ */
+
+        .o3-accent {
+            width: 6px;
+            height: 48px;
+            background: var(--accent);
+            margin-bottom: 20px;
+            border-radius: 3px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .o3-hero h2 {
+            font-size: 32px;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent) 0%, #c85a3a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .o3-hero p {
+            font-size: 14px;
+            color: var(--text-dim);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .o3-cta {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .o3-cta button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-size: 13px;
+            font-family: inherit;
+        }
+
+        .o3-cta .btn-primary {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 6px 20px rgba(231, 111, 81, 0.25);
+        }
+
+        .o3-cta .btn-primary:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 10px 28px rgba(231, 111, 81, 0.35);
+        }
+
+        .o3-cta .btn-secondary {
+            background: transparent;
+            color: var(--accent);
+            border: 2px dashed var(--accent);
+        }
+
+        .o3-cta .btn-secondary:hover {
+            background: rgba(231, 111, 81, 0.1);
+            border-style: solid;
+        }
+
+        .o3-projects {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .o3-project-card {
+            padding: 24px;
+            background: rgba(231, 111, 81, 0.08);
+            border: 2px solid rgba(231, 111, 81, 0.2);
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .o3-project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .o3-project-card:hover {
+            border-color: var(--accent);
+            background: rgba(231, 111, 81, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .o3-project-card:hover::before {
+            opacity: 1;
+        }
+
+        .o3-project-tag {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .o3-project-card h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        .o3-project-card p {
+            color: var(--text-dim);
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 1400px) {
+            .canvas-wrapper {
+                grid-template-columns: 1fr;
+                gap: 80px;
+            }
+
+            .artboard {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="canvas-wrapper">
+        <!-- OPTION 1: Minimal + Sophisticated -->
+        <div class="artboard">
+            <div class="artboard-label">Option 1: Minimal & Refined</div>
+            <div class="artboard-content">
+                <div class="o1-hero-text">
+                    <div class="o1-accent"></div>
+                    <h2>AI agent systems for the real world</h2>
+                    <p>Industrial engineer × consultant × LLM builder. Building production-grade agent tooling on Claude.</p>
+                    <div class="o1-cta">
+                        <button class="btn-primary">View work</button>
+                        <button class="btn-secondary">Get in touch</button>
+                    </div>
+                </div>
+
+                <div class="section-title" style="margin-top: 40px;">Projects</div>
+                <div class="o1-projects">
+                    <div class="o1-project-card">
+                        <div class="o1-project-tag">LLM Systems</div>
+                        <h3>Claude Node</h3>
+                        <p>AI-augmented operations workspace. Multi-modal agents, MCP orchestration.</p>
+                    </div>
+                    <div class="o1-project-card">
+                        <div class="o1-project-tag">Finance × AI</div>
+                        <h3>HFT Strategy Generator</h3>
+                        <p>Multi-agent LLM pipeline. Sharpe 0.63 → 1.95.</p>
+                    </div>
+                    <div class="o1-project-card">
+                        <div class="o1-project-tag">Automation</div>
+                        <h3>RuFlow</h3>
+                        <p>Workflow orchestration with retry logic, schema validation.</p>
+                    </div>
+                    <div class="o1-project-card">
+                        <div class="o1-project-tag">Open Source</div>
+                        <h3>OpenClaw</h3>
+                        <p>Modular agent framework. Tool-calling, multi-agent orchestration.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- OPTION 2: Rich Depth + Shadows -->
+        <div class="artboard">
+            <div class="artboard-label">Option 2: Rich & Layered</div>
+            <div class="artboard-content">
+                <div class="o2-hero">
+                    <div class="o2-hero-content">
+                        <div class="o2-accent"></div>
+                        <h2>AI agent systems for the real world</h2>
+                        <p>Industrial engineer × consultant × LLM builder. Building production-grade agent tooling on Claude.</p>
+                        <div class="o2-cta">
+                            <button class="btn-primary">View work</button>
+                            <button class="btn-secondary">Get in touch</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-title">Flagship projects</div>
+                <div class="o2-projects">
+                    <div class="o2-project-card">
+                        <div class="o2-project-tag">LLM Systems</div>
+                        <h3>Claude Node</h3>
+                        <p>AI-augmented operations workspace. Multi-modal agents, MCP orchestration.</p>
+                    </div>
+                    <div class="o2-project-card">
+                        <div class="o2-project-tag">Finance × AI</div>
+                        <h3>HFT Strategy Generator</h3>
+                        <p>Multi-agent LLM pipeline. Sharpe 0.63 → 1.95.</p>
+                    </div>
+                    <div class="o2-project-card">
+                        <div class="o2-project-tag">Automation</div>
+                        <h3>RuFlow</h3>
+                        <p>Workflow orchestration with retry logic, schema validation.</p>
+                    </div>
+                    <div class="o2-project-card">
+                        <div class="o2-project-tag">Open Source</div>
+                        <h3>OpenClaw</h3>
+                        <p>Modular agent framework. Tool-calling, multi-agent orchestration.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- OPTION 3: Playful + Personality -->
+        <div class="artboard">
+            <div class="artboard-label">Option 3: Playful & Bold</div>
+            <div class="artboard-content">
+                <div>
+                    <div class="o3-accent"></div>
+                    <h2 style="font-size: 32px; line-height: 1.2; margin-bottom: 16px; font-weight: 800; background: linear-gradient(135deg, var(--accent) 0%, #c85a3a 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">AI agent systems for the real world</h2>
+                    <p style="font-size: 14px; color: var(--text-dim); line-height: 1.7; margin-bottom: 24px;">Industrial engineer × consultant × LLM builder. Building production-grade agent tooling on Claude.</p>
+                    <div class="o3-cta">
+                        <button class="btn-primary">View work</button>
+                        <button class="btn-secondary">Get in touch</button>
+                    </div>
+                </div>
+
+                <div class="section-title" style="margin-top: 40px;">Flagship projects</div>
+                <div class="o3-projects">
+                    <div class="o3-project-card">
+                        <div class="o3-project-tag">LLM Systems</div>
+                        <h3>Claude Node</h3>
+                        <p>AI-augmented operations workspace. Multi-modal agents, MCP orchestration.</p>
+                    </div>
+                    <div class="o3-project-card">
+                        <div class="o3-project-tag">Finance × AI</div>
+                        <h3>HFT Strategy Generator</h3>
+                        <p>Multi-agent LLM pipeline. Sharpe 0.63 → 1.95.</p>
+                    </div>
+                    <div class="o3-project-card">
+                        <div class="o3-project-tag">Automation</div>
+                        <h3>RuFlow</h3>
+                        <p>Workflow orchestration with retry logic, schema validation.</p>
+                    </div>
+                    <div class="o3-project-card">
+                        <div class="o3-project-tag">Open Source</div>
+                        <h3>OpenClaw</h3>
+                        <p>Modular agent framework. Tool-calling, multi-agent orchestration.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

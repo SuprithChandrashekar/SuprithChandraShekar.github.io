@@ -1,0 +1,14 @@
+# Private / personal documents — never publish
+uploads/
+assets/resume-extracted.txt
+
+# Claude Code local settings
+.claude/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+.idea/
+.vscode/

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suprith's Portfolio – Hero Explorations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --text: #f5f5f5;
+            --text-dim: #a0a0a0;
+            --bg: #0a0a0a;
+            --accent-gold: #d4af37;
+            --accent-sage: #7a9e7e;
+            --accent-teal: #4a8e8e;
+        }
+
+        body {
+            font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(10, 10, 10, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 16px 0;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Instrument Serif', serif;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+            font-size: 14px;
+        }
+
+        nav a {
+            color: var(--text-dim);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--text);
+        }
+
+        /* Hero sections */
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 80px 0;
+        }
+
+        .hero {
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 60px 48px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 48px;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            font-weight: 400;
+            letter-spacing: -1px;
+        }
+
+        .hero .subtitle {
+            font-size: 16px;
+            color: var(--text-dim);
+            margin-bottom: 32px;
+            max-width: 400px;
+            line-height: 1.7;
+        }
+
+        .hero-accent {
+            width: 4px;
+            height: 40px;
+            margin-bottom: 24px;
+        }
+
+        /* Hero 1: Node Graph (Gold) */
+        .hero-1 {
+            --accent: var(--accent-gold);
+        }
+
+        .hero-1 .hero-accent {
+            background: var(--accent);
+        }
+
+        .node-graph {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        /* Hero 2: Terminal (Sage) */
+        .hero-2 {
+            --accent: var(--accent-sage);
+        }
+
+        .hero-2 .hero-accent {
+            background: var(--accent);
+        }
+
+        .terminal-mock {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(122, 158, 126, 0.3);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-family: 'Monaco', monospace;
+            font-size: 11px;
+            color: var(--accent-sage);
+            width: 280px;
+            max-height: 120px;
+            overflow: hidden;
+            line-height: 1.5;
+        }
+
+        .terminal-line {
+            opacity: 0;
+            animation: typeIn 0.5s ease-out forwards;
+        }
+
+        .terminal-line:nth-child(1) { animation-delay: 0.2s; }
+        .terminal-line:nth-child(2) { animation-delay: 0.6s; }
+        .terminal-line:nth-child(3) { animation-delay: 1s; }
+
+        @keyframes typeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Hero 3: Canvas Mesh (Teal) */
+        .hero-3 {
+            --accent: var(--accent-teal);
+        }
+
+        .hero-3 .hero-accent {
+            background: var(--accent);
+        }
+
+        #mesh-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+        }
+
+        /* CTA */
+        .cta {
+            margin-top: 40px;
+            display: flex;
+            gap: 16px;
+            font-size: 14px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: transparent;
+            color: var(--text);
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            font-family: inherit;
+            font-weight: 500;
+        }
+
+        .btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg);
+            border: 1px solid var(--accent);
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+            color: var(--bg);
+        }
+
+        /* Grid helper */
+        .grid-label {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-dim);
+            font-weight: 600;
+            opacity: 0.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .node-graph,
+            .terminal-mock {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="logo">suprith</div>
+            <ul>
+                <li><a href="#projects">projects</a></li>
+                <li><a href="#about">about</a></li>
+                <li><a href="#writing">writing</a></li>
+                <li><a href="#contact">contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="hero-grid">
+            <!-- Hero 1: Node Graph Visualization (Gold Accent) -->
+            <div class="hero hero-1">
+                <div class="grid-label">Option 1: Node Graph</div>
+                <svg class="node-graph" viewBox="0 0 300 300">
+                    <defs>
+                        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <circle cx="150" cy="150" r="60" fill="none" stroke="#d4af37" stroke-width="1" opacity="0.3"/>
+                    <circle cx="100" cy="100" r="40" fill="none" stroke="#d4af37" stroke-width="1" opacity="0.2"/>
+                    <circle cx="200" cy="100" r="40" fill="none" stroke="#d4af37" stroke-width="1" opacity="0.2"/>
+                    <circle cx="100" cy="200" r="40" fill="none" stroke="#d4af37" stroke-width="1" opacity="0.2"/>
+                    <circle cx="200" cy="200" r="40" fill="none" stroke="#d4af37" stroke-width="1" opacity="0.2"/>
+                    
+                    <line x1="150" y1="150" x2="100" y2="100" stroke="#d4af37" stroke-width="0.5" opacity="0.2"/>
+                    <line x1="150" y1="150" x2="200" y2="100" stroke="#d4af37" stroke-width="0.5" opacity="0.2"/>
+                    <line x1="150" y1="150" x2="100" y2="200" stroke="#d4af37" stroke-width="0.5" opacity="0.2"/>
+                    <line x1="150" y1="150" x2="200" y2="200" stroke="#d4af37" stroke-width="0.5" opacity="0.2"/>
+                </svg>
+                <div class="hero-content">
+                    <div class="hero-accent"></div>
+                    <h1>AI agent systems for the real world</h1>
+                    <p class="subtitle">Industrial engineer × consultant × LLM builder. Building production-grade agent tooling on Claude.</p>
+                    <div class="cta">
+                        <a href="#" class="btn btn-primary">View work</a>
+                        <a href="#" class="btn">Get in touch</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero 2: Terminal Animation (Sage Accent) -->
+            <div class="hero hero-2">
+                <div class="grid-label">Option 2: Terminal</div>
+                <div class="terminal-mock">
+                    <div class="terminal-line">$ cargo build --release</div>
+                    <div class="terminal-line">Compiling agent-systems v1.0.0</div>
+                    <div class="terminal-line">Finished release [optimized] target(s)</div>
+                </div>
+                <div class="hero-content">
+                    <div class="hero-accent"></div>
+                    <h1>AI agent systems for the real world</h1>
+                    <p class="subtitle">Industrial engineer × consultant × LLM builder. Building production-grade agent tooling on Claude.</p>
+                    <div class="cta">
+                        <a href="#" class="btn btn-primary">View work</a>
+                        <a href="#" class="btn">Get in touch</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero 3: Canvas Mesh (Teal Accent) -->
+            <div class="hero hero-3">
+                <div class="grid-label">Option 3: Mesh Canvas</div>
+                <canvas id="mesh-canvas"></canvas>
+                <div class="hero-content">
+                    <div class="hero-accent"></div>
+                    <h1>AI agent systems for the real world</h1>
+                    <p class="subtitle">Industrial engineer × consultant × LLM builder. Building production-grade agent tooling on Claude.</p>
+                    <div class="cta">
+                        <a href="#" class="btn btn-primary">View work</a>
+                        <a href="#" class="btn">Get in touch</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero 4: Static Clean (Gold, no animation) -->
+            <div class="hero hero-1">
+                <div class="grid-label">Option 4: Static + Minimal</div>
+                <div class="hero-content">
+                    <div class="hero-accent"></div>
+                    <h1>AI agent systems for the real world</h1>
+                    <p class="subtitle">Industrial engineer × consultant × LLM builder. Building production-grade agent tooling on Claude.</p>
+                    <div class="cta">
+                        <a href="#" class="btn btn-primary">View work</a>
+                        <a href="#" class="btn">Get in touch</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Mesh canvas animation (Hero 3)
+        const canvas = document.getElementById('mesh-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+
+            let time = 0;
+            function animate() {
+                ctx.fillStyle = 'rgba(10, 10, 10, 1)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                ctx.strokeStyle = 'rgba(74, 142, 142, 0.15)';
+                ctx.lineWidth = 0.5;
+
+                const gridSize = 80;
+                for (let x = 0; x < canvas.width; x += gridSize) {
+                    for (let y = 0; y < canvas.height; y += gridSize) {
+                        const offsetX = Math.sin((x + time) * 0.005) * 10;
+                        const offsetY = Math.cos((y + time) * 0.005) * 10;
+                        
+                        ctx.beginPath();
+                        ctx.arc(x + offsetX, y + offsetY, 2, 0, Math.PI * 2);
+                        ctx.stroke();
+                    }
+                }
+
+                time += 1;
+                requestAnimationFrame(animate);
+            }
+            animate();
+
+            window.addEventListener('resize', () => {
+                canvas.width = canvas.offsetWidth;
+                canvas.height = canvas.offsetHeight;
+            });
+        }
+    </script>
+</body>
+</html>
