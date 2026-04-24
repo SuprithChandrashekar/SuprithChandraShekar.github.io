@@ -320,9 +320,9 @@ function NowAndAsk() {
           <h3 className="ask-title">ask <em>claude</em> about me</h3>
           <p className="ask-sub">A minimal agent wired to my background. Pick a prompt or write your own.</p>
           <div className="ask-prompts">
-            <button className="ask-prompt" onClick={() => ask('What makes Suprith unusual compared to other AI candidates?')}>what makes suprith unusual?</button>
-            <button className="ask-prompt" onClick={() => ask('What would Suprith bring to an applied ML team?')}>what would he bring to an ML team?</button>
-            <button className="ask-prompt" onClick={() => ask('Tell me about Claude Node in one paragraph.')}>explain claude node</button>
+            <button className="ask-prompt" onClick={() => ask('What makes you unusual compared to other AI candidates?')}>what makes suprith unusual?</button>
+            <button className="ask-prompt" onClick={() => ask('What would you bring to an applied ML team?')}>what would he bring to an ML team?</button>
+            <button className="ask-prompt" onClick={() => ask('Explain Claude Node in one paragraph.')}>explain claude node</button>
           </div>
           <div className="ask-input-row">
             <input
