@@ -278,11 +278,19 @@ function NowAndAsk() {
     setA('');
     setLoading(true);
     try {
-      const context = `You are answering questions about Suprith Chandra Shekar, a graduate student at UIUC (M.S. Industrial Engineering). Former Deloitte consultant in ServiceNow ITSM/ITOM for a German global enterprise. Builds agent systems: Claude Node (containerized workspace with persistent AI agents, WhatsApp bridges, 12+ services), HFT Strategy Generator (multi-agent LLM pipeline, TSLA OOS Sharpe 0.63 → 1.95), RuFlow (workflow orchestration), OpenClaw (lightweight tool-calling framework). Also: 4 years on Team Helios Racing (60-person team, national champion, now mentoring ICE→electric ATV transition), GPA 3.94, A+ in OR Models (IE410) and HFT Tech (IE421). TA for HT 504 Healthcare SE at UIUC. Looking for applied ML / AI agent roles starting Spring 2027. Answer in 2-3 short sentences, first person as Suprith, in a calm confident tone. No marketing fluff.\n\nQuestion: ${p}`;
-      const resp = await window.claude.complete(context);
-      setA(resp || '(no response)');
+      const resp = await fetch('https://ask-suprith.suprithchandrashekar.workers.dev', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question: p }),
+      });
+      const data = await resp.json().catch(() => ({}));
+      if (!resp.ok) {
+        setA(data.error || `Request failed (${resp.status}).`);
+      } else {
+        setA((data.answer || '').trim() || '(no response)');
+      }
     } catch (err) {
-      setA('Could not reach Claude right now. Try again in a moment.');
+      setA('Could not reach the assistant right now. Try again in a moment.');
     } finally {
       setLoading(false);
     }

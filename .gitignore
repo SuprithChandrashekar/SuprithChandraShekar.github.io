@@ -5,6 +5,10 @@ assets/resume-extracted.txt
 # Claude Code local settings
 .claude/
 
+# Wrangler (Cloudflare Workers CLI) local cache — contains account email/id
+worker/.wrangler/
+worker/node_modules/
+
 # OS / editor
 .DS_Store
 Thumbs.db
