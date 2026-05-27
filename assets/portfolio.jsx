@@ -8,8 +8,8 @@ const BOOT_LINES = [
   { t: 0,   html: '<span class="dim">[0.001]</span> portfolio.sys boot... <span class="ok">ok</span>' },
   { t: 90,  html: '<span class="dim">[0.089]</span> mounting /identity ................. <span class="ok">ok</span>' },
   { t: 180, html: '<span class="dim">[0.174]</span> resolving /projects (6) ............ <span class="ok">ok</span>' },
-  { t: 260, html: '<span class="dim">[0.261]</span> loading claude_node.container ...... <span class="ok">ok</span>' },
-  { t: 340, html: '<span class="dim">[0.338]</span> attaching mcp:// handlers .......... <span class="ok">ok</span>' },
+  { t: 260, html: '<span class="dim">[0.261]</span> loading design_system.tokens ....... <span class="ok">ok</span>' },
+  { t: 340, html: '<span class="dim">[0.338]</span> attaching voltbroker.vercel ........ <span class="ok">ok</span>' },
   { t: 420, html: '<span class="dim">[0.402]</span> checking credentials ............... <span class="ok">ok</span>' },
   { t: 500, html: '<span class="dim">[0.487]</span> warming up /now feed ............... <span class="ok">ok</span>' },
   { t: 580, html: '<span class="dim">[0.562]</span> <span class="accent">suprith@portfolio</span>:~$ render <span class="accent">--mode=console</span> <span class="cursor"></span>' },
@@ -74,6 +74,7 @@ function TopBar({ onOpenCmd }) {
 /* -------------------- HERO -------------------- */
 function Hero() {
   const d = window.PORTFOLIO_DATA.identity;
+  const pos = window.PORTFOLIO_DATA.positioning;
   return (
     <section className="hero" id="identity">
       <div className="panel hero-main">
@@ -83,11 +84,11 @@ function Hero() {
         </div>
         <div className="panel-body">
           <h1 className="name-block">
-            Engineering <em>agent systems</em><br/>
-            to production<br/>standards.
+            Designing <em>systems</em><br/>
+            people<br/>trust.
           </h1>
           <p className="role-line">
-            <span className="hl">Suprith Chandra Shekar</span> — M.S. Industrial Engineering candidate at <span className="hl">UIUC</span>; formerly Consultant at <span className="hl">Deloitte</span> (ServiceNow ITSM / ITOM). Currently developing <span className="hl">Claude Node</span>, a containerized workspace for persistent AI agents. Seeking applied ML and AI agent roles for Spring 2027.
+            <span className="hl">Suprith Chandra Shekar</span> — M.S. Industrial Engineering candidate at <span className="hl">UIUC</span>; formerly Consultant at <span className="hl">Deloitte</span> (ServiceNow ITSM / ITOM). Designed and shipped <span className="hl">VoltBroker</span> — a full B2B marketplace — end-to-end using AI-native design tools. Seeking product design and applied AI roles for Spring 2027.
           </p>
           <div className="identity-grid">
             <div className="identity-cell"><span className="k">role</span><span className="v">{d.role}</span></div>
@@ -97,7 +98,7 @@ function Hero() {
           <div className="cta-row">
             <a className="btn btn-primary btn-arrow" href="#projects">view projects</a>
             <a className="btn btn-arrow" href="#contact">get in touch</a>
-            <a className="btn" href="https://github.com/SuprithChandrashekar" target="_blank" rel="noreferrer">github ↗</a>
+            <a className="btn" href="https://voltbroker.vercel.app" target="_blank" rel="noreferrer">voltbroker ↗</a>
           </div>
         </div>
       </div>
@@ -105,26 +106,26 @@ function Hero() {
       <div className="panel">
         <div className="panel-header">
           <span>/ system · topology</span>
-          <span className="tag">claude-node</span>
+          <span className="tag">design-work</span>
         </div>
         <div className="sys-diagram panel-body">
-          <div className="sys-diagram-title">active architecture</div>
+          <div className="sys-diagram-title">active projects</div>
           <pre className="sys-tree" style={{margin:0, whiteSpace:'pre'}}>
-{`claude-node/
-├─ `}<span className="node">agent-overworld</span>{`        `}<span className="status-ok"></span><span className="meta">persistent agents</span>{`
-│  ├─ whatsapp-bridge      `}<span className="status-ok"></span><span className="meta">live</span>{`
-│  └─ docker-compose.yml   `}<span className="status-ok"></span><span className="meta">12 services</span>{`
-├─ `}<span className="node">everything-claude</span>{`      `}<span className="status-ok"></span><span className="meta">mcp + skills</span>{`
-├─ `}<span className="node">career-ops</span>{`             `}<span className="status-ok"></span><span className="meta">ci pipeline</span>{`
-├─ `}<span className="node">claude-arena</span>{`           `}<span className="status-wip"></span><span className="meta">eval harness</span>{`
-└─ `}<span className="node">vibevoice</span>{`              `}<span className="status-wip"></span><span className="meta">audio ft</span>{`
+{`portfolio/
+├─ `}<span className="node">voltbroker</span>{`              `}<span className="status-ok"></span><span className="meta">B2B marketplace · shipped</span>{`
+│  ├─ design-system         `}<span className="status-ok"></span><span className="meta">tokens + components</span>{`
+│  ├─ rfq-engine            `}<span className="status-ok"></span><span className="meta">interaction design</span>{`
+│  └─ 15+ pages             `}<span className="status-ok"></span><span className="meta">responsive</span>{`
+├─ `}<span className="node">hxri-lab</span>{`                `}<span className="status-ok"></span><span className="meta">MR simulator · thesis</span>{`
+├─ `}<span className="node">hft-strategy</span>{`            `}<span className="status-ok"></span><span className="meta">quant research · A+</span>{`
+└─ `}<span className="node">claude-node</span>{`             `}<span className="status-wip"></span><span className="meta">AI agent experiments</span>{`
 `}
           </pre>
           <div className="sys-stats">
-            <div><div className="sys-stat-k">services</div><div className="sys-stat-v">12+</div></div>
-            <div><div className="sys-stat-k">languages</div><div className="sys-stat-v">5</div></div>
-            <div><div className="sys-stat-k">uptime</div><div className="sys-stat-v">99.1%</div></div>
-            <div><div className="sys-stat-k">since</div><div className="sys-stat-v">'24</div></div>
+            <div><div className="sys-stat-k">shipped</div><div className="sys-stat-v">VoltBroker</div></div>
+            <div><div className="sys-stat-k">pages</div><div className="sys-stat-v">15+</div></div>
+            <div><div className="sys-stat-k">GPA</div><div className="sys-stat-v">3.91</div></div>
+            <div><div className="sys-stat-k">since</div><div className="sys-stat-v">'25</div></div>
           </div>
         </div>
       </div>
@@ -186,6 +187,27 @@ function Projects() {
             <p className="proj-detail-blurb">{p.blurb}</p>
           </div>
 
+          {p.case_study && p.problem && (
+            <div className="proj-section">
+              <div className="proj-section-label">problem</div>
+              <p>{p.problem}</p>
+            </div>
+          )}
+
+          {p.case_study && p.approach && (
+            <div className="proj-section">
+              <div className="proj-section-label">approach</div>
+              <p>{p.approach}</p>
+            </div>
+          )}
+
+          {p.case_study && p.innovations && (
+            <div className="proj-section">
+              <div className="proj-section-label">innovations</div>
+              <ul>{p.innovations.map((it, j) => <li key={j}>{it}</li>)}</ul>
+            </div>
+          )}
+
           {p.sub.map((s, i) => (
             <div key={i} className="proj-section">
               <div className="proj-section-label">{s.label}</div>
@@ -232,7 +254,7 @@ function Arc() {
   const arc = window.PORTFOLIO_DATA.arc;
   return (
     <section className="content-block" id="arc">
-      <SectionHead num="02" title="professional" em="trajectory" meta="consulting → engineering → agent systems" />
+      <SectionHead num="02" title="professional" em="trajectory" meta="consulting → engineering → product design" />
       <div className="arc">
         {arc.map((r, i) => (
           <div key={i} className="arc-row">
@@ -320,9 +342,9 @@ function NowAndAsk() {
           <h3 className="ask-title">ask <em>claude</em> about me</h3>
           <p className="ask-sub">A minimal agent wired to my background. Pick a prompt or write your own.</p>
           <div className="ask-prompts">
-            <button className="ask-prompt" onClick={() => ask('What makes you unusual compared to other AI candidates?')}>what makes suprith unusual?</button>
-            <button className="ask-prompt" onClick={() => ask('What would you bring to an applied ML team?')}>what would he bring to an ML team?</button>
-            <button className="ask-prompt" onClick={() => ask('Explain Claude Node in one paragraph.')}>explain claude node</button>
+            <button className="ask-prompt" onClick={() => ask('What makes Suprith unusual as a product designer?')}>what makes suprith unusual?</button>
+            <button className="ask-prompt" onClick={() => ask('What would Suprith bring to a product design team building AI-driven products?')}>what would he bring to a design team?</button>
+            <button className="ask-prompt" onClick={() => ask('Explain VoltBroker and the design decisions behind it.')}>explain voltbroker</button>
           </div>
           <div className="ask-input-row">
             <input
@@ -372,24 +394,24 @@ function Contact() {
       <div className="contact">
         <div>
           <h3 className="contact-lead">
-            I'm looking for <em>applied ML / AI agent</em> roles starting <em>Spring 2027</em>.
+            I'm looking for <em>product design / applied AI</em> roles starting <em>Spring 2027</em>.
           </h3>
           <p className="contact-sub">
-            If you're building agent systems, shipping LLM infrastructure, or need someone who can translate between consulting delivery and engineering depth — I'd love to talk.
+            If you're building AI-driven products, designing conversational interfaces, or need someone who can own a product end-to-end from research to shipped pixels — I'd love to talk.
           </p>
         </div>
         <div className="contact-links">
-          <a className="contact-link" href="mailto:hello@suprith.dev">
-            <span className="k">email</span><span className="v">hello@suprith.dev →</span>
+          <a className="contact-link" href="mailto:Suprith2@illinois.edu">
+            <span className="k">email</span><span className="v">Suprith2@illinois.edu →</span>
           </a>
-          <a className="contact-link" href="https://linkedin.com/in/suprithchandrashekar" target="_blank" rel="noreferrer">
-            <span className="k">linkedin</span><span className="v">in/suprithchandrashekar →</span>
+          <a className="contact-link" href="https://linkedin.com/in/suprith-c-shekar" target="_blank" rel="noreferrer">
+            <span className="k">linkedin</span><span className="v">in/suprith-c-shekar →</span>
           </a>
           <a className="contact-link" href="https://github.com/SuprithChandrashekar" target="_blank" rel="noreferrer">
             <span className="k">github</span><span className="v">SuprithChandrashekar →</span>
           </a>
-          <a className="contact-link" href="#">
-            <span className="k">resume</span><span className="v">resume.pdf →</span>
+          <a className="contact-link" href="https://voltbroker.vercel.app" target="_blank" rel="noreferrer">
+            <span className="k">voltbroker</span><span className="v">voltbroker.vercel.app →</span>
           </a>
         </div>
       </div>
@@ -409,8 +431,9 @@ function CmdK({ open, onClose }) {
     { group: 'navigate', label: 'go to contact', href: '#contact' },
     ...projects.map(p => ({ group: 'projects', label: `open: ${p.title}`, href: '#projects', slug: p.slug })),
     { group: 'external', label: 'github ↗', href: 'https://github.com/SuprithChandrashekar', external: true },
-    { group: 'external', label: 'linkedin ↗', href: 'https://linkedin.com/in/suprithchandrashekar', external: true },
-    { group: 'external', label: 'email →', href: 'mailto:hello@suprith.dev', external: true },
+    { group: 'external', label: 'linkedin ↗', href: 'https://linkedin.com/in/suprith-c-shekar', external: true },
+    { group: 'external', label: 'voltbroker ↗', href: 'https://voltbroker.vercel.app', external: true },
+    { group: 'external', label: 'email →', href: 'mailto:Suprith2@illinois.edu', external: true },
   ], [projects]);
 
   const [query, setQuery] = useState('');

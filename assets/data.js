@@ -1,5 +1,5 @@
-/* Portfolio data — grounded in verified resume, project writeups, and target JDs.
-   Voice: measured, precise, McKinsey-bio × Collison personal-site.
+/* Portfolio data — grounded in verified facts (GROUND_TRUTH.md, May 2026).
+   Repositioned for Product Design roles: design thinking, systems craft, end-to-end ownership.
 */
 window.PORTFOLIO_DATA = {
   identity: {
@@ -8,7 +8,7 @@ window.PORTFOLIO_DATA = {
     location: "Urbana–Champaign, IL",
     status: "Available Spring 2027",
     tz: "UTC−06",
-    since: "2023",
+    since: "2025",
     headshot: "assets/headshot.png",
     email: "Suprith2@illinois.edu",
     phone: "+1 (217) 200-1842",
@@ -19,123 +19,102 @@ window.PORTFOLIO_DATA = {
 
   /* ---- Hero positioning statement ---- */
   positioning: {
-    headline_parts: ["Engineering", "agent systems", "to production", "standards."],
-    lede: "I am an engineer working at the intersection of operations research, production AI, and consulting delivery. My graduate studies focus on optimization and manufacturing quality; my current research and building focus on multi-agent systems with Claude. I am seeking applied AI, agent-engineering, and decision-analytics roles commencing Spring 2027.",
+    headline_parts: ["Designing", "systems", "people", "trust."],
+    lede: "I am an engineer and designer working at the intersection of industrial systems thinking, AI-native product design, and consulting delivery. I designed and shipped VoltBroker — a full B2B marketplace — end-to-end using AI tools, from product direction to pixel-level craft. My graduate work at UIUC focuses on optimization, quality, and decision intelligence. I bring the rigour of engineering to the creative process of product design.",
     credentials_strip: [
-      { k: "M.S. IE", v: "UIUC", sub: "GPA 3.94 · Dec 2026" },
+      { k: "M.S. IE", v: "UIUC", sub: "GPA 3.91 · Dec 2026" },
       { k: "Former", v: "Deloitte", sub: "Consultant · Germany delivery" },
       { k: "Published", v: "IJCSNS", sub: "Network security, 2024" },
-      { k: "Winner", v: "Anthropic Hackathon", sub: "Claude Node" }
+      { k: "Shipped", v: "VoltBroker", sub: "Full-stack product design" }
     ]
   },
 
-  /* ---- Projects — full engineering case studies for top 2, structured sections for the rest ---- */
+  /* ---- Projects ---- */
   projects: [
     {
       id: "01",
-      slug: "claude-node",
-      kicker: "Flagship · Agent Systems",
-      title: "Claude Node",
-      emTitle: "Node",
-      tagline: "An autonomous engineer's operating environment.",
-      blurb: "A unified agentic metasystem that treats AI agents as modular compute units within a standardized runtime. Winner of the Anthropic Hackathon; engineered around persistence, context efficiency, and operational safety.",
+      slug: "voltbroker",
+      kicker: "Flagship · Product Design",
+      title: "VoltBroker",
+      emTitle: "Volt",
+      tagline: "A B2B transformer marketplace, designed and built end-to-end.",
+      blurb: "A full-stack B2B marketplace for industrial transformers — procurement teams at data centres, EPCs, and utilities find verified brokers, submit RFQs, and coordinate logistics. Designed the complete product: information architecture, visual system, interaction patterns, responsive layouts, and every page from landing to checkout.",
       case_study: true,
-      problem: "Modern AI tools are fragmented. Single-purpose wrappers and isolated chatbots fail to compose into durable engineering workflows. Production-grade agent work requires persistence across sessions, disciplined context management, cross-harness portability, and hard safety guarantees on autonomous file operations.",
-      approach: "A three-layer architecture that separates the interface, the runtime, and a persistent supervisor daemon. A Rust TUI (ratatui) communicates with a background daemon over Unix sockets; the daemon owns PTY sessions, git operations, and a SQLite-backed state store. Above this sits an orchestration layer (Node.js, Express, Docker Compose) that implements a supervisor–worker pattern, and a core framework (Everything Claude Code) providing 142+ atomic skills and 36+ specialized agents across twelve language ecosystems.",
+      problem: "The industrial transformer market — a multi-billion dollar space — still runs on phone calls, PDF datasheets, and personal broker relationships. Procurement teams waste weeks sourcing a single unit. There is no centralised, searchable marketplace with standardised specs, verified suppliers, and integrated logistics.",
+      approach: "Designed the product end-to-end using Claude Code, Claude Design, and Claude Projects as the primary design and development tools. Started with user research into procurement workflows at utilities and EPCs. Built the information architecture around how buyers actually search (by kVA, voltage class, application, or urgency). Designed a visual system inspired by industrial equipment catalogues — high-contrast, data-dense, and typographically precise. Every interaction was prototyped in code (Next.js, React, TypeScript) rather than static mockups.",
       innovations: [
-        "Plan–Act–Validate lifecycle — every agent operation proceeds through research, strategy, surgical edits, and automated validation, with a re-evaluation loop on failure",
-        "AgentShield — a custom guardrail layer that sanitizes paths, blocks secret reads, and requires manual approval for destructive shell commands",
-        "Git Worktree parallelization — the \"Cascade Method\" for running multiple agents against isolated branches simultaneously",
-        "Feedback-driven skill evolution — successful sessions are summarized into learned patterns and promoted into reusable skills for subsequent projects",
-        "Human-in-the-loop control surfaces via WhatsApp, a web dashboard, and AR wearables (Meta Oakley integration)"
+        "AI-native design workflow — used Claude as a design partner for layout decisions, component architecture, and copy, iterating in code rather than Figma-to-handoff",
+        "Industrial visual language — a design system built around precision typography (Archivo, IBM Plex Mono), commodity tickers, technical spec cards, and dense data presentation",
+        "RFQ-first interaction model — the product centres on the buyer's specification flow, not a traditional e-commerce browse pattern",
+        "Responsive information density — desktop layouts show data-rich category grids and specification tables; mobile collapses gracefully without losing critical decision data"
       ],
       sub: [
-        { label: "Modules", type: "list", items: [
-          "Everything Claude Code — the core framework: 36+ agents, 142+ skills, AgentShield security layer, continuous skill evolution",
-          "Agent Overworld — orchestration and command centre with WhatsApp bridge and web dashboard for agent-fleet monitoring",
-          "Career Ops — autonomous job-search pipeline evaluating 700+ listings, generating ATS-optimised CVs, managing applications end-to-end",
-          "Claude Arena — benchmarking sandbox where agents compete on engineering challenges, driving iterative improvement",
-          "VibeVoice — personal voice synthesis and fine-tuning for human–agent interaction",
-          "Meta Oakley Tech — AR-wearable integration bridging digital and physical control"
+        { label: "Design scope", type: "list", items: [
+          "Product strategy and information architecture",
+          "Complete visual design system (typography, colour, spacing, component library)",
+          "8 category pages, marketplace landing, broker onboarding flow, RFQ engine",
+          "Responsive design across desktop, tablet, and mobile breakpoints",
+          "Micro-interactions: commodity ticker, category filtering, spec search, quick-quote modal",
+          "SEO, OG metadata, and accessibility (skip-links, ARIA, semantic HTML)"
         ]},
-        { label: "Stack", type: "stack", items: ["Rust (ratatui)","TypeScript","Python","Go","Node.js","Docker Compose","SQLite","MCP","Anthropic API","WhatsApp API","Unix sockets"] }
+        { label: "Stack", type: "stack", items: ["Next.js","React","TypeScript","Vercel","Claude Code","Claude Design","SVG illustration"] }
       ],
       metrics: [
-        { k: "Agents", v: "36+", sub: "specialised" },
-        { k: "Skills", v: "142+", sub: "atomic, reusable" },
-        { k: "Languages", v: "12+", sub: "ecosystems" },
-        { k: "Award", v: "Winner", sub: "Anthropic Hackathon" }
+        { k: "Pages", v: "15+", sub: "designed & built" },
+        { k: "Categories", v: "8", sub: "transformer types" },
+        { k: "Status", v: "Pre-launch", sub: "voltbroker.vercel.app" }
       ],
       links: [
-        { label: "GitHub →", href: "https://github.com/SuprithChandrashekar" },
-        { label: "Architecture note", href: "#" }
+        { label: "Live site →", href: "https://voltbroker.vercel.app" },
+        { label: "GitHub →", href: "https://github.com/SuprithChandrashekar" }
       ]
     },
     {
       id: "02",
+      slug: "claude-node",
+      kicker: "AI Tools & Workflow",
+      title: "Claude Node",
+      emTitle: "Node",
+      tagline: "A personal workspace for AI agent experimentation.",
+      blurb: "A workspace environment for exploring AI agent deployment patterns, workflow automation, and modular tooling using Claude Code. Built as a side project to learn agent engineering by doing — experimenting with MCP configurations, agent skills, and iterative development approaches.",
+      case_study: false,
+      sub: [
+        { label: "What it is", type: "para", text: "A parent workspace containing experiments in agent orchestration, workflow automation, and AI-assisted development. Not a production system — an active learning environment where I explore how AI agents can be composed, evaluated, and improved through hands-on building." },
+        { label: "Stack", type: "stack", items: ["Python","Claude Code","MCP","Docker","JavaScript"] }
+      ],
+      metrics: [],
+      links: [
+        { label: "GitHub →", href: "https://github.com/SuprithChandrashekar" }
+      ]
+    },
+    {
+      id: "03",
       slug: "hft",
-      kicker: "Quantitative Research",
+      kicker: "Quantitative Research · Course Project",
       title: "HFT Strategy Generator",
       emTitle: "Strategy",
       tagline: "Maker–taker strategies under NBBO constraints.",
       blurb: "A study of two high-frequency strategies — cross-exchange market making on SPY and venue arbitrage between IEX and NASDAQ — with message-by-message backtesting on 30 January 2020 tick data.",
       case_study: true,
-      problem: "Arbitrage in NBBO-regulated markets is structurally difficult: ideal returns deteriorate once routing, slippage, and latency are modelled realistically. The question was whether a disciplined backtest could separate genuine edge from artefacts of frictionless assumptions, and whether parameter sensitivity could be characterised without overfitting.",
-      approach: "Two independent strategies. The maker strategy (XEMM) posts passive bid/ask liquidity on IEX and hedges fills with immediate market orders on NASDAQ, continuously reshaping quotes in response to the NASDAQ BBO. The taker strategy detects cross-venue price gaps and executes market orders against them. A custom ITCH 5.0 parser ingested NASDAQ trade messages; the IEX DEEP feed provided BBO and depth. The scope was deliberately narrowed from an initial Future–Spot arbitrage plan on CME Bitcoin Futures / IBIT to SPY venue arbitrage once data constraints became clear — an exercise in honest scope management.",
+      problem: "Arbitrage in NBBO-regulated markets is structurally difficult: ideal returns deteriorate once routing, slippage, and latency are modelled realistically. The question was whether a disciplined backtest could separate genuine edge from artefacts of frictionless assumptions.",
+      approach: "Two independent strategies. The maker strategy (XEMM) posts passive bid/ask liquidity on IEX and hedges fills with immediate market orders on NASDAQ. The taker strategy detects cross-venue price gaps and executes against them. A custom ITCH 5.0 parser ingested NASDAQ trade messages; the IEX DEEP feed provided BBO and depth. The scope was deliberately narrowed from an initial Future–Spot arbitrage plan to SPY venue arbitrage once data constraints became clear — an exercise in honest scope management.",
       innovations: [
         "Ideal-vs-actual return decomposition isolating NBBO routing and slippage effects",
         "Message-by-message backtest at microsecond resolution",
-        "Parameter-sensitivity analysis: price-difference offsets traded off max drawdown against total profit, and volume acted cleanly as leverage"
+        "Parameter-sensitivity analysis across price-difference offsets and volume leverage"
       ],
       sub: [
-        { label: "Universe & window", type: "para", text: "SPY on 30 January 2020 — a day of typical large-cap volatility. Single-day scope chosen to allow microsecond-level analysis while being honest about the limits of generalisation." },
-        { label: "Stack", type: "stack", items: ["Python","C++ (ITCH parser)","NASDAQ ITCH 5.0","IEX DEEP","pandas","NumPy","backtrader"] },
-        { label: "Findings", type: "para", text: "Ideal taker returns showed clear potential; actual returns were frequently negative or breakeven once NBBO routing and queue competition were modelled. The maker strategy exposed a clean drawdown–profit trade-off across price-difference parameters. The honest conclusion was an engineering one: latency, fee structure, and venue selection dominate strategy elegance in this class of problem." }
+        { label: "Findings", type: "para", text: "Ideal taker returns showed clear potential; actual returns were frequently negative or breakeven once NBBO routing and queue competition were modelled. The honest conclusion was an engineering one: latency, fee structure, and venue selection dominate strategy elegance in this class of problem." },
+        { label: "Stack", type: "stack", items: ["Python","NASDAQ ITCH 5.0","IEX DEEP","pandas","NumPy"] }
       ],
       metrics: [
         { k: "Data", v: "Tick-level", sub: "ITCH + DEEP" },
         { k: "Course", v: "A+", sub: "IE 421, UIUC" }
       ],
-      links: [
-        { label: "Writeup", href: "#" }
-      ]
-    },
-    {
-      id: "03",
-      slug: "ruflow",
-      kicker: "Workflow Automation",
-      title: "RuFlow",
-      emTitle: "Flow",
-      blurb: "An orchestration layer for multi-step operational processes, providing deterministic routing, schema validation, and exponential-backoff retry logic.",
-      sub: [
-        { label: "Motivation", type: "para", text: "Production agent systems depend on resilient infrastructure rather than ad-hoc prompting. RuFlow provides the reliability primitives — observability, determinism, recovery — that make agent-driven workflows auditable and safe to run unattended." },
-        { label: "Stack", type: "stack", items: ["Python","asyncio","Pydantic","OpenTelemetry"] }
-      ],
-      metrics: [
-        { k: "Retry policy", v: "3×", sub: "exp. backoff" },
-        { k: "Schema cov.", v: "100%", sub: "strict" }
-      ],
-      links: [ { label: "GitHub →", href: "https://github.com/SuprithChandrashekar" } ]
+      links: []
     },
     {
       id: "04",
-      slug: "openclaw",
-      kicker: "Open Source",
-      title: "OpenClaw",
-      emTitle: "Open",
-      blurb: "A lightweight, LLM-agnostic framework for composing tool-calling agents with built-in guardrails. Designed for minimal surface area and composition over inheritance.",
-      sub: [
-        { label: "Design", type: "para", text: "Extensible across providers and capability sets. Typed tool contracts, provider-agnostic transport, guardrails at the dispatch layer. Built to be read and modified, not to be a dependency." },
-        { label: "Stack", type: "stack", items: ["Python","Typed tools","LLM-agnostic","Guardrails"] }
-      ],
-      metrics: [
-        { k: "LoC", v: "~2k", sub: "core" },
-        { k: "Providers", v: "3", sub: "supported" }
-      ],
-      links: [ { label: "GitHub →", href: "https://github.com/SuprithChandrashekar" } ]
-    },
-    {
-      id: "05",
       slug: "quality",
       kicker: "Manufacturing Quality",
       title: "Ultrasonic Welding Quality Analytics",
@@ -147,13 +126,13 @@ window.PORTFOLIO_DATA = {
           "Supervised classification pipelines for defect identification and failure-pattern recognition",
           "Design of Experiments and measurement-system analysis in Minitab"
         ]},
-        { label: "Stack", type: "stack", items: ["Python","scikit-learn","Minitab","pandas","DMAIC","DFSS (in progress)"] }
+        { label: "Stack", type: "stack", items: ["Python","scikit-learn","Minitab","pandas","SPC"] }
       ],
       metrics: [],
       links: []
     },
     {
-      id: "06",
+      id: "05",
       slug: "superalloy",
       kicker: "Materials Research",
       title: "Superalloy Microstructure Failure Analysis",
@@ -167,7 +146,7 @@ window.PORTFOLIO_DATA = {
       links: []
     },
     {
-      id: "07",
+      id: "06",
       slug: "helios",
       kicker: "Hardware Program · 4 years",
       title: "Team Helios Racing",
@@ -178,8 +157,7 @@ window.PORTFOLIO_DATA = {
           "Owned end-to-end hardware development for the braking subsystem across design, build, industrialisation, and validation phases",
           "Directed DFM/DFA discipline and DFMEA-aligned quality gates; enforced material inspection standards and managed prototype sourcing",
           "Coordinated across mechanical, electrical, and structural workstreams as the central point of contact for subsystem validation",
-          "Presented design reviews to faculty advisors and competition judges; drove risk escalation and resolution",
-          "Currently mentoring the team's transition from internal-combustion to electric ATV platforms"
+          "Presented design reviews to faculty advisors and competition judges; drove risk escalation and resolution"
         ]},
         { label: "Stack", type: "stack", items: ["SolidWorks","CATIA","NX Unigraphics","ANSYS Workbench","ANSYS Fluent","DFMEA","DFM/DFA","GD&T"] }
       ],
@@ -198,38 +176,38 @@ window.PORTFOLIO_DATA = {
       period: "Aug 2022 – May 2024",
       title: "Deloitte — Business Analyst, Program Management",
       sub: "Bengaluru, India",
-      body: "Designed phase-gate roadmaps, dependency tracking, and milestone governance for a 200-person cross-functional programme delivering ServiceNow ITSM and ITOM for a global German enterprise. Improved on-time milestone delivery by 30% and reduced project rework by 40%. Facilitated 60+ stakeholder workshops for 1,200+ end users and led a 5-person team on a critical documentation and quality-review initiative."
+      body: "Designed phase-gate roadmaps, dependency tracking, and milestone governance for a 200-person cross-functional programme delivering ServiceNow ITSM and ITOM for a global German enterprise. Improved milestone delivery and reduced rework through structured governance. Facilitated stakeholder workshops and led a 5-person team on a documentation and quality-review initiative. Led pre-sales efforts including RFP responses and executive presentations. Designed a ServiceNow healthcare portal demo POC."
     },
     {
       period: "Jun 2024 – Dec 2024",
       title: "Deloitte — Consultant, Technical Program Delivery",
       sub: "Bengaluru, India · Promoted ahead of cycle",
-      body: "Owned execution governance for multi-site deployment cycles across 30+ system interfaces in a SIAM environment. Standardised SOPs and led defect-resolution for a 10-person cross-functional team, cutting Mean Time-to-Resolution by 40%, improving SLA adherence to 95%, and raising release success rate by 25%."
+      body: "Owned execution governance for multi-site deployment cycles across 30+ system interfaces in a SIAM environment. Standardised SOPs and led defect-resolution for a 10-person cross-functional team, improving release success rates, reducing resolution time, and strengthening SLA adherence. Mix of technical ServiceNow configuration work and process/coordination delivery."
     },
     {
-      period: "Aug 2023 – Dec 2026",
+      period: "Jan 2025 – Dec 2026",
       title: "University of Illinois Urbana–Champaign",
-      sub: "M.S. Industrial Engineering · GPA 3.94",
-      body: "Concentration in operations research, high-frequency trading technology, and manufacturing quality. A+ grades in OR Models for Manufacturing Systems (IE 410) and High-Frequency Trading Technology (IE 421); Design for Six Sigma currently in progress. Graduate Teaching Assistant supporting student project delivery with documentation standards and design-review checkpoints."
+      sub: "M.S. Industrial Engineering · GPA 3.91",
+      body: "Concentration in operations research, high-frequency trading technology, and manufacturing quality. A+ in OR Models for Manufacturing Systems and HFT Technology. Graduate Teaching Assistant supporting applied engineering project delivery. Thesis research at HXRI Lab on a mixed-reality simulator for medical procedural training (Meta Quest 3, Unity, MRTK2)."
     },
     {
-      period: "2024 – present",
-      title: "Independent Building — Agent Systems",
-      sub: "Claude Node · HFT Strategy Generator · RuFlow · OpenClaw",
-      body: "Sustained practice at the intersection of consulting delivery, industrial-engineering rigour, and LLM engineering. Claude Node was awarded an Anthropic Hackathon win. The research agenda centres on production reliability for multi-agent systems: persistence, guardrails, evaluation, and honest observability."
+      period: "2025 – present",
+      title: "Independent Building — Product Design & AI",
+      sub: "VoltBroker · Claude Node · Portfolio",
+      body: "Designed and shipped VoltBroker (voltbroker.vercel.app) — a B2B transformer marketplace — end-to-end using Claude Code and Claude Design as primary tools. Building at the intersection of product design, AI-native workflows, and industrial systems thinking."
     },
     {
       period: "Aug 2020 – Oct 2020",
-      title: "Larsen & Toubro Defense — Manufacturing Engineering Intern",
+      title: "Larsen & Toubro Defense — Mechanical Engineering Intern",
       sub: "Bengaluru, India",
-      body: "Reviewed electromechanical equipment layouts, assembly schematics, and material-flow routes to identify design inefficiencies and support hardware-feasibility planning in a defence manufacturing environment."
+      body: "Reviewed equipment layouts, system schematics, and engineering specifications in a defence manufacturing environment."
     }
   ],
 
   /* ---- Verified credentials ---- */
   credentials: [
-    { k: "GPA", v: "3.94", sub: "UIUC M.S. IE" },
-    { k: "IE 410", v: "A+", sub: "OR Models for Mfg Systems" },
+    { k: "GPA", v: "3.91", sub: "UIUC M.S. IE" },
+    { k: "IE 412", v: "A+", sub: "OR Models for Mfg Systems" },
     { k: "IE 421", v: "A+", sub: "HFT Technology" },
     { k: "Promotion", v: "Early", sub: "Deloitte · BA → Consultant" },
     { k: "Publication", v: "IJCSNS", sub: "Vol. 24 No. 4 · April 2024" },
@@ -241,14 +219,14 @@ window.PORTFOLIO_DATA = {
     {
       school: "University of Illinois Urbana–Champaign",
       degree: "M.S., Industrial Engineering",
-      window: "Aug 2023 – Dec 2026",
-      gpa: "3.94 / 4.00",
-      coursework: ["OR Models for Manufacturing Systems (A+)", "High-Frequency Trading Technology (A+)", "Data Science in Manufacturing Quality Control", "Design for Six Sigma (in progress)", "Manufacturing Systems Automation"]
+      window: "Jan 2025 – Dec 2026",
+      gpa: "3.91 / 4.00",
+      coursework: ["OR Models for Manufacturing Systems (A+)", "High-Frequency Trading Technology (A+)", "Data Visualization (A)", "Applied Statistics (A)", "Analysis of Network Data (A)", "Data Science in Manufacturing Quality Control (A–)", "Design for Six Sigma (A)", "Stats of Big Data & Clustering (A–)"]
     },
     {
       school: "R.V. College of Engineering",
       degree: "B.E., Mechanical Engineering",
-      window: "2018 – Aug 2022",
+      window: "Aug 2018 – Aug 2022",
       gpa: "8.05 / 10.00",
       coursework: ["Machine Design", "Finite Element Analysis", "Statics & Dynamics", "Product Design & Development", "Manufacturing Processes"]
     }
@@ -262,13 +240,12 @@ window.PORTFOLIO_DATA = {
       ref: "Vol. 24, No. 4, pp. 155–162",
       date: "April 2024",
       coauthors: ["Prof. Smitha G R", "Ujwal Mirji"],
-      summary: "A framework for mitigating targeted network attacks — including zero-day exploits and malware classes — through disciplined anonymity protocols and operational hygiene. Initial literature review conducted 2020; formal publication 2024."
+      summary: "A framework for mitigating targeted network attacks through disciplined anonymity protocols and operational hygiene. Initial literature review conducted 2020; formal publication 2024."
     }
   ],
 
   /* ---- Awards & certifications ---- */
   awards: [
-    { label: "Anthropic Hackathon — Winner", detail: "Claude Node metasystem" },
     { label: "National Champion — Enduro Student India", detail: "Team Helios Racing · NMIET · Feb 2020" },
     { label: "Certified Ready Engineer", detail: "Tata Technologies — Advanced automobile design: body-in-white, plastics & trims, DFM" }
   ],
@@ -281,34 +258,35 @@ window.PORTFOLIO_DATA = {
     "Coursera — Aerial Robotics",
     "NPTEL — Rapid Manufacturing",
     "Tata Technologies — iGET it",
-    "Cisco — Industrial IoT"
+    "Cisco — Industrial IoT",
+    "CITI Program — Human Subjects Research (UICOMP)"
   ],
 
-  /* ---- Skills, tuned to target JDs ---- */
+  /* ---- Skills ---- */
   skills: [
-    { group: "LLM & Agents",      items: ["MCP servers","Sub-agents","Agent skills","Tool-calling","Guardrails","Evaluation frameworks","Advanced prompt engineering","Production LLM deployment","Claude Code","GPT-4o","Nemotron 70B"] },
-    { group: "Engineering",       items: ["Python","TypeScript","Node.js","Go","Rust","Docker Compose","Git / CI","SQL","asyncio","Unix sockets","REST · SOAP"] },
-    { group: "Operations Research", items: ["Linear programming","Integer programming","Network flow","Heuristics & metaheuristics","Simulation","Decision intelligence","Prescriptive analytics","Capacity planning"] },
-    { group: "Process & Quality", items: ["DMAIC","DFSS","Six Sigma","Lean · 5S · Kaizen","SPC","FMEA · DFMEA","DFM / DFA","Five Whys · Ishikawa · 8D · SWOT","Root-cause analysis","GD&T"] },
-    { group: "Consulting Delivery", items: ["Phase-gate governance","Milestone tracking","Risk escalation","Stakeholder workshops","ServiceNow ITSM / ITOM · CMDB","Client-ready deliverables","SOP standardisation"] },
-    { group: "Hardware & CAD",    items: ["SolidWorks","CATIA","NX Unigraphics","Fusion 360","ANSYS Workbench","ANSYS Fluent","Material selection","Reliability testing"] }
+    { group: "Product Design",    items: ["End-to-end product ownership","Information architecture","Visual design systems","Responsive layout","Interaction design","Prototyping in code","Component libraries","Typography & colour","Accessibility (ARIA, semantic HTML)","AI-native design workflow (Claude Code, Claude Design)"] },
+    { group: "Engineering",       items: ["Python","TypeScript","JavaScript","React","Next.js","Node.js","Docker","Git / CI","SQL","REST · SOAP","HTML/CSS"] },
+    { group: "AI & Agents",       items: ["Claude Code","Claude Design","MCP configuration","Prompt engineering","Agent skills","Tool-calling patterns","GPT-4o"] },
+    { group: "Operations Research", items: ["Linear programming","Integer programming","Network flow","Simulation","Capacity planning","Statistical modelling","SPC","Decision intelligence"] },
+    { group: "Consulting Delivery", items: ["Phase-gate governance","Milestone tracking","Stakeholder workshops","ServiceNow ITSM / ITOM · CMDB","RFP/proposal development","SOP standardisation","Agile / Scrum / Kanban"] },
+    { group: "Hardware & CAD",    items: ["SolidWorks","CATIA","NX Unigraphics","Fusion 360","ANSYS Workbench","ANSYS Fluent","DFM/DFA","GD&T"] }
   ],
 
   /* ---- Now feed ---- */
   now: [
-    { ts: "This week",  tag: "research", text: "Developing a new evaluation harness for Claude Arena, focused on ground-truth tagging of agent outputs and structured regression detection." },
-    { ts: "This month", tag: "teach",    text: "Serving as Graduate Teaching Assistant at UIUC — enforcing documentation standards, design-review checkpoints, and quality controls across student team deliverables." },
-    { ts: "Apr 2026",   tag: "ship",     text: "Shipped Career Ops v2: verification scripts now surface validation failures explicitly, preventing résumé drift from reaching production applications." },
-    { ts: "Ongoing",    tag: "read",     text: "Following developments in Claude Skills, production MCP server deployments, decision-intelligence for multi-site networks, and self-healing distributed systems." },
-    { ts: "Seeking",    tag: "roles",    text: "Applied AI, agent engineering, and decision-analytics roles for Spring 2027 — Anthropic (Forward Deployed Engineering), Tesla (Process Engineering, Energy), ZS Associates (Decision Analytics, Logistics Optimisation), and other AI-forward teams." }
+    { ts: "This week",  tag: "build",  text: "Iterating on VoltBroker's broker onboarding flow and RFQ engine — refining interaction patterns and information density for procurement workflows." },
+    { ts: "This month", tag: "teach",  text: "Serving as Graduate Teaching Assistant at UIUC — supporting applied engineering project delivery with documentation standards and design-review checkpoints." },
+    { ts: "This month", tag: "research", text: "Thesis work at HXRI Lab: system testing for a mixed-reality medical training simulator (Meta Quest 3, Unity, MRTK2)." },
+    { ts: "Ongoing",    tag: "read",   text: "Following developments in AI-native design tools, conversational interfaces, production MCP deployments, and design systems at scale." },
+    { ts: "Seeking",    tag: "roles",  text: "Product Design, Applied AI, and decision-analytics roles for Spring 2027 — teams building AI-driven products where design thinking and engineering rigour intersect." }
   ],
 
-  /* ---- How I work — methods and values ---- */
+  /* ---- How I work ---- */
   how_i_work: [
-    { k: "Plan–Act–Validate", v: "Every substantive change — code, document, or diagram — moves through an explicit research pass, a written strategy, a surgical implementation, and automated validation. The loop is tighter than it looks on paper; the discipline is in refusing to skip stages." },
-    { k: "Operational honesty", v: "Agent systems must fail loudly. I design for observability and recovery first and optimise for elegance second. Metrics are stated with context — window, universe, constraints — or not stated at all." },
-    { k: "Composition over cleverness", v: "Small, typed, testable units. Modular decoupling so that an agent, a skill, or a subsystem can be replaced without rewriting its neighbours." },
-    { k: "Consulting rigour", v: "Two and a half years at Deloitte taught me that execution governance — phase gates, milestone tracking, disciplined escalation — is the difference between a demo and a delivery. I bring that discipline to AI work." }
+    { k: "Design in code", v: "I prototype directly in React and Next.js rather than handing off static mockups. VoltBroker was designed entirely this way — every interaction decision was tested in a real browser, not a design tool. This collapses the design–development feedback loop." },
+    { k: "Systems thinking", v: "Four years of industrial engineering training and two and a half years of consulting delivery taught me to see products as systems — with dependencies, constraints, failure modes, and feedback loops. I design for the whole system, not just the happy path." },
+    { k: "AI as a design partner", v: "I use Claude Code and Claude Design as active collaborators in the design process — for layout exploration, component architecture, copywriting, and rapid iteration. This is how I shipped a complete marketplace as a solo designer-developer." },
+    { k: "Operational honesty", v: "Metrics are stated with context or not stated at all. Designs are tested against real constraints. I would rather ship something true than something impressive." }
   ],
 
   /* ---- Off-hours ---- */
@@ -318,6 +296,6 @@ window.PORTFOLIO_DATA = {
     { k: "NFL", v: "Follow the season closely; appreciate a well-drawn scheme." },
     { k: "Cricket · IPL", v: "Royal Challengers Bengaluru. Home-team loyalty, long-suffering optimism." },
     { k: "Football", v: "Real Madrid." },
-    { k: "Competitive gaming", v: "Valorant and Counter-Strike — long-time player; interested in the aiming / decision-making research literature around FPS." }
+    { k: "Competitive gaming", v: "Valorant and Counter-Strike — long-time player." }
   ]
 };
