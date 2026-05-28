@@ -1,39 +1,83 @@
-/* Operations Console Portfolio — components */
 /* eslint-disable */
+/* Portfolio — VoltBroker × Apple home page */
+const { useState, useEffect, useRef, useCallback, useMemo } = React;
 
-const { useState, useEffect, useMemo, useRef, useCallback } = React;
+/* -------------------- Reveal-on-scroll hook -------------------- */
+function useReveal() {
+  useEffect(() => {
+    // Tag the doc once JS has hydrated — CSS uses .js-loaded to opt-in to
+    // the opacity:0 starting state so the no-JS / pre-hydration view is
+    // still readable.
+    document.documentElement.classList.add('js-loaded');
 
-/* -------------------- BOOT SEQUENCE -------------------- */
+    // Hero entrance — staggered class toggles instead of CSS @keyframes
+    // (CSS animations can stall in some rendering contexts).
+    requestAnimationFrame(() => {
+      const lns = document.querySelectorAll('.hero-h1 .ln');
+      const heroSub = document.querySelector('.hero-sub');
+      const ctaRow = document.querySelector('.hero .cta-row');
+      const heroBot = document.querySelector('.hero-bottom');
+      lns.forEach((el, i) => setTimeout(() => el.classList.add('in'), 60 + i * 120));
+      if (heroSub) setTimeout(() => heroSub.classList.add('in'), 560);
+      if (ctaRow)  setTimeout(() => ctaRow.classList.add('in'), 720);
+      if (heroBot) setTimeout(() => heroBot.classList.add('in'), 880);
+    });
+
+    const els = document.querySelectorAll('.reveal, .reveal-stagger');
+    if (!('IntersectionObserver' in window) || !els.length) {
+      els.forEach(e => e.classList.add('in'));
+      return;
+    }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          en.target.classList.add('in');
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.18, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(e => io.observe(e));
+    return () => io.disconnect();
+  }, []);
+}
+
+/* -------------------- Boot overlay -------------------- */
 const BOOT_LINES = [
-  { t: 0,   html: '<span class="dim">[0.001]</span> portfolio.sys boot... <span class="ok">ok</span>' },
-  { t: 90,  html: '<span class="dim">[0.089]</span> mounting /identity ................. <span class="ok">ok</span>' },
-  { t: 180, html: '<span class="dim">[0.174]</span> resolving /projects (6) ............ <span class="ok">ok</span>' },
-  { t: 260, html: '<span class="dim">[0.261]</span> loading design_system.tokens ....... <span class="ok">ok</span>' },
-  { t: 340, html: '<span class="dim">[0.338]</span> attaching voltbroker.vercel ........ <span class="ok">ok</span>' },
-  { t: 420, html: '<span class="dim">[0.402]</span> checking credentials ............... <span class="ok">ok</span>' },
-  { t: 500, html: '<span class="dim">[0.487]</span> warming up /now feed ............... <span class="ok">ok</span>' },
-  { t: 580, html: '<span class="dim">[0.562]</span> <span class="accent">suprith@portfolio</span>:~$ render <span class="accent">--mode=console</span> <span class="cursor"></span>' },
+  { t: 0,    html: '<span class="dim">[0.001]</span> portfolio.sys boot <span class="ok">ok</span>' },
+  { t: 90,   html: '<span class="dim">[0.089]</span> mounting /identity ............... <span class="ok">ok</span>' },
+  { t: 200,  html: '<span class="dim">[0.174]</span> resolving /projects (6) .......... <span class="ok">ok</span>' },
+  { t: 320,  html: '<span class="dim">[0.261]</span> loading design.tokens ............ <span class="ok">ok</span>' },
+  { t: 430,  html: '<span class="dim">[0.338]</span> attaching voltbroker.vercel ...... <span class="ok">ok</span>' },
+  { t: 540,  html: '<span class="dim">[0.412]</span> warming /now ..................... <span class="ok">ok</span>' },
+  { t: 650,  html: '<span class="dim">[0.487]</span> <span class="accent">suprith@portfolio</span>:~$ render <span class="accent">--edition=2026</span> <span class="cursor"></span>' },
 ];
 
-function Boot({ onDone }) {
+function Boot() {
   const [done, setDone] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [lines, setLines] = useState([]);
 
   useEffect(() => {
-    if (sessionStorage.getItem('booted')) { setDone(true); onDone?.(); return; }
-    const timers = BOOT_LINES.map((l, i) => setTimeout(() => {
+    if (sessionStorage.getItem('booted')) { setDone(true); setHidden(true); return; }
+    const timers = BOOT_LINES.map(l => setTimeout(() => {
       setLines(prev => [...prev, l]);
     }, l.t));
     const finalT = setTimeout(() => {
       sessionStorage.setItem('booted', '1');
       setDone(true);
-      onDone?.();
-    }, 1400);
+      setTimeout(() => setHidden(true), 600);
+    }, 1500);
     return () => { timers.forEach(clearTimeout); clearTimeout(finalT); };
   }, []);
 
+  if (hidden) return null;
+
   return (
-    <div className={"boot" + (done ? " done" : "")}>
+    <div
+      className="boot"
+      style={done ? { opacity: 0, pointerEvents: 'none' } : undefined}
+      aria-hidden={done ? 'true' : 'false'}
+    >
       <div className="boot-inner">
         {lines.map((l, i) => (
           <div key={i} className="boot-line" dangerouslySetInnerHTML={{ __html: l.html }} />
@@ -43,579 +87,397 @@ function Boot({ onDone }) {
   );
 }
 
-/* -------------------- TOP BAR -------------------- */
-function TopBar({ onOpenCmd }) {
+/* -------------------- Topbar -------------------- */
+function Topbar() {
+  const [light, setLight] = useState(false);
+  useEffect(() => {
+    // Toggle light/dark style based on the section currently under the bar.
+    const onScroll = () => {
+      const y = 24;
+      const el = document.elementFromPoint(window.innerWidth / 2, y);
+      const surf = el?.closest('.surf-cream, .surf-paper, .surf-dark, .hero');
+      if (!surf) return;
+      const isLight = surf.classList.contains('surf-cream') || surf.classList.contains('surf-paper');
+      setLight(isLight);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, []);
+
   return (
-    <header className="topbar">
+    <header className={'topbar' + (light ? ' is-light' : '')}>
       <div className="topbar-inner">
-        <div className="topbar-brand">
-          <span className="dot"></span>
-          <span>suprith.ops</span>
-          <span style={{color:'var(--ink-dimmer)', marginLeft:8}}>v2.4.1</span>
-        </div>
+        <a href="#top" className="topbar-brand">
+          <span className="mark">V</span>
+          <span>SUPRITH.OPS</span>
+          <span className="ver">/ 2026</span>
+        </a>
         <nav className="topbar-nav">
-          <a href="#identity">identity</a>
-          <a href="#projects">projects</a>
+          <a href="#work">work</a>
           <a href="#arc">arc</a>
+          <a href="#how">approach</a>
           <a href="#credentials">credentials</a>
-          <a href="#now">now</a>
           <a href="#contact">contact</a>
         </nav>
         <div className="topbar-right">
-          <span className="kbd kbd-trigger" onClick={onOpenCmd}>
-            <span>⌘</span><span>K</span>
-          </span>
+          <span><span className="live-dot"></span>online</span>
         </div>
       </div>
     </header>
   );
 }
 
-/* -------------------- HERO -------------------- */
+/* -------------------- Hero -------------------- */
 function Hero() {
+  const h = window.PORTFOLIO_DATA.hero;
   const d = window.PORTFOLIO_DATA.identity;
-  const pos = window.PORTFOLIO_DATA.positioning;
-  return (
-    <section className="hero" id="identity">
-      <div className="panel hero-main">
-        <div className="panel-header">
-          <span>/ identity · overview</span>
-          <span className="tag">● live</span>
-        </div>
-        <div className="panel-body">
-          <h1 className="name-block">
-            Designing <em>systems</em><br/>
-            people<br/>trust.
-          </h1>
-          <p className="role-line">
-            <span className="hl">Suprith Chandra Shekar</span> — M.S. Industrial Engineering candidate at <span className="hl">UIUC</span>; formerly Consultant at <span className="hl">Deloitte</span> (ServiceNow ITSM / ITOM). Designed and shipped <span className="hl">VoltBroker</span> — a full B2B marketplace — end-to-end using AI-native design tools. Seeking product design and applied AI roles for Spring 2027.
-          </p>
-          <div className="identity-grid">
-            <div className="identity-cell"><span className="k">role</span><span className="v">{d.role}</span></div>
-            <div className="identity-cell"><span className="k">status</span><span className="v" style={{color:'var(--accent)'}}>{d.status}</span></div>
-            <div className="identity-cell"><span className="k">location</span><span className="v">{d.location}</span></div>
-          </div>
-          <div className="cta-row">
-            <a className="btn btn-primary btn-arrow" href="#projects">view projects</a>
-            <a className="btn btn-arrow" href="#contact">get in touch</a>
-            <a className="btn" href="https://voltbroker.vercel.app" target="_blank" rel="noreferrer">voltbroker ↗</a>
-          </div>
-        </div>
-      </div>
+  const now = useMemo(() => {
+    const dt = new Date();
+    return dt.toLocaleString('en-US', {
+      month: 'short', day: '2-digit', year: 'numeric',
+      hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'UTC'
+    }).toUpperCase() + ' UTC';
+  }, []);
 
-      <div className="panel">
-        <div className="panel-header">
-          <span>/ system · topology</span>
-          <span className="tag">design-work</span>
-        </div>
-        <div className="sys-diagram panel-body">
-          <div className="sys-diagram-title">active projects</div>
-          <pre className="sys-tree" style={{margin:0, whiteSpace:'pre'}}>
-{`portfolio/
-├─ `}<span className="node">voltbroker</span>{`              `}<span className="status-ok"></span><span className="meta">B2B marketplace · shipped</span>{`
-│  ├─ design-system         `}<span className="status-ok"></span><span className="meta">tokens + components</span>{`
-│  ├─ rfq-engine            `}<span className="status-ok"></span><span className="meta">interaction design</span>{`
-│  └─ 15+ pages             `}<span className="status-ok"></span><span className="meta">responsive</span>{`
-├─ `}<span className="node">hxri-lab</span>{`                `}<span className="status-ok"></span><span className="meta">MR simulator · thesis</span>{`
-├─ `}<span className="node">hft-strategy</span>{`            `}<span className="status-ok"></span><span className="meta">quant research · A+</span>{`
-└─ `}<span className="node">claude-node</span>{`             `}<span className="status-wip"></span><span className="meta">AI agent experiments</span>{`
-`}
-          </pre>
-          <div className="sys-stats">
-            <div><div className="sys-stat-k">shipped</div><div className="sys-stat-v">VoltBroker</div></div>
-            <div><div className="sys-stat-k">pages</div><div className="sys-stat-v">15+</div></div>
-            <div><div className="sys-stat-k">GPA</div><div className="sys-stat-v">3.91</div></div>
-            <div><div className="sys-stat-k">since</div><div className="sys-stat-v">'25</div></div>
+  return (
+    <section className="hero" id="top">
+      <div className="hero-inner">
+        <div className="hero-top">
+          <div className="hero-top-l">
+            <div><span className="accent">●</span> SUPRITH.OPS / {h.edition}</div>
+            <div>FILED · {now}</div>
           </div>
+          <div className="hero-top-r">
+            <div><span className="live">●</span> AVAILABLE · {d.status.toUpperCase()}</div>
+            <div>{d.locShort.toUpperCase()} · {d.tz}</div>
+          </div>
+        </div>
+
+        <h1 className="hero-h1">
+          <span className="ln">{h.line1}</span>
+          <span className="ln"><span className="em">{h.line2}</span></span>
+          <span className="ln">{h.line3}</span>
+          <span className="ln">{h.line4}</span>
+        </h1>
+
+        <p className="hero-sub" dangerouslySetInnerHTML={{ __html: h.sub }} />
+
+        <div className="cta-row">
+          <a className="btn btn-primary" href="#work">
+            <span>View selected work</span><span className="arrow">→</span>
+          </a>
+          <a className="btn" href="#contact">
+            <span>Get in touch</span><span className="arrow">→</span>
+          </a>
+          <a className="btn" href={d.voltbroker} target="_blank" rel="noreferrer">
+            <span>VoltBroker</span><span className="arrow">↗</span>
+          </a>
+        </div>
+
+        <div className="hero-bottom">
+          {h.stats.map((s, i) => (
+            <div key={i} className="hero-stat">
+              <div className="k">{s.k}</div>
+              <div className="v">{s.v}</div>
+              <div className="sub">{s.sub}</div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
   );
 }
 
-/* -------------------- SECTION HEAD -------------------- */
-function SectionHead({ num, title, em, meta }) {
+/* -------------------- Telemetry strip -------------------- */
+function Telemetry() {
+  const t = window.PORTFOLIO_DATA.telemetry;
   return (
-    <div className="section-head">
-      <span className="section-num">§ {num}</span>
-      <h2 className="section-title">{title} {em && <em>{em}</em>}</h2>
-      {meta && <span className="section-meta">{meta}</span>}
-    </div>
+    <section className="telemetry">
+      <div className="telemetry-inner">
+        {t.map((c, i) => (
+          <div key={i} className="tel-cell">
+            <div className="k">{c.k}</div>
+            <div className="v">{c.v}{c.u && <span className="u">{c.u}</span>}</div>
+            <div className="sub">{c.sub}</div>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }
 
-/* -------------------- PROJECTS -------------------- */
-function Projects() {
-  const projects = window.PORTFOLIO_DATA.projects;
-  const [active, setActive] = useState(0);
-  const listRef = useRef(null);
-
-  // Keyboard nav when focused
-  useEffect(() => {
-    const onKey = (e) => {
-      if (document.activeElement?.tagName === 'INPUT' || document.activeElement?.tagName === 'TEXTAREA') return;
-      if (e.key === 'ArrowDown') { setActive(a => Math.min(projects.length - 1, a + 1)); e.preventDefault(); }
-      if (e.key === 'ArrowUp')   { setActive(a => Math.max(0, a - 1)); e.preventDefault(); }
-    };
-    const list = listRef.current;
-    list?.addEventListener('keydown', onKey);
-    return () => list?.removeEventListener('keydown', onKey);
-  }, [projects.length]);
-
-  const p = projects[active];
-
+/* -------------------- Section head -------------------- */
+function SecHead({ num, title, em, meta }) {
   return (
-    <section className="content-block" id="projects">
-      <SectionHead num="01" title="selected" em="work" meta={`${projects.length} projects · use arrow keys to navigate`} />
-      <div className="projects">
-        <div className="proj-list" ref={listRef} tabIndex={0}>
-          <div className="proj-list-head"><span>projects</span><span>↑ ↓</span></div>
-          {projects.map((pr, i) => (
-            <div key={pr.id} className={"proj-item" + (i === active ? " active" : "")} onClick={() => setActive(i)}>
-              <div className="proj-item-id">{pr.id} · {pr.kicker}</div>
-              <div className="proj-item-title">{pr.title}</div>
-              <div className="proj-item-blurb">{pr.blurb}</div>
-            </div>
+    <header className="sec-head reveal">
+      <div>
+        <div className="sec-head-eyebrow">§ {num} / {meta?.split('·')[0]?.trim()}</div>
+        <h2 className="h2">{title}{em && <> <em>{em}</em></>}</h2>
+      </div>
+      <div className="sec-head-meta">{meta}</div>
+    </header>
+  );
+}
+
+/* -------------------- Project index (masthead list) -------------------- */
+function ProjectIndex() {
+  const projects = window.PORTFOLIO_DATA.projects;
+  return (
+    <section className="surf surf-dark index" id="work">
+      <div className="surf-inner">
+        <header className="sec-head reveal">
+          <div>
+            <div className="sec-head-eyebrow">§ 01 / SELECTED WORK</div>
+            <h2 className="h2">Selected <em>work</em></h2>
+          </div>
+          <div className="sec-head-meta">06 PROJECTS · 2020 — 2026</div>
+        </header>
+        <div className="index-list reveal-stagger">
+          {projects.map(p => (
+            <a key={p.slug} href={`#p-${p.slug}`} className="index-row">
+              <span className="ix-num">{p.id}</span>
+              <span className="ix-title">{p.title}<em>{p.titleRest}</em></span>
+              <span className="ix-kicker">{p.kicker}</span>
+              <span className="ix-arrow">→</span>
+            </a>
           ))}
         </div>
-        <div className="proj-detail" key={p.slug}>
-          <div className="proj-detail-header">
-            <div className="proj-detail-kicker">{p.kicker} · {p.id}</div>
-            <h3 className="proj-detail-title">
-              {p.title.replace(p.emTitle, '')}<em>{p.emTitle}</em>
-            </h3>
-            <p className="proj-detail-blurb">{p.blurb}</p>
+      </div>
+    </section>
+  );
+}
+
+/* -------------------- ProjectShow (theatrical block per project) -------------------- */
+function ProjectShow({ p, idx }) {
+  const dark = idx % 2 === 1; // alternate after the masthead
+  const surfClass = dark ? 'surf surf-dark' : 'surf surf-cream';
+  const reverse = idx % 2 === 0;
+  const illusOpts = dark
+    ? { fill: '#E8E3D0', accent: '#E8551C' }
+    : { fill: '#2A2824', accent: '#E8551C' };
+  const svg = window.getIllus(p.illus, illusOpts);
+
+  return (
+    <section className={surfClass + ' proj-show'} id={`p-${p.slug}`}>
+      <div className={'surf-inner proj-show-inner' + (reverse ? ' reverse' : '')}>
+        <div className="proj-body reveal">
+          <div className="proj-eyebrow">
+            <span>§ {p.id}</span>
+            <span className="sep"></span>
+            <span>{p.kicker}</span>
           </div>
+          <h3 className="proj-title">{p.title}<em>{p.titleRest}</em></h3>
+          <p className="proj-tagline">{p.tagline}</p>
+          <p className="proj-blurb">{p.blurb}</p>
 
-          {p.case_study && p.problem && (
-            <div className="proj-section">
-              <div className="proj-section-label">problem</div>
-              <p>{p.problem}</p>
-            </div>
-          )}
-
-          {p.case_study && p.approach && (
-            <div className="proj-section">
-              <div className="proj-section-label">approach</div>
-              <p>{p.approach}</p>
-            </div>
-          )}
-
-          {p.case_study && p.innovations && (
-            <div className="proj-section">
-              <div className="proj-section-label">innovations</div>
-              <ul>{p.innovations.map((it, j) => <li key={j}>{it}</li>)}</ul>
-            </div>
-          )}
-
-          {p.sub.map((s, i) => (
-            <div key={i} className="proj-section">
-              <div className="proj-section-label">{s.label}</div>
-              {s.type === 'para' && <p>{s.text}</p>}
-              {s.type === 'list' && (
-                <ul>{s.items.map((it, j) => <li key={j}>{it}</li>)}</ul>
-              )}
-              {s.type === 'stack' && (
-                <div className="stack-row">{s.items.map((it, j) => <span key={j} className="chip">{it}</span>)}</div>
-              )}
-            </div>
-          ))}
-
-          {p.metrics?.length > 0 && (
-            <div className="proj-section">
-              <div className="proj-section-label">metrics</div>
-              <div className="metric-grid">
-                {p.metrics.map((m, i) => (
-                  <div key={i} className="metric">
-                    <div className="metric-k">{m.k}</div>
-                    <div className="metric-v">{m.v}</div>
-                    <div className="metric-sub">{m.sub}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {p.links?.length > 0 && (
-            <div className="proj-links">
-              {p.links.map((l, i) => (
-                <a key={i} className="btn" href={l.href} target="_blank" rel="noreferrer">{l.label}</a>
+          {p.meta && (
+            <div className="proj-meta">
+              {p.meta.map((m, i) => (
+                <div key={i} className="proj-meta-cell">
+                  <span className="k">{m.k}</span>
+                  <span className="v">{m.v}</span>
+                </div>
               ))}
             </div>
           )}
+
+          <div className="cta-row" style={{ margin: 0 }}>
+            <a className="btn btn-primary" href={`projects/${p.slug}.html`}>
+              <span>Read case</span><span className="arrow">→</span>
+            </a>
+            {p.links?.map((l, i) => (
+              <a key={i} className="btn" href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">
+                <span>{l.label}</span><span className="arrow">{l.href.startsWith('http') ? '↗' : '→'}</span>
+              </a>
+            ))}
+          </div>
         </div>
+
+        <div
+          className="proj-art reveal"
+          data-corner={`FIG. ${p.id} · ${p.illus.toUpperCase()}`}
+          data-stamp={`PORTFOLIO/2026 · ${p.id}`}
+          dangerouslySetInnerHTML={{ __html: svg }}
+        />
       </div>
     </section>
   );
 }
 
-/* -------------------- ARC -------------------- */
+/* -------------------- Professional Arc -------------------- */
 function Arc() {
   const arc = window.PORTFOLIO_DATA.arc;
   return (
-    <section className="content-block" id="arc">
-      <SectionHead num="02" title="professional" em="trajectory" meta="consulting → engineering → product design" />
-      <div className="arc">
-        {arc.map((r, i) => (
-          <div key={i} className="arc-row">
-            <div className="arc-period">{r.period}</div>
-            <div className="arc-title">{r.title}<span className="sub">{r.sub}</span></div>
-            <div className="arc-body">{r.body}</div>
-          </div>
-        ))}
+    <section className="surf surf-paper" id="arc">
+      <div className="surf-inner">
+        <SecHead num="02" title="Professional" em="arc" meta="CONSULTING · ENGINEERING · DESIGN · 2018—2026" />
+        <div className="arc reveal-stagger">
+          {arc.map((r, i) => (
+            <div key={i} className="arc-row">
+              <div className="arc-period">{r.period}</div>
+              <div className="arc-title">{r.title}<span className="sub">{r.sub}</span></div>
+              <div className="arc-body">{r.body}</div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
 }
 
-/* -------------------- CREDENTIALS -------------------- */
+/* -------------------- How I work -------------------- */
+function HowIWork() {
+  const how = window.PORTFOLIO_DATA.how_i_work;
+  return (
+    <section className="surf surf-dark" id="how">
+      <div className="surf-inner">
+        <SecHead num="03" title="How I" em="work" meta="FOUR PRINCIPLES · IN ACTIVE USE" />
+        <div className="how reveal-stagger">
+          {how.map((h, i) => (
+            <div key={i} className="how-card">
+              <div className="num">PRINCIPLE / 0{i + 1}</div>
+              <div className="k">{h.k}</div>
+              <div className="v">{h.v}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* -------------------- Credentials -------------------- */
 function Credentials() {
   const cred = window.PORTFOLIO_DATA.credentials;
   return (
-    <section className="content-block" id="credentials">
-      <SectionHead num="03" title="credentials" em="& outcomes" meta="verified academic and professional record" />
-      <div className="cred-grid">
-        {cred.map((c, i) => (
-          <div key={i} className="cred">
-            <div className="cred-k">{c.k}</div>
-            <div className="cred-v">{c.v}</div>
-            <div className="cred-sub">{c.sub}</div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-/* -------------------- NOW + ASK -------------------- */
-function NowAndAsk() {
-  const now = window.PORTFOLIO_DATA.now;
-  const [q, setQ] = useState('');
-  const [a, setA] = useState('');
-  const [loading, setLoading] = useState(false);
-
-  const ask = useCallback(async (prompt) => {
-    const p = prompt ?? q;
-    if (!p || loading) return;
-    setA('');
-    setLoading(true);
-    try {
-      const resp = await fetch('https://ask-suprith.suprithchandrashekar.workers.dev', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question: p }),
-      });
-      const data = await resp.json().catch(() => ({}));
-      if (!resp.ok) {
-        setA(data.error || `Request failed (${resp.status}).`);
-      } else {
-        setA((data.answer || '').trim() || '(no response)');
-      }
-    } catch (err) {
-      setA('Could not reach the assistant right now. Try again in a moment.');
-    } finally {
-      setLoading(false);
-    }
-  }, [q, loading]);
-
-  return (
-    <section className="content-block" id="now">
-      <SectionHead num="04" title="current" em="focus" meta={new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} />
-      <div className="now-wrap">
-        <div className="now-feed">
-          <div className="panel-header">
-            <span>/ activity · last 30d</span>
-            <span className="tag">streaming</span>
-          </div>
-          {now.map((n, i) => (
-            <div key={i} className="now-entry">
-              <div className="now-ts">{n.ts}</div>
-              <div className="now-body">
-                <span className="tag">{n.tag}</span>
-                {n.text}
-              </div>
+    <section className="surf surf-cream" id="credentials">
+      <div className="surf-inner">
+        <SecHead num="04" title="Credentials" em="& outcomes" meta="VERIFIED · ACADEMIC + PROFESSIONAL" />
+        <div className="cred-grid reveal-stagger">
+          {cred.map((c, i) => (
+            <div key={i} className="cred-cell">
+              <div className="k">{c.k}</div>
+              <div className="v">{c.v}</div>
+              <div className="sub">{c.sub}</div>
             </div>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
 
-        <div className="ask">
-          <h3 className="ask-title">ask <em>claude</em> about me</h3>
-          <p className="ask-sub">A minimal agent wired to my background. Pick a prompt or write your own.</p>
-          <div className="ask-prompts">
-            <button className="ask-prompt" onClick={() => ask('What makes Suprith unusual as a product designer?')}>what makes suprith unusual?</button>
-            <button className="ask-prompt" onClick={() => ask('What would Suprith bring to a product design team building AI-driven products?')}>what would he bring to a design team?</button>
-            <button className="ask-prompt" onClick={() => ask('Explain VoltBroker and the design decisions behind it.')}>explain voltbroker</button>
-          </div>
-          <div className="ask-input-row">
-            <input
-              className="ask-input"
-              value={q}
-              onChange={e => setQ(e.target.value)}
-              placeholder="ask something..."
-              onKeyDown={e => { if (e.key === 'Enter') ask(); }}
-              disabled={loading}
-            />
-            <button className="ask-send" onClick={() => ask()} disabled={loading || !q}>{loading ? '...' : 'ask →'}</button>
-          </div>
-          <div className={"ask-response" + (!a ? " empty" : "")}>
-            {a || 'response will appear here'}
-          </div>
+/* -------------------- Contact -------------------- */
+function Contact() {
+  const d = window.PORTFOLIO_DATA.identity;
+  return (
+    <section className="surf surf-dark" id="contact">
+      <div className="surf-inner">
+        <div className="sec-head-eyebrow reveal">§ 05 / GET IN TOUCH</div>
+        <h2 className="contact-h reveal">
+          Looking for <em>product design</em> and <em>applied&nbsp;AI</em> roles starting Spring&nbsp;2027.
+        </h2>
+        <p className="lede reveal" style={{ marginTop: 16 }}>
+          If you're building AI-driven products, designing conversational interfaces, or need someone who can own a product end-to-end from research to shipped pixels — I'd love to talk. I write back the same day.
+        </p>
+
+        <div className="contact-grid reveal">
+          <a className="contact-row" href={`mailto:${d.email}`}>
+            <span className="k">EMAIL</span>
+            <span className="v">{d.email}</span>
+            <span className="arr">→</span>
+          </a>
+          <a className="contact-row" href={d.linkedin} target="_blank" rel="noreferrer">
+            <span className="k">LINKEDIN</span>
+            <span className="v">in/suprith-c-shekar</span>
+            <span className="arr">↗</span>
+          </a>
+          <a className="contact-row" href={d.github} target="_blank" rel="noreferrer">
+            <span className="k">GITHUB</span>
+            <span className="v">@SuprithChandrashekar</span>
+            <span className="arr">↗</span>
+          </a>
+          <a className="contact-row" href={d.voltbroker} target="_blank" rel="noreferrer">
+            <span className="k">VOLTBROKER</span>
+            <span className="v">voltbroker.vercel.app</span>
+            <span className="arr">↗</span>
+          </a>
+          <a className="contact-row" href={`tel:${d.phone.replace(/\s/g,'')}`}>
+            <span className="k">PHONE</span>
+            <span className="v">{d.phone}</span>
+            <span className="arr">→</span>
+          </a>
         </div>
       </div>
     </section>
   );
 }
 
-/* -------------------- SKILLS -------------------- */
-function Skills() {
-  const skills = window.PORTFOLIO_DATA.skills;
+/* -------------------- Footer -------------------- */
+function Footer() {
+  const d = window.PORTFOLIO_DATA.identity;
+  const year = new Date().getFullYear();
   return (
-    <section className="content-block" id="skills">
-      <SectionHead num="05" title="technical" em="competencies" meta="tools and methods in active use" />
-      <div className="skills">
-        {skills.map((g, i) => (
-          <div key={i} className="skill-group">
-            <div className="skill-group-title">{g.group}</div>
-            <ul className="skill-list">
-              {g.items.map((s, j) => <li key={j}>{s}</li>)}
+    <footer className="footer">
+      <div className="footer-inner">
+        <div className="footer-top">
+          <div>
+            <div className="footer-mark">Suprith / 2026</div>
+            <p className="footer-quote">
+              "Bring the rigour of engineering to the creative process of product design."
+            </p>
+          </div>
+          <div className="footer-col">
+            <h4>Work</h4>
+            <ul>
+              {window.PORTFOLIO_DATA.projects.map(p => (
+                <li key={p.slug}><a href={`projects/${p.slug}.html`}>{p.title}{p.titleRest}</a></li>
+              ))}
             </ul>
           </div>
-        ))}
+          <div className="footer-col">
+            <h4>Elsewhere</h4>
+            <ul>
+              <li><a href={`mailto:${d.email}`}>{d.email}</a></li>
+              <li><a href={d.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a></li>
+              <li><a href={d.github} target="_blank" rel="noreferrer">GitHub ↗</a></li>
+              <li><a href={d.voltbroker} target="_blank" rel="noreferrer">VoltBroker ↗</a></li>
+            </ul>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <span>© {year} SUPRITH CHANDRA SHEKAR · BUILT WITH CLAUDE</span>
+          <span>CHAMPAIGN, IL · UTC−06 · AVAILABLE SPRING 2027</span>
+        </div>
       </div>
-    </section>
+    </footer>
   );
 }
 
-/* -------------------- CONTACT -------------------- */
-function Contact() {
-  return (
-    <section className="content-block" id="contact">
-      <SectionHead num="06" title="get in" em="touch" />
-      <div className="contact">
-        <div>
-          <h3 className="contact-lead">
-            I'm looking for <em>product design / applied AI</em> roles starting <em>Spring 2027</em>.
-          </h3>
-          <p className="contact-sub">
-            If you're building AI-driven products, designing conversational interfaces, or need someone who can own a product end-to-end from research to shipped pixels — I'd love to talk.
-          </p>
-        </div>
-        <div className="contact-links">
-          <a className="contact-link" href="mailto:Suprith2@illinois.edu">
-            <span className="k">email</span><span className="v">Suprith2@illinois.edu →</span>
-          </a>
-          <a className="contact-link" href="https://linkedin.com/in/suprith-c-shekar" target="_blank" rel="noreferrer">
-            <span className="k">linkedin</span><span className="v">in/suprith-c-shekar →</span>
-          </a>
-          <a className="contact-link" href="https://github.com/SuprithChandrashekar" target="_blank" rel="noreferrer">
-            <span className="k">github</span><span className="v">SuprithChandrashekar →</span>
-          </a>
-          <a className="contact-link" href="https://voltbroker.vercel.app" target="_blank" rel="noreferrer">
-            <span className="k">voltbroker</span><span className="v">voltbroker.vercel.app →</span>
-          </a>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------- COMMAND PALETTE -------------------- */
-function CmdK({ open, onClose }) {
-  const projects = window.PORTFOLIO_DATA.projects;
-  const items = useMemo(() => [
-    { group: 'navigate', label: 'go to identity', href: '#identity' },
-    { group: 'navigate', label: 'go to projects', href: '#projects' },
-    { group: 'navigate', label: 'go to arc', href: '#arc' },
-    { group: 'navigate', label: 'go to credentials', href: '#credentials' },
-    { group: 'navigate', label: 'go to now', href: '#now' },
-    { group: 'navigate', label: 'go to contact', href: '#contact' },
-    ...projects.map(p => ({ group: 'projects', label: `open: ${p.title}`, href: '#projects', slug: p.slug })),
-    { group: 'external', label: 'github ↗', href: 'https://github.com/SuprithChandrashekar', external: true },
-    { group: 'external', label: 'linkedin ↗', href: 'https://linkedin.com/in/suprith-c-shekar', external: true },
-    { group: 'external', label: 'voltbroker ↗', href: 'https://voltbroker.vercel.app', external: true },
-    { group: 'external', label: 'email →', href: 'mailto:Suprith2@illinois.edu', external: true },
-  ], [projects]);
-
-  const [query, setQuery] = useState('');
-  const [idx, setIdx] = useState(0);
-  const inputRef = useRef(null);
-
-  useEffect(() => {
-    if (open) { setQuery(''); setIdx(0); setTimeout(() => inputRef.current?.focus(), 20); }
-  }, [open]);
-
-  const filtered = useMemo(() => {
-    if (!query) return items;
-    const q = query.toLowerCase();
-    return items.filter(it => it.label.toLowerCase().includes(q) || it.group.includes(q));
-  }, [query, items]);
-
-  useEffect(() => { setIdx(0); }, [query]);
-
-  const pick = (it) => {
-    if (it.external) window.open(it.href, '_blank');
-    else window.location.href = it.href;
-    onClose();
-  };
-
-  const onKey = (e) => {
-    if (e.key === 'ArrowDown') { setIdx(i => Math.min(filtered.length - 1, i + 1)); e.preventDefault(); }
-    else if (e.key === 'ArrowUp') { setIdx(i => Math.max(0, i - 1)); e.preventDefault(); }
-    else if (e.key === 'Enter' && filtered[idx]) { pick(filtered[idx]); }
-    else if (e.key === 'Escape') onClose();
-  };
-
-  if (!open) return null;
-
-  return (
-    <div className="cmdk-overlay" onClick={onClose}>
-      <div className="cmdk" onClick={e => e.stopPropagation()}>
-        <input
-          ref={inputRef}
-          className="cmdk-input"
-          value={query}
-          onChange={e => setQuery(e.target.value)}
-          onKeyDown={onKey}
-          placeholder="type a command or search..."
-        />
-        <div className="cmdk-list">
-          {filtered.length === 0 && <div className="cmdk-item"><span>no matches</span></div>}
-          {filtered.map((it, i) => (
-            <div
-              key={i}
-              className={"cmdk-item" + (i === idx ? " active" : "")}
-              onMouseEnter={() => setIdx(i)}
-              onClick={() => pick(it)}
-            >
-              <span>{it.label}</span>
-              <span className="group">{it.group}</span>
-            </div>
-          ))}
-        </div>
-        <div className="cmdk-foot">
-          <span><span className="kbd">↑↓</span> navigate</span>
-          <span><span className="kbd">↵</span> select</span>
-          <span><span className="kbd">esc</span> close</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* -------------------- TWEAKS -------------------- */
-const THEMES = {
-  terracotta: { accent: '#E76F51', accentDim: '#c85a3a', accentGhost: 'rgba(231, 111, 81, 0.12)' },
-  emerald:    { accent: '#A8D5BA', accentDim: '#8BB89E', accentGhost: 'rgba(168, 213, 186, 0.12)' },
-  lime:       { accent: '#c4e86b', accentDim: '#a4c947', accentGhost: 'rgba(196, 232, 107, 0.12)' },
-  amber:      { accent: '#e8b546', accentDim: '#c49a35', accentGhost: 'rgba(232, 181, 70, 0.12)' },
-  blue:       { accent: '#6bb6ff', accentDim: '#4a95de', accentGhost: 'rgba(107, 182, 255, 0.12)' },
-};
-
-function Tweaks() {
-  const [visible, setVisible] = useState(false);
-  const [theme, setTheme] = useState('terracotta');
-  const [density, setDensity] = useState('comfortable');
-
-  useEffect(() => {
-    const onMsg = (e) => {
-      if (e.data?.type === '__activate_edit_mode') setVisible(true);
-      if (e.data?.type === '__deactivate_edit_mode') setVisible(false);
-    };
-    window.addEventListener('message', onMsg);
-    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
-    return () => window.removeEventListener('message', onMsg);
-  }, []);
-
-  useEffect(() => {
-    const t = THEMES[theme];
-    document.documentElement.style.setProperty('--accent', t.accent);
-    document.documentElement.style.setProperty('--accent-dim', t.accentDim);
-    document.documentElement.style.setProperty('--accent-ghost', t.accentGhost);
-  }, [theme]);
-
-  useEffect(() => {
-    if (density === 'compact') {
-      document.documentElement.style.setProperty('--grid-unit', '6px');
-    } else {
-      document.documentElement.style.setProperty('--grid-unit', '8px');
-    }
-  }, [density]);
-
-  const close = () => {
-    setVisible(false);
-    window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
-  };
-
-  if (!visible) return null;
-
-  return (
-    <div className="tweaks">
-      <div className="tweaks-head">
-        <h3>Tweaks</h3>
-        <button className="tweaks-close" onClick={close}>×</button>
-      </div>
-      <div className="tweak-row">
-        <label>accent color</label>
-        <div className="tweak-swatches">
-          {Object.entries(THEMES).map(([k, v]) => (
-            <div
-              key={k}
-              className={"swatch" + (theme === k ? " active" : "")}
-              style={{ background: v.accent }}
-              onClick={() => setTheme(k)}
-              title={k}
-            />
-          ))}
-        </div>
-      </div>
-      <div className="tweak-row">
-        <label>density</label>
-        <select value={density} onChange={e => setDensity(e.target.value)}>
-          <option value="comfortable">comfortable</option>
-          <option value="compact">compact</option>
-        </select>
-      </div>
-    </div>
-  );
-}
-
-/* -------------------- APP -------------------- */
+/* -------------------- App -------------------- */
 function App() {
-  const [cmdOpen, setCmdOpen] = useState(false);
-
-  useEffect(() => {
-    const onKey = (e) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
-        e.preventDefault();
-        setCmdOpen(o => !o);
-      }
-      if (e.key === 'Escape') setCmdOpen(false);
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, []);
-
+  useReveal();
+  const projects = window.PORTFOLIO_DATA.projects;
   return (
     <>
       <Boot />
-      <TopBar onOpenCmd={() => setCmdOpen(true)} />
-      <main className="stage">
+      <Topbar />
+      <main>
         <Hero />
-        <Projects />
+        <Telemetry />
+        <ProjectIndex />
+        {projects.map((p, i) => <ProjectShow key={p.slug} p={p} idx={i} />)}
         <Arc />
+        <HowIWork />
         <Credentials />
-        <NowAndAsk />
-        <Skills />
         <Contact />
       </main>
-      <footer>
-        <div className="inner">
-          <span>© 2026 SUPRITH CHANDRA SHEKAR · BUILT WITH CLAUDE</span>
-          <span>UTC−06 · CHAMPAIGN, IL</span>
-        </div>
-      </footer>
-      <CmdK open={cmdOpen} onClose={() => setCmdOpen(false)} />
-      <Tweaks />
+      <Footer />
     </>
   );
 }
