@@ -407,11 +407,6 @@ function Contact() {
             <span className="v">voltbroker.vercel.app</span>
             <span className="arr">↗</span>
           </a>
-          <a className="contact-row" href={`tel:${d.phone.replace(/\s/g,'')}`}>
-            <span className="k">PHONE</span>
-            <span className="v">{d.phone}</span>
-            <span className="arr">→</span>
-          </a>
         </div>
       </div>
     </section>
