@@ -387,11 +387,6 @@ function Contact() {
         </p>
 
         <div className="contact-grid reveal">
-          <a className="contact-row" href={`mailto:${d.email}`}>
-            <span className="k">EMAIL</span>
-            <span className="v">{d.email}</span>
-            <span className="arr">→</span>
-          </a>
           <a className="contact-row" href={d.linkedin} target="_blank" rel="noreferrer">
             <span className="k">LINKEDIN</span>
             <span className="v">in/suprith-c-shekar</span>
@@ -438,7 +433,6 @@ function Footer() {
           <div className="footer-col">
             <h4>Elsewhere</h4>
             <ul>
-              <li><a href={`mailto:${d.email}`}>{d.email}</a></li>
               <li><a href={d.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a></li>
               <li><a href={d.github} target="_blank" rel="noreferrer">GitHub ↗</a></li>
               <li><a href={d.voltbroker} target="_blank" rel="noreferrer">VoltBroker ↗</a></li>

@@ -9,7 +9,6 @@ window.PORTFOLIO_DATA = {
     status: "Available Spring 2027",
     tz: "UTC−06",
     since: "2025",
-    email: "suprithchandrashekar@gmail.com",
     linkedin: "https://linkedin.com/in/suprith-c-shekar",
     github: "https://github.com/SuprithChandrashekar",
     resume: "assets/suprith-chandra-shekar-resume.docx",
