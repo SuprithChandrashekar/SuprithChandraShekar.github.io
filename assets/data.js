@@ -11,7 +11,6 @@ window.PORTFOLIO_DATA = {
     since: "2025",
     linkedin: "https://linkedin.com/in/suprith-c-shekar",
     github: "https://github.com/SuprithChandrashekar",
-    resume: "assets/suprith-chandra-shekar-resume.docx",
     voltbroker: "https://voltbroker.vercel.app"
   },
 

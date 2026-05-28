@@ -2,6 +2,9 @@
 uploads/
 assets/resume-extracted.txt
 
+# Real PII patterns for scripts/redact-pii.mjs — must NOT leak into the repo
+scripts/secrets-patterns.json
+
 # Claude Code local settings
 .claude/
 

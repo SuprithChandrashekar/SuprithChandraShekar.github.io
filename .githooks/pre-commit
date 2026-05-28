@@ -1,0 +1,18 @@
+#!/bin/sh
+# Pre-commit hook — blocks commits that contain known PII patterns.
+# Install once per clone:  bash scripts/setup-hooks.sh
+#
+# Bypass (NOT recommended):  git commit --no-verify
+
+node scripts/redact-pii.mjs --staged
+RESULT=$?
+
+if [ $RESULT -ne 0 ]; then
+  echo ""
+  echo "❌  Commit blocked: redact-pii.mjs found sensitive content in staged files."
+  echo "    See output above. To auto-redact text matches:"
+  echo "      node scripts/redact-pii.mjs --redact"
+  echo "      git add -u"
+  echo "      git commit"
+  exit 1
+fi
