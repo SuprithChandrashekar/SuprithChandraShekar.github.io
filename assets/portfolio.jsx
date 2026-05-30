@@ -1,6 +1,6 @@
 /* eslint-disable */
 /* Portfolio — VoltBroker × Apple home page */
-const { useState, useEffect, useRef, useCallback, useMemo } = React;
+const { useState, useEffect, useRef, useCallback, useMemo, useImperativeHandle } = React;
 
 /* -------------------- Reveal-on-scroll hook -------------------- */
 function useReveal() {
@@ -19,38 +19,38 @@ function useReveal() {
       const heroBot = document.querySelector('.hero-bottom');
       lns.forEach((el, i) => setTimeout(() => el.classList.add('in'), 60 + i * 120));
       if (heroSub) setTimeout(() => heroSub.classList.add('in'), 560);
-      if (ctaRow)  setTimeout(() => ctaRow.classList.add('in'), 720);
+      if (ctaRow) setTimeout(() => ctaRow.classList.add('in'), 720);
       if (heroBot) setTimeout(() => heroBot.classList.add('in'), 880);
     });
 
     const els = document.querySelectorAll('.reveal, .reveal-stagger');
     if (!('IntersectionObserver' in window) || !els.length) {
-      els.forEach(e => e.classList.add('in'));
+      els.forEach((e) => e.classList.add('in'));
       return;
     }
     const io = new IntersectionObserver((entries) => {
-      entries.forEach(en => {
+      entries.forEach((en) => {
         if (en.isIntersecting) {
           en.target.classList.add('in');
           io.unobserve(en.target);
         }
       });
     }, { threshold: 0.18, rootMargin: '0px 0px -40px 0px' });
-    els.forEach(e => io.observe(e));
+    els.forEach((e) => io.observe(e));
     return () => io.disconnect();
   }, []);
 }
 
 /* -------------------- Boot overlay -------------------- */
 const BOOT_LINES = [
-  { t: 0,    html: '<span class="dim">[0.001]</span> portfolio.sys boot <span class="ok">ok</span>' },
-  { t: 90,   html: '<span class="dim">[0.089]</span> mounting /identity ............... <span class="ok">ok</span>' },
-  { t: 200,  html: '<span class="dim">[0.174]</span> resolving /projects (6) .......... <span class="ok">ok</span>' },
-  { t: 320,  html: '<span class="dim">[0.261]</span> loading design.tokens ............ <span class="ok">ok</span>' },
-  { t: 430,  html: '<span class="dim">[0.338]</span> attaching voltbroker.vercel ...... <span class="ok">ok</span>' },
-  { t: 540,  html: '<span class="dim">[0.412]</span> warming /now ..................... <span class="ok">ok</span>' },
-  { t: 650,  html: '<span class="dim">[0.487]</span> <span class="accent">suprith@portfolio</span>:~$ render <span class="accent">--edition=2026</span> <span class="cursor"></span>' },
-];
+{ t: 0, html: '<span class="dim">[0.001]</span> portfolio.sys boot <span class="ok">ok</span>' },
+{ t: 90, html: '<span class="dim">[0.089]</span> mounting /identity ............... <span class="ok">ok</span>' },
+{ t: 200, html: '<span class="dim">[0.174]</span> resolving /projects (6) .......... <span class="ok">ok</span>' },
+{ t: 320, html: '<span class="dim">[0.261]</span> loading design.tokens ............ <span class="ok">ok</span>' },
+{ t: 430, html: '<span class="dim">[0.338]</span> attaching voltbroker.vercel ...... <span class="ok">ok</span>' },
+{ t: 540, html: '<span class="dim">[0.412]</span> warming /now ..................... <span class="ok">ok</span>' },
+{ t: 650, html: '<span class="dim">[0.487]</span> <span class="accent">suprith@portfolio</span>:~$ render <span class="accent">--edition=2026</span> <span class="cursor"></span>' }];
+
 
 function Boot() {
   const [done, setDone] = useState(false);
@@ -58,16 +58,16 @@ function Boot() {
   const [lines, setLines] = useState([]);
 
   useEffect(() => {
-    if (sessionStorage.getItem('booted')) { setDone(true); setHidden(true); return; }
-    const timers = BOOT_LINES.map(l => setTimeout(() => {
-      setLines(prev => [...prev, l]);
+    if (sessionStorage.getItem('booted')) {setDone(true);setHidden(true);return;}
+    const timers = BOOT_LINES.map((l) => setTimeout(() => {
+      setLines((prev) => [...prev, l]);
     }, l.t));
     const finalT = setTimeout(() => {
       sessionStorage.setItem('booted', '1');
       setDone(true);
       setTimeout(() => setHidden(true), 600);
     }, 1500);
-    return () => { timers.forEach(clearTimeout); clearTimeout(finalT); };
+    return () => {timers.forEach(clearTimeout);clearTimeout(finalT);};
   }, []);
 
   if (hidden) return null;
@@ -76,15 +76,15 @@ function Boot() {
     <div
       className="boot"
       style={done ? { opacity: 0, pointerEvents: 'none' } : undefined}
-      aria-hidden={done ? 'true' : 'false'}
-    >
+      aria-hidden={done ? 'true' : 'false'}>
+      
       <div className="boot-inner">
-        {lines.map((l, i) => (
-          <div key={i} className="boot-line" dangerouslySetInnerHTML={{ __html: l.html }} />
-        ))}
+        {lines.map((l, i) =>
+        <div key={i} className="boot-line" dangerouslySetInnerHTML={{ __html: l.html }} />
+        )}
       </div>
-    </div>
-  );
+    </div>);
+
 }
 
 /* -------------------- Topbar -------------------- */
@@ -119,6 +119,7 @@ function Topbar() {
         </a>
         <nav className="topbar-nav">
           <a href="#work">work</a>
+          <a href="The Codex.html">art</a>
           <a href="#arc">arc</a>
           <a href="#how">approach</a>
           <a href="#credentials">credentials</a>
@@ -128,8 +129,171 @@ function Topbar() {
           <span><span className="live-dot"></span>online</span>
         </div>
       </div>
-    </header>
-  );
+    </header>);
+
+}
+
+/* -------------------- Split-flap board (Solari / scoreboard) -------------------- */
+/* Mechanical departure-board that rolls each character through the alphabet
+   to land on the target word, then cycles to the next word. Built on the Web
+   Animations API for precise two-phase flap timing. */
+const FLAP_CHARS = " ABCDEFGHIJKLMNOPQRSTUVWXYZ.";
+const FLAP_LEN = FLAP_CHARS.length;
+const FLAP_WORDS = ["DESIGNING", "SYSTEMS", "PEOPLE", "TRUST."];
+const FLAP_CELLS = 9; // longest word ("DESIGNING")
+const flapWait = (ms) => new Promise((r) => setTimeout(r, ms));
+const flapIdx = (ch) => {
+  const i = FLAP_CHARS.indexOf(ch);
+  return i < 0 ? 0 : i;
+};
+
+const FlapCell = React.forwardRef(function FlapCell(props, ref) {
+  const topRef = useRef(null);
+  const bottomRef = useRef(null);
+  const leafTopRef = useRef(null);
+  const leafBottomRef = useRef(null);
+  const curRef = useRef(' ');
+  const runRef = useRef(0);
+  const animsRef = useRef([]);
+  const timersRef = useRef([]);
+
+  const glyph = (ch) => (ch === ' ' ? '' : ch);
+
+  function paint(ch) {
+    if (topRef.current) topRef.current.textContent = glyph(ch);
+    if (bottomRef.current) bottomRef.current.textContent = glyph(ch);
+  }
+
+  function clearAnims() {
+    animsRef.current.forEach((a) => { try { a.cancel(); } catch (e) {} });
+    animsRef.current = [];
+  }
+  function clearTimers() {
+    timersRef.current.forEach((t) => clearTimeout(t));
+    timersRef.current = [];
+  }
+  function hideLeaves() {
+    if (leafTopRef.current) leafTopRef.current.style.display = 'none';
+    if (leafBottomRef.current) leafBottomRef.current.style.display = 'none';
+  }
+
+  // Fire-and-forget flap visual. Progression is driven by timers, NOT by this
+  // animation's .finished promise (which can stay frozen when the page is not
+  // composited / the tab is backgrounded).
+  function playLeaf(fromCh, toCh, dur) {
+    const lt = leafTopRef.current, lb = leafBottomRef.current;
+    if (topRef.current) topRef.current.textContent = glyph(toCh);     // new top revealed behind fold
+    if (bottomRef.current) bottomRef.current.textContent = glyph(fromCh); // old bottom until landing
+    if (!lt || !lb) return;
+    lt.textContent = glyph(fromCh);
+    lb.textContent = glyph(toCh);
+    lt.style.display = 'flex';
+    lb.style.display = 'flex';
+    try {
+      const a1 = lt.animate(
+        [{ transform: 'rotateX(0deg)' }, { transform: 'rotateX(-90deg)' }],
+        { duration: dur * 0.5, easing: 'cubic-bezier(.36,0,.66,.35)', fill: 'forwards' });
+      const a2 = lb.animate(
+        [{ transform: 'rotateX(90deg)' }, { offset: 0.5, transform: 'rotateX(90deg)' }, { transform: 'rotateX(0deg)' }],
+        { duration: dur, easing: 'cubic-bezier(.3,.6,.3,1.05)', fill: 'forwards' });
+      animsRef.current.push(a1, a2);
+    } catch (e) {/* WAAPI unavailable — text still cycles via timers */}
+  }
+
+  function flipTo(targetRaw, opts) {
+    opts = opts || {};
+    const target = (targetRaw || ' ').toUpperCase();
+    const stepDur = opts.stepDur || 66;
+    const startDelay = opts.delay || 0;
+    const myRun = ++runRef.current;
+    clearAnims();
+    clearTimers();
+
+    const step = () => {
+      if (myRun !== runRef.current) return;
+      const from = curRef.current;
+      if (from === target) { hideLeaves(); return; }
+      const next = FLAP_CHARS[(flapIdx(from) + 1) % FLAP_LEN];
+      curRef.current = next;
+      playLeaf(from, next, stepDur);
+      const t = setTimeout(() => {
+        if (myRun !== runRef.current) return;
+        hideLeaves();
+        paint(next);             // settle the tile on the new char no matter what
+        step();
+      }, stepDur);
+      timersRef.current.push(t);
+    };
+
+    const t0 = setTimeout(() => { if (myRun === runRef.current) step(); }, startDelay);
+    timersRef.current.push(t0);
+  }
+
+  useImperativeHandle(ref, () => ({
+    flipTo,
+    setInstant: (ch) => {
+      runRef.current++;
+      clearAnims();
+      clearTimers();
+      hideLeaves();
+      curRef.current = (ch || ' ').toUpperCase();
+      paint(curRef.current);
+    },
+  }));
+
+  useEffect(() => () => { clearAnims(); clearTimers(); }, []);
+
+  return (
+    <div className="flap-cell">
+      <div className="flap-half flap-half-top"><span className="flap-glyph" ref={topRef}></span></div>
+      <div className="flap-half flap-half-bottom"><span className="flap-glyph" ref={bottomRef}></span></div>
+      <div className="flap-leaf flap-leaf-top"><span className="flap-glyph" ref={leafTopRef}></span></div>
+      <div className="flap-leaf flap-leaf-bottom"><span className="flap-glyph" ref={leafBottomRef}></span></div>
+      <div className="flap-seam"></div>
+    </div>);
+
+});
+
+function SplitFlapBoard() {
+  const cells = useRef([]);
+  const wordRef = useRef(0);
+
+  useEffect(() => {
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const setWord = (word) => {
+      for (let i = 0; i < FLAP_CELLS; i++) {
+        const ch = word[i] || ' ';
+        const cell = cells.current[i];
+        if (!cell) continue;
+        if (reduce) cell.setInstant(ch);
+        else cell.flipTo(ch, { stepDur: 66, delay: i * 75 });
+      }
+    };
+
+    // Entrance — blanks roll into the first word.
+    const start = setTimeout(() => setWord(FLAP_WORDS[0]), 220);
+    if (reduce) {
+      setWord(FLAP_WORDS[0]);
+      return () => clearTimeout(start);
+    }
+    const id = setInterval(() => {
+      wordRef.current = (wordRef.current + 1) % FLAP_WORDS.length;
+      setWord(FLAP_WORDS[wordRef.current]);
+    }, 3200);
+    return () => { clearTimeout(start); clearInterval(id); };
+  }, []);
+
+  return (
+    <div className="flap-board" aria-hidden="true">
+      <div className="flap-row">
+        {Array.from({ length: FLAP_CELLS }).map((_, i) =>
+        <FlapCell key={i} ref={(el) => cells.current[i] = el} />
+        )}
+      </div>
+      <div className="flap-rail"></div>
+    </div>);
+
 }
 
 /* -------------------- Hero -------------------- */
@@ -158,11 +322,12 @@ function Hero() {
           </div>
         </div>
 
-        <h1 className="hero-h1">
-          <span className="ln">{h.line1}</span>
-          <span className="ln"><span className="em">{h.line2}</span></span>
-          <span className="ln">{h.line3}</span>
-          <span className="ln">{h.line4}</span>
+        <h1 className="hero-h1 hero-h1-flap">
+          <span className="sr-only">Designing systems people trust.</span>
+          <div className="flap-eyebrow" aria-hidden="true">
+            <span className="accent">◈</span> DEST BOARD · NOW SHOWING
+          </div>
+          <SplitFlapBoard />
         </h1>
 
         <p className="hero-sub" dangerouslySetInnerHTML={{ __html: h.sub }} />
@@ -180,17 +345,17 @@ function Hero() {
         </div>
 
         <div className="hero-bottom">
-          {h.stats.map((s, i) => (
-            <div key={i} className="hero-stat">
+          {h.stats.map((s, i) =>
+          <div key={i} className="hero-stat">
               <div className="k">{s.k}</div>
               <div className="v">{s.v}</div>
               <div className="sub">{s.sub}</div>
             </div>
-          ))}
+          )}
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 }
 
 /* -------------------- Telemetry strip -------------------- */
@@ -199,16 +364,16 @@ function Telemetry() {
   return (
     <section className="telemetry">
       <div className="telemetry-inner">
-        {t.map((c, i) => (
-          <div key={i} className="tel-cell">
+        {t.map((c, i) =>
+        <div key={i} className="tel-cell">
             <div className="k">{c.k}</div>
             <div className="v">{c.v}{c.u && <span className="u">{c.u}</span>}</div>
             <div className="sub">{c.sub}</div>
           </div>
-        ))}
+        )}
       </div>
-    </section>
-  );
+    </section>);
+
 }
 
 /* -------------------- Section head -------------------- */
@@ -220,8 +385,8 @@ function SecHead({ num, title, em, meta }) {
         <h2 className="h2">{title}{em && <> <em>{em}</em></>}</h2>
       </div>
       <div className="sec-head-meta">{meta}</div>
-    </header>
-  );
+    </header>);
+
 }
 
 /* -------------------- Project index (masthead list) -------------------- */
@@ -238,28 +403,44 @@ function ProjectIndex() {
           <div className="sec-head-meta">06 PROJECTS · 2020 — 2026</div>
         </header>
         <div className="index-list reveal-stagger">
-          {projects.map(p => (
-            <a key={p.slug} href={`#p-${p.slug}`} className="index-row">
+          {projects.map((p) =>
+          <a key={p.slug} href={`#p-${p.slug}`} className="index-row">
               <span className="ix-num">{p.id}</span>
               <span className="ix-title">{p.title}<em>{p.titleRest}</em></span>
               <span className="ix-kicker">{p.kicker}</span>
               <span className="ix-arrow">→</span>
             </a>
-          ))}
+          )}
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
+}
+
+/* Derive a labelled highlights block from whatever real content a project
+   carries — no filler. Priority: case-study innovations → first section list
+   → first section body → scope. */
+function projectHighlights(p) {
+  if (p.innovations && p.innovations.length)
+    return { label: 'KEY MOVES', items: p.innovations.slice(0, 4) };
+  if (p.sections && p.sections.length) {
+    const s = p.sections[0];
+    if (s.list && s.list.length) return { label: s.label, items: s.list.slice(0, 4) };
+    if (s.body) return { label: s.label, body: s.body };
+  }
+  if (p.scope && p.scope.length) return { label: 'SCOPE', items: p.scope.slice(0, 4) };
+  return null;
 }
 
 /* -------------------- ProjectShow (theatrical block per project) -------------------- */
 function ProjectShow({ p, idx }) {
   const dark = idx % 2 === 1; // alternate after the masthead
   const surfClass = dark ? 'surf surf-dark' : 'surf surf-cream';
+  const hl = projectHighlights(p);
   const reverse = idx % 2 === 0;
-  const illusOpts = dark
-    ? { fill: '#E8E3D0', accent: '#E8551C' }
-    : { fill: '#2A2824', accent: '#E8551C' };
+  const illusOpts = dark ?
+  { fill: '#E8E3D0', accent: '#E8551C' } :
+  { fill: '#2A2824', accent: '#E8551C' };
   const svg = window.getIllus(p.illus, illusOpts);
 
   return (
@@ -275,26 +456,64 @@ function ProjectShow({ p, idx }) {
           <p className="proj-tagline">{p.tagline}</p>
           <p className="proj-blurb">{p.blurb}</p>
 
-          {p.meta && (
-            <div className="proj-meta">
-              {p.meta.map((m, i) => (
-                <div key={i} className="proj-meta-cell">
+          {p.metrics && p.metrics.length > 0 &&
+          <div className="proj-metrics">
+              {p.metrics.map((m, i) =>
+            <div key={i} className="proj-metric">
+                  <span className="pm-v">{m.v}</span>
+                  <span className="pm-k">{m.k}</span>
+                  {m.sub && <span className="pm-sub">{m.sub}</span>}
+                </div>
+            )}
+            </div>
+          }
+
+          {hl &&
+          <div className="proj-highlights">
+              <div className="proj-stack-label"><span className="accent">◇</span> {hl.label}</div>
+              {hl.items ?
+            <ul className="proj-hl-list">
+                  {hl.items.map((it, i) =>
+              <li key={i}><span className="hl-mark">→</span><span>{it}</span></li>
+              )}
+                </ul> :
+
+            <p className="proj-hl-body">{hl.body}</p>
+            }
+            </div>
+          }
+
+          {p.meta &&
+          <div className="proj-meta">
+              {p.meta.map((m, i) =>
+            <div key={i} className="proj-meta-cell">
                   <span className="k">{m.k}</span>
                   <span className="v">{m.v}</span>
                 </div>
-              ))}
+            )}
             </div>
-          )}
+          }
 
-          <div className="cta-row" style={{ margin: 0 }}>
+          {p.stack && p.stack.length > 0 &&
+          <div className="proj-stack">
+              <div className="proj-stack-label"><span className="accent">◇</span> STACK / TOOLING</div>
+              <div className="chip-row">
+                {p.stack.map((s, i) =>
+              <span key={i} className="chip">{s}</span>
+              )}
+              </div>
+            </div>
+          }
+
+          <div className="cta-row proj-cta">
             <a className="btn btn-primary" href={`projects/${p.slug}.html`}>
               <span>Read case</span><span className="arrow">→</span>
             </a>
-            {p.links?.map((l, i) => (
-              <a key={i} className="btn" href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">
+            {p.links?.map((l, i) =>
+            <a key={i} className="btn" href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">
                 <span>{l.label}</span><span className="arrow">{l.href.startsWith('http') ? '↗' : '→'}</span>
               </a>
-            ))}
+            )}
           </div>
         </div>
 
@@ -302,11 +521,11 @@ function ProjectShow({ p, idx }) {
           className="proj-art reveal"
           data-corner={`FIG. ${p.id} · ${p.illus.toUpperCase()}`}
           data-stamp={`PORTFOLIO/2026 · ${p.id}`}
-          dangerouslySetInnerHTML={{ __html: svg }}
-        />
+          dangerouslySetInnerHTML={{ __html: svg }} />
+        
       </div>
-    </section>
-  );
+    </section>);
+
 }
 
 /* -------------------- Professional Arc -------------------- */
@@ -317,17 +536,17 @@ function Arc() {
       <div className="surf-inner">
         <SecHead num="02" title="Professional" em="arc" meta="CONSULTING · ENGINEERING · DESIGN · 2018—2026" />
         <div className="arc reveal-stagger">
-          {arc.map((r, i) => (
-            <div key={i} className="arc-row">
+          {arc.map((r, i) =>
+          <div key={i} className="arc-row">
               <div className="arc-period">{r.period}</div>
               <div className="arc-title">{r.title}<span className="sub">{r.sub}</span></div>
               <div className="arc-body">{r.body}</div>
             </div>
-          ))}
+          )}
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 }
 
 /* -------------------- How I work -------------------- */
@@ -338,17 +557,17 @@ function HowIWork() {
       <div className="surf-inner">
         <SecHead num="03" title="How I" em="work" meta="FOUR PRINCIPLES · IN ACTIVE USE" />
         <div className="how reveal-stagger">
-          {how.map((h, i) => (
-            <div key={i} className="how-card">
+          {how.map((h, i) =>
+          <div key={i} className="how-card">
               <div className="num">PRINCIPLE / 0{i + 1}</div>
               <div className="k">{h.k}</div>
               <div className="v">{h.v}</div>
             </div>
-          ))}
+          )}
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 }
 
 /* -------------------- Credentials -------------------- */
@@ -359,17 +578,17 @@ function Credentials() {
       <div className="surf-inner">
         <SecHead num="04" title="Credentials" em="& outcomes" meta="VERIFIED · ACADEMIC + PROFESSIONAL" />
         <div className="cred-grid reveal-stagger">
-          {cred.map((c, i) => (
-            <div key={i} className="cred-cell">
+          {cred.map((c, i) =>
+          <div key={i} className="cred-cell">
               <div className="k">{c.k}</div>
               <div className="v">{c.v}</div>
               <div className="sub">{c.sub}</div>
             </div>
-          ))}
+          )}
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 }
 
 /* -------------------- Contact -------------------- */
@@ -404,8 +623,8 @@ function Contact() {
           </a>
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 }
 
 /* -------------------- Footer -------------------- */
@@ -425,9 +644,9 @@ function Footer() {
           <div className="footer-col">
             <h4>Work</h4>
             <ul>
-              {window.PORTFOLIO_DATA.projects.map(p => (
-                <li key={p.slug}><a href={`projects/${p.slug}.html`}>{p.title}{p.titleRest}</a></li>
-              ))}
+              {window.PORTFOLIO_DATA.projects.map((p) =>
+              <li key={p.slug}><a href={`projects/${p.slug}.html`}>{p.title}{p.titleRest}</a></li>
+              )}
             </ul>
           </div>
           <div className="footer-col">
@@ -444,8 +663,8 @@ function Footer() {
           <span>CHAMPAIGN, IL · UTC−06 · AVAILABLE SPRING 2027</span>
         </div>
       </div>
-    </footer>
-  );
+    </footer>);
+
 }
 
 /* -------------------- App -------------------- */
@@ -467,8 +686,8 @@ function App() {
         <Contact />
       </main>
       <Footer />
-    </>
-  );
+    </>);
+
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
