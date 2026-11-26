@@ -87,7 +87,8 @@ export function createUI({ content, onJump, onRestart, onBg }) {
   /* Sector buttons */
   const nav = $("sectors");
   nav.innerHTML = sectors
-    .map((s, i) => `<button class="sector" type="button" data-i="${i}" data-id="${s.id}"><b>S${i + 1}</b><span>${esc(s.label)}</span>${s.id === "finish" ? "<i></i>" : ""}</button>`)
+    // the label text is hidden on narrow screens, so the name is also set on the button itself
+    .map((s, i) => `<button class="sector" type="button" data-i="${i}" data-id="${s.id}" aria-label="S${i + 1} ${esc(s.label)}"><b>S${i + 1}</b><span>${esc(s.label)}</span>${s.id === "finish" ? "<i></i>" : ""}</button>`)
     .join("");
   const buttons = [...nav.querySelectorAll(".sector")];
   nav.addEventListener("click", (e) => {
@@ -128,7 +129,8 @@ export function createUI({ content, onJump, onRestart, onBg }) {
     const n = parseInt(h.slice(1), 16);
     const lin = (v) => { v /= 255; return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
     const lum = 0.2126 * lin((n >> 16) & 255) + 0.7152 * lin((n >> 8) & 255) + 0.0722 * lin(n & 255);
-    const dark = lum > 0.42;
+    // pick whichever ink has the higher contrast. Black and white tie at a luminance of about 0.179.
+    const dark = lum > 0.179;
     root.style.setProperty("--bg", h);
     root.dataset.ink = dark ? "dark" : "light";
     document.querySelector('meta[name="theme-color"]').setAttribute("content", h);

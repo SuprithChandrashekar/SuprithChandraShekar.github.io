@@ -618,7 +618,8 @@ export function createWorld({ scene, renderer, content, lite = false }) {
     streakMat.uniforms.uLen.value = 1.6 + speed * 9;
     streakMat.uniforms.uAlpha.value = (0.28 + Math.min(0.5, speed * 0.6)) * move * (1 - smooth(0.94, 0.99, p));
 
-    const state = { runnerZ: runner.z, time };
+    // with reduced motion the clock is held, so the gates only turn when the page is scrolled
+    const state = { runnerZ: runner.z, time: reduced ? 0 : time };
     for (const t of tickers) t(state);
   }
 

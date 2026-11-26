@@ -76,6 +76,8 @@ async function boot() {
     renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: "high-performance" });
   } catch (err) {
     root.classList.add("no-gl");
+    // there is no runway to jump along here, so the home link just returns to the top of the page
+    jump = () => window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
     onBgChange = (hex, ink) => { title.ink = ink; title.draw({ reveal: 1 }); };
     ui.initBg();
     title.draw({ reveal: 1 });

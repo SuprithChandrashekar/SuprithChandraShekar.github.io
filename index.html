@@ -15,6 +15,13 @@
   <link rel="preload" href="fonts/archivo-expanded-black.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="fonts/archivo-condensed-semibold.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="css/site.css" />
+  <!-- Without JavaScript nothing can run, so drop the runway and its controls and show the summary at the top. -->
+  <noscript>
+    <style>
+      #track, #title, #scene, .skip, .lights, .sectors, .lap, .btn-info, .hero-copy,
+      .caption, .finish, .telemetry, .controls { display: none !important; }
+    </style>
+  </noscript>
 
   <script type="importmap">
     { "imports": { "three": "./vendor/three.module.min.js" } }
@@ -76,7 +83,7 @@
   <div class="controls">
     <label class="bg-pick" for="bg">
       <span>BG COLOR</span>
-      <input type="color" id="bg" value="#2260d9" />
+      <input type="color" id="bg" value="#2260d9" aria-label="Background colour" />
       <output id="bg-hex" for="bg">#2260D9</output>
     </label>
     <button class="btn-restart" id="restart" type="button">RESTART</button>
@@ -95,15 +102,14 @@
 
   <noscript>
     <div class="noscript">
-      <h1>Suprith Chandra Shekar</h1>
+      <h2>Suprith Chandra Shekar</h2>
       <p>Industrial engineer. Quality engineering intern at Tesla, former Deloitte consultant, M.S. Industrial Engineering at UIUC. I take the part that isn't allowed to fail.</p>
-      <p>This page is a 3D scroll piece and needs JavaScript. The case studies work without it:</p>
+      <p>On a 60-member race team I owned the brakes and the quality gate. At Deloitte I wrote the phase gates for a 200-person ServiceNow programme, then owned release governance across 30+ system interfaces. At Tesla I work on Megapack quality.</p>
+      <p>This page is a 3D scroll piece and needs JavaScript to run. You can find me here:</p>
       <ul>
-        <li><a href="projects/voltbroker.html">VoltBroker</a></li>
-        <li><a href="projects/hft.html">HFT Strategy Generator</a></li>
-        <li><a href="projects/helios.html">Team Helios Racing</a></li>
         <li><a href="https://linkedin.com/in/suprith-c-shekar">LinkedIn</a></li>
         <li><a href="https://github.com/SuprithChandrashekar">GitHub</a></li>
+        <li><a href="https://voltbroker.vercel.app">VoltBroker</a></li>
       </ul>
     </div>
   </noscript>
