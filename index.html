@@ -2,26 +2,112 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Suprith Chandra Shekar — 2026 Edition</title>
-  <meta name="description" content="M.S. Industrial Engineering at UIUC. Former Deloitte consultant. Shipped VoltBroker — a full B2B marketplace — end-to-end. Seeking product design / applied AI roles for Spring 2027." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Suprith Chandra Shekar | Industrial engineer</title>
+  <meta name="description" content="Industrial engineer. Quality engineering intern at Tesla, former Deloitte consultant, M.S. at UIUC. I take the part that isn't allowed to fail." />
+  <meta name="theme-color" content="#2260d9" />
+  <meta property="og:title" content="Suprith Chandra Shekar" />
+  <meta property="og:description" content="It started with brakes. I take the part that isn't allowed to fail." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://suprithchandrashekar.github.io/" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%232260d9'/%3E%3Cg fill='%23fff'%3E%3Ccircle cx='8' cy='8' r='1.6'/%3E%3Ccircle cx='16' cy='8' r='2.3'/%3E%3Ccircle cx='24' cy='8' r='3'/%3E%3Ccircle cx='8' cy='16' r='2.3'/%3E%3Ccircle cx='16' cy='16' r='3'/%3E%3Ccircle cx='24' cy='16' r='3.6'/%3E%3Ccircle cx='8' cy='24' r='3'/%3E%3Ccircle cx='16' cy='24' r='3.6'/%3E%3Ccircle cx='24' cy='24' r='4'/%3E%3C/g%3E%3C/svg%3E" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Archivo+Narrow:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="preload" href="fonts/archivo-expanded-black.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/archivo-condensed-semibold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="css/site.css" />
 
-  <link rel="stylesheet" href="assets/portfolio.css?v=20260529e" />
+  <script type="importmap">
+    { "imports": { "three": "./vendor/three.module.min.js" } }
+  </script>
 </head>
 <body>
-  <div id="root"></div>
+  <a class="skip" href="#info-open">Skip the run and read the info sheet</a>
 
-  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <!-- Layer 1: halftone title, drawn behind the 3D scene so the runner passes in front of it -->
+  <canvas id="title" aria-hidden="true"></canvas>
 
-  <script src="assets/data.js"></script>
-  <script src="assets/vb-illustrations.js"></script>
-  <script src="assets/extra-illustrations.js"></script>
-  <script type="text/babel" data-presets="react" src="assets/portfolio.jsx?v=20260529e"></script>
+  <!-- Layer 2: the 3D scene -->
+  <canvas id="scene" aria-hidden="true"></canvas>
+
+  <!-- Layer 3: interface -->
+  <header class="tower" id="top">
+    <a class="tower-id" href="#" id="home" aria-label="Suprith Chandra Shekar, back to the start">
+      <span class="pos">P1</span>
+      <span class="code">SCS</span>
+      <span class="full">Suprith Chandra Shekar</span>
+    </a>
+
+    <div class="lights" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+
+    <nav class="sectors" id="sectors" aria-label="Sectors of the run"></nav>
+
+    <div class="lap" aria-hidden="true">
+      <span>Lap</span>
+      <output id="lap">0:00.000</output>
+    </div>
+
+    <button class="btn-info" id="info-open" type="button" aria-haspopup="dialog">INFO</button>
+  </header>
+
+  <main>
+    <section class="hero" id="hero">
+      <h1 class="sr-only">It started with brakes.</h1>
+      <div class="hero-copy" id="hero-copy">
+        <p class="tagline" id="tagline"></p>
+        <p class="byline" id="byline"></p>
+      </div>
+    </section>
+
+    <p class="caption" id="caption" aria-live="polite"></p>
+
+    <section class="finish" id="finish" aria-hidden="true">
+      <h2 class="sr-only" id="finish-line"></h2>
+      <p class="finish-sub" id="finish-sub"></p>
+      <div class="finish-links" id="finish-links"></div>
+    </section>
+  </main>
+
+  <aside class="telemetry" id="telemetry" aria-hidden="true">
+    <div class="tel"><span>Speed</span><b id="spd">000</b><i>km/h</i></div>
+    <div class="tel"><span>Dist</span><b id="dist">000</b><i>m</i></div>
+    <div class="cue" id="cue"><span></span><em id="cue-text"></em></div>
+  </aside>
+
+  <div class="controls">
+    <label class="bg-pick" for="bg">
+      <span>BG COLOR</span>
+      <input type="color" id="bg" value="#2260d9" />
+      <output id="bg-hex" for="bg">#2260D9</output>
+    </label>
+    <button class="btn-restart" id="restart" type="button">RESTART</button>
+  </div>
+
+  <dialog class="sheet" id="info" aria-labelledby="info-title">
+    <div class="sheet-bar">
+      <span class="sheet-tag">Session info</span>
+      <button class="sheet-close" id="info-close" type="button">Close</button>
+    </div>
+    <div class="sheet-body" id="info-body"></div>
+  </dialog>
+
+  <!-- Scroll length. The page is as long as the runway. -->
+  <div id="track" aria-hidden="true"></div>
+
+  <noscript>
+    <div class="noscript">
+      <h1>Suprith Chandra Shekar</h1>
+      <p>Industrial engineer. Quality engineering intern at Tesla, former Deloitte consultant, M.S. Industrial Engineering at UIUC. I take the part that isn't allowed to fail.</p>
+      <p>This page is a 3D scroll piece and needs JavaScript. The case studies work without it:</p>
+      <ul>
+        <li><a href="projects/voltbroker.html">VoltBroker</a></li>
+        <li><a href="projects/hft.html">HFT Strategy Generator</a></li>
+        <li><a href="projects/helios.html">Team Helios Racing</a></li>
+        <li><a href="https://linkedin.com/in/suprith-c-shekar">LinkedIn</a></li>
+        <li><a href="https://github.com/SuprithChandrashekar">GitHub</a></li>
+      </ul>
+    </div>
+  </noscript>
+
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>
